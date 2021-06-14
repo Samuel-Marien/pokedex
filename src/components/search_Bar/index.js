@@ -1,21 +1,15 @@
 /* eslint-disable space-before-function-paren */
 import React from 'react'
-// import { useState } from 'react'
 
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
-
-// import setArray from '../components/helper/set_array'
 
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
-// import DropdownButton from 'react-bootstrap/DropdownButton'
-// import Dropdown from 'react-bootstrap/Dropdown'
 
-// import { RiSearchEyeLine } from 'react-icons/ri'
 import { GiCardPick } from 'react-icons/gi'
 
 let userWord = ''
@@ -32,16 +26,6 @@ const getCardByName = async (name) => {
     console.log(result.data)
   })
 }
-
-// const MyDropItem = () => {
-//   return setArray.map((item, index) => {
-//     return (
-//       <Dropdown.Item href="#" key={index}>
-//         {item}
-//       </Dropdown.Item>
-//     )
-//   })
-// }
 
 const MyInput = () => {
   return (
@@ -62,14 +46,6 @@ const MyInput = () => {
           >
             <GiCardPick size={35} />
           </Button>
-          {/* <DropdownButton
-            as={InputGroup.Append}
-            variant="outline-secondary"
-            title="Dropdown"
-            id="input-group-dropdown-2"
-          >
-            <MyDropItem />
-          </DropdownButton> */}
         </InputGroup>
       </Form>
     </Row>

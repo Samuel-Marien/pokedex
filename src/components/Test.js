@@ -1,9 +1,7 @@
 /* eslint-disable space-before-function-paren */
 import React from 'react'
-// import axios from 'axios'
 
 import pokemon from 'pokemontcgsdk'
-
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 
 const getAllSet = async () => {

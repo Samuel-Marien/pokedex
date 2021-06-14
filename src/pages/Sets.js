@@ -1,15 +1,14 @@
 import React from 'react'
 
-import SearchCard from '../components/search_Bar'
 import MyNavBar from '../components/navbar'
 
-const Home = () => {
+const Sets = () => {
   return (
     <div>
       <MyNavBar />
-      <SearchCard />
+      plop
     </div>
   )
 }
 
-export default Home
+export default Sets
