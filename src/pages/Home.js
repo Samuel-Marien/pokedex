@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SearchCard from '../components/search_Bar'
+import SearchCard from '../components/search_bar'
 import MyNavBar from '../components/navbar'
 
 const Home = () => {
