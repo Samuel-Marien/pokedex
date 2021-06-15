@@ -1,24 +1,32 @@
 import React from 'react'
 
+import { Provider } from './components/context'
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './App.css'
 
 import Home from './pages/Home'
-import Set from './pages/Sets'
+import Sets from './pages/Sets'
+import Cards from './pages/Cards'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/set">
-          <Set />
-        </Route>
-      </Switch>
-    </Router>
+    <Provider>
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/set" exact>
+            <Sets />
+          </Route>
+          <Route path="/cards" exact>
+            <Cards />
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   )
 }
 

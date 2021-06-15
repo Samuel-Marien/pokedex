@@ -1,8 +1,10 @@
 /* eslint-disable space-before-function-paren */
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 
-import pokemon from 'pokemontcgsdk'
-pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
+import PropTypes from 'prop-types'
+
+import Context from '../context'
 
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -21,44 +23,52 @@ const handleSubmit = (e) => {
   e.preventDefault()
 }
 
-const getCardByName = async (name) => {
-  pokemon.card.where({ q: `name:${name}*` }).then((result) => {
-    console.log(result.data)
-  })
-}
-
-const MyInput = () => {
+const MyInput = (props) => {
+  const { children } = props
   return (
     <Row className="col-8 mt-3">
-      <Form onSubmit={handleSubmit} className="">
-        <InputGroup className="">
+      <Form onSubmit={handleSubmit}>
+        <InputGroup>
           <FormControl
             aria-describedby="basic-addon1"
             onChange={handleChange}
-            placeholder="Search by name ..."
+            placeholder="Search by name..."
           />
-
-          <Button
-            className="p-1"
-            variant="outline-info"
-            type="submit"
-            onClick={() => getCardByName(userWord)}
-          >
-            <GiCardPick size={35} />
-          </Button>
+          {children}
         </InputGroup>
       </Form>
     </Row>
   )
 }
 
+MyInput.propTypes = {
+  children: PropTypes.node
+}
+
 const SearchCard = () => {
+  const { setUserValue } = useContext(Context)
+
+  const handleClick = () => {
+    setUserValue(userWord)
+  }
+
   return (
     <div className="container mt-5">
       <div className="d-flex flex-column align-items-center">
         <h1>Pokemon TCG</h1>
         <h5>The Ultimate Pokémon Card Database</h5>
-        <MyInput />
+        <MyInput>
+          <Link to="/cards">
+            <Button
+              className="p-1"
+              variant="outline-info"
+              type="submit"
+              onClick={handleClick}
+            >
+              <GiCardPick size={35} />
+            </Button>
+          </Link>
+        </MyInput>
       </div>
     </div>
   )
