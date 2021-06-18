@@ -5,6 +5,7 @@ import { Provider } from './components/context'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Home from './pages/Home'
 import Sets from './pages/Sets'
