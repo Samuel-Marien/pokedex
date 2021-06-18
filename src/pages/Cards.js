@@ -1,5 +1,6 @@
 /* eslint-disable space-before-function-paren */
 import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
@@ -38,7 +39,9 @@ const Cards = () => {
             return (
               <div key={index}>
                 <li>{item.name}</li>
-                <img src={item.images.small} />
+                <Link to="/details">
+                  <img src={item.images.small} role="button" />
+                </Link>
               </div>
             )
           })

@@ -1,8 +1,7 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { Provider } from './components/context'
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Home from './pages/Home'
 import Sets from './pages/Sets'
 import Cards from './pages/Cards'
+import Details from './pages/Details'
 
 function App() {
   return (
@@ -24,6 +24,9 @@ function App() {
           </Route>
           <Route path="/cards" exact>
             <Cards />
+          </Route>
+          <Route path="/details" exact>
+            <Details />
           </Route>
         </Switch>
       </Router>
