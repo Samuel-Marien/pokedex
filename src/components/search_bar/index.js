@@ -61,7 +61,7 @@ const SearchCard = () => {
           <Link to="/cards">
             <Button
               className="p-1"
-              variant="outline-info"
+              variant="outline-warning"
               type="submit"
               onClick={handleClick}
             >
