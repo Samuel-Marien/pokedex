@@ -33,14 +33,13 @@ const Cards = () => {
     <div>
       <MyNavBar />
       <p>your result for {userValue}</p>
-      <ul>
+      <div className="container d-flex flex-wrap justify-content-between">
         {data ? (
           data.map((item, index) => {
             return (
               <div key={index}>
-                <li>{item.name}</li>
                 <Link to="/details">
-                  <img src={item.images.small} role="button" />
+                  <img src={item.images.small} role="button" className="mt-3" />
                 </Link>
               </div>
             )
@@ -48,7 +47,7 @@ const Cards = () => {
         ) : (
           <p>please wait a few moment...</p>
         )}
-      </ul>
+      </div>
     </div>
   )
 }
