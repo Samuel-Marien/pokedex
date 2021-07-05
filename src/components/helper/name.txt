@@ -9,3 +9,5 @@ Blacephalon - Fire
 Pikachu - Lightning
 Aegislash - Metal
 Abra - Psychic
+
+Venusaur

@@ -3,6 +3,8 @@ import React, { useContext, useState, useEffect } from 'react'
 
 import Context from '../components/context/'
 
+import PropTypes from 'prop-types'
+
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 
@@ -26,12 +28,30 @@ const Details = () => {
 
   console.log(data.myData)
 
+  const DataMarket = (props) => {
+    const { name, textColor, target } = props
+    return (
+      <div className="col-3">
+        <p className="mb-1" style={{ fontSize: '.8rem' }}>
+          {name}
+        </p>
+        <p className={textColor}>${target}</p>
+      </div>
+    )
+  }
+
+  DataMarket.propTypes = {
+    name: PropTypes.string,
+    textColor: PropTypes.string,
+    target: PropTypes.object
+  }
+
   const MyCard = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
         return (
           <div key={index} className="container mt-5 text-dark">
-            <div className="border border-info my-5">
+            <div className="my-5">
               <div className="row gx-0">
                 {/* Left Side */}
                 <div className="col-12 col-md-3">
@@ -45,33 +65,132 @@ const Details = () => {
                 {/* Right Side */}
                 <div className="col">
                   {/* Header */}
-                  <div className="row border border-dark gx-0">
+                  <div className="row gx-0 px-3">
                     <div className="col-5 col-md-10 d-flex flex-column flex-md-row align-items-baseline">
                       <h1 className="me-2">{item.name}</h1>
                       <p style={{ fontSize: '.8rem' }}>by {item.artist}</p>
                     </div>
-                    <div className="col d-flex justify-content-end align-items-center border border-dark">
+                    <div className="col d-flex justify-content-end align-items-center">
                       <h4 className="me-1">HP </h4>
                       <h4 className="me-2">{item.hp}</h4>
                       {stringToIcon(item.types[0])}
                     </div>
                   </div>
+                  {/* Sub Header  */}
                   <div
-                    className="d-flex flex-column flex-md-row justify-content-between border border-dark gx-0"
+                    className="d-flex flex-column flex-md-row justify-content-between gx-0 border-bottom border-secondary px-3"
                     style={{ fontSize: '.9rem' }}
                   >
-                    <p className="me-3 pt-2">
+                    <div className="d-flex">
+                      <p className="me-1">set: {item.set.name}</p>
+                      <img
+                        src={item.set.images.symbol}
+                        style={{ width: '15', height: '15px' }}
+                      />
+                    </div>
+                    <p>
                       {item.supertype} - {item.subtypes}
                       <span className="ms-3">rarity: {item.rarity}</span>
                     </p>
-
-                    <div className="d-flex">
-                      <p className="me-1 pt-2">set: {item.set.name}</p>
-                      <img
-                        src={item.set.images.logo}
-                        style={{ width: '30px', height: '30px' }}
-                      />
+                  </div>
+                  {/* Body  */}
+                  <div className="bg-light p-3">
+                    {/* Price header  */}
+                    <div className="pt-2">
+                      <div className="d-flex align-items-baseline">
+                        <h3 className=" mb-1 me-2">Prices</h3>
+                        <a
+                          href={item.tcgplayer.url}
+                          className="text-info text-decoration-none"
+                          style={{ fontSize: '.8rem' }}
+                        >
+                          Buy Now From TCGplayer
+                        </a>
+                      </div>
+                      <p style={{ fontSize: '.8rem' }}>
+                        Last Updated {item.tcgplayer.updatedAt}
+                      </p>
                     </div>
+                    {/* Price body  */}
+                    {/* NORMAL Market */}
+                    <div className="container">
+                      {item.tcgplayer.prices.normal ? (
+                        <div className="row gx-0">
+                          <DataMarket
+                            name=" NORMAL MARKET"
+                            textColor="text-success"
+                            target={item.tcgplayer.prices.normal.market}
+                          />
+                          <DataMarket
+                            name="NORMAL LOW"
+                            textColor="text-warning"
+                            target={item.tcgplayer.prices.normal.low}
+                          />
+                          <DataMarket
+                            name="NORMAL MID"
+                            textColor="text-info"
+                            target={item.tcgplayer.prices.normal.mid}
+                          />
+                          <DataMarket
+                            name="NORMAL HIGH"
+                            textColor="text-danger"
+                            target={item.tcgplayer.prices.normal.high}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                    {/* HOLOFOIL Market */}
+                    <div className="container">
+                      {item.tcgplayer.prices.holofoil ? (
+                        <div className="row gx-0">
+                          <DataMarket
+                            name="HOLOFOIL MARKET"
+                            textColor="text-success"
+                            target={item.tcgplayer.prices.holofoil.market}
+                          />
+                          <DataMarket
+                            name="HOLOFOIL LOW"
+                            textColor="text-warning"
+                            target={item.tcgplayer.prices.holofoil.low}
+                          />
+                          <DataMarket
+                            name="HOLOFOIL MID"
+                            textColor="text-info"
+                            target={item.tcgplayer.prices.holofoil.mid}
+                          />
+                          <DataMarket
+                            name="HOLOFOIL HIGH"
+                            textColor="text-danger"
+                            target={item.tcgplayer.prices.holofoil.high}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                    {/* Reverse holofoil market  */}
+                    {item.tcgplayer.prices.reverseHolofoil ? (
+                      <div className="row gx-0">
+                        <DataMarket
+                          name="REVERSE HOLOFOIL MARKET"
+                          textColor="text-success"
+                          target={item.tcgplayer.prices.reverseHolofoil.market}
+                        />
+                        <DataMarket
+                          name="REVERSE HOLOFOIL LOW"
+                          textColor="text-warning"
+                          target={item.tcgplayer.prices.reverseHolofoil.low}
+                        />
+                        <DataMarket
+                          name="REVERSE HOLOFOIL MID"
+                          textColor="text-info"
+                          target={item.tcgplayer.prices.reverseHolofoil.mid}
+                        />
+                        <DataMarket
+                          name="REVERSE HOLOFOIL HIGH"
+                          textColor="text-danger"
+                          target={item.tcgplayer.prices.reverseHolofoil.high}
+                        />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
