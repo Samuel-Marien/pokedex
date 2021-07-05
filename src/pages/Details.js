@@ -9,6 +9,7 @@ pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 import Image from 'react-bootstrap/Image'
 
 import MyNavBar from '../components/navbar'
+import stringToIcon from '../components/helper'
 
 const Details = () => {
   const { cardDetail } = useContext(Context)
@@ -25,17 +26,14 @@ const Details = () => {
 
   console.log(data.myData)
 
-  // const stringToIcon = (string) => {
-
-  // }
-
   const MyCard = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
         return (
-          <div key={index} className="container mt-5">
+          <div key={index} className="container mt-5 text-dark">
             <div className="border border-info my-5">
-              <div className="row">
+              <div className="row gx-0">
+                {/* Left Side */}
                 <div className="col-12 col-md-3">
                   <Image
                     src={item.images.small}
@@ -44,31 +42,48 @@ const Details = () => {
                     className="shadow"
                   />
                 </div>
+                {/* Right Side */}
                 <div className="col">
-                  <div className="row">
-                    <div className="col-8">
-                      <h1>{item.name}</h1>
-                      <p>
-                        {item.supertype} - {item.subtypes}
-                      </p>
+                  {/* Header */}
+                  <div className="row border border-dark gx-0">
+                    <div className="col-5 col-md-10 d-flex flex-column flex-md-row align-items-baseline">
+                      <h1 className="me-2">{item.name}</h1>
+                      <p style={{ fontSize: '.8rem' }}>by {item.artist}</p>
                     </div>
-                    <div className="col-4 text-end">HP {item.hp}</div>
+                    <div className="col d-flex justify-content-end align-items-center border border-dark">
+                      <h4 className="me-1">HP </h4>
+                      <h4 className="me-2">{item.hp}</h4>
+                      {stringToIcon(item.types[0])}
+                    </div>
+                  </div>
+                  <div
+                    className="d-flex flex-column flex-md-row justify-content-between border border-dark gx-0"
+                    style={{ fontSize: '.9rem' }}
+                  >
+                    <p className="me-3 pt-2">
+                      {item.supertype} - {item.subtypes}
+                      <span className="ms-3">rarity: {item.rarity}</span>
+                    </p>
+
+                    <div className="d-flex">
+                      <p className="me-1 pt-2">set: {item.set.name}</p>
+                      <img
+                        src={item.set.images.logo}
+                        style={{ width: '30px', height: '30px' }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* examples pik */}
             <div className="d-flex justify-content-between container">
               <div>
-                <img src={item.images.small} alt="poke card" />
-              </div>
-
-              <div>
-                <p>name: {item.name}</p>
-                <p>artist: {item.artist}</p>
                 <p>id : {item.id}</p>
                 <p>National Pokedex Numbers : {item.nationalPokedexNumbers}</p>
                 <p>number: {item.number}</p>
-                <p>rarity: {item.rarity}</p>
+
                 <p> retreat cost: {item.convertedRetreatCost}</p>
                 <p>retreat cost type: {item.retreatCost}</p>
               </div>
@@ -83,8 +98,6 @@ const Details = () => {
                       : 'no'}
                   </ul>
                 </div>
-                <p>supertype: {item.supertype}</p>
-                <p>subtypes: {item.subtypes}</p>
                 <p>type: {item.types}</p>
                 <p>
                   evolves from:{' '}

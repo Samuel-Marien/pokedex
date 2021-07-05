@@ -1,44 +1,66 @@
-export const stringToIcon = (string) => {
+import React from 'react'
+
+import { ReactComponent as Bug } from '../../images/Pokémon_Bug_Type_Icon.svg'
+import { ReactComponent as Dark } from '../../images/Pokémon_Dark_Type_Icon.svg'
+import { ReactComponent as Dragon } from '../../images/Pokémon_Dragon_Type_Icon.svg'
+import { ReactComponent as Electric } from '../../images/Pokémon_Electric_Type_Icon.svg'
+import { ReactComponent as Fairy } from '../../images/Pokémon_Fairy_Type_Icon.svg'
+import { ReactComponent as Fighting } from '../../images/Pokémon_Fighting_Type_Icon.svg'
+import { ReactComponent as Fire } from '../../images/Pokémon_Fire_Type_Icon.svg'
+import { ReactComponent as Flying } from '../../images/Pokémon_Flying_Type_Icon.svg'
+import { ReactComponent as Ghost } from '../../images/Pokémon_Ghost_Type_Icon.svg'
+import { ReactComponent as Grass } from '../../images/Pokémon_Grass_Type_Icon.svg'
+import { ReactComponent as Ground } from '../../images/Pokémon_Ground_Type_Icon.svg'
+import { ReactComponent as Ice } from '../../images/Pokémon_Ice_Type_Icon.svg'
+import { ReactComponent as Normal } from '../../images/Pokémon_Normal_Type_Icon.svg'
+import { ReactComponent as Poison } from '../../images/Pokémon_Poison_Type_Icon.svg'
+import { ReactComponent as Psychic } from '../../images/Pokémon_Psychic_Type_Icon.svg'
+import { ReactComponent as Rock } from '../../images/Pokémon_Rock_Type_Icon.svg'
+import { ReactComponent as Steel } from '../../images/Pokémon_Steel_Type_Icon.svg'
+import { ReactComponent as Water } from '../../images/Pokémon_Water_Type_Icon.svg'
+
+const stringToIcon = (string) => {
   switch (string) {
     case 'Colorless':
-      break
+      return <Normal className="col-3" />
     case 'Bug':
-      break
-    case 'Dark':
-      break
+      return <Bug className="col-3" />
+    case 'Darkness':
+      return <Dark className="col-3" />
     case 'Dragon':
-      break
-    case 'Electric':
-      break
+      return <Dragon className="col-3" />
+    case 'Lightning':
+      return <Electric className="col-3" />
     case 'Fairy':
-      break
+      return <Fairy className="col-3" />
     case 'Fighting':
-      break
+      return <Fighting className="col-3" />
     case 'Fire':
-      break
+      return <Fire className="col-3" />
     case 'Flying':
-      break
+      return <Flying className="col-3" />
     case 'Ghost':
-      break
+      return <Ghost className="col-3" />
     case 'Grass':
-      break
+      return <Grass className="col-3" />
     case 'Ground':
-      break
+      return <Ground className="col-3" />
     case 'Ice':
-      break
+      return <Ice className="col-3" />
     case 'Normal':
-      break
+      return <Normal className="col-3" />
     case 'Poison':
-      break
+      return <Poison className="col-3" />
     case 'Psychic':
-      break
+      return <Psychic className="col-3" />
     case 'Rock':
-      break
-    case 'Steel':
-      break
+      return <Rock className="col-3" />
+    case 'Metal':
+      return <Steel className="col-3" />
     case 'Water':
-      break
+      return <Water className="col-3" />
     default:
+      console.log('error dude!')
       break
   }
 }
