@@ -55,9 +55,9 @@ const Details = () => {
             <div className="my-5">
               <div className="row gx-0">
                 {/* Left Side */}
-                <div className="col-12 col-lg-3 d-flex justify-content-center me-2 mb-2">
+                <div className="container col-10 col-md-4  me-md-3 mb-4">
                   <Image
-                    src={item.images.small}
+                    src={item.images.large}
                     fluid
                     alt="poke card"
                     className="shadow"
@@ -105,7 +105,7 @@ const Details = () => {
                     {/* Price header  */}
                     <div className="pt-2">
                       <div className="d-flex align-items-baseline">
-                        <h3 className=" mb-1 me-2">Prices</h3>
+                        <h3 className="mb-1 me-2">Prices</h3>
                         <a
                           href={item.tcgplayer.url}
                           className="text-info text-decoration-none"
@@ -198,6 +198,36 @@ const Details = () => {
                         />
                       </div>
                     ) : null}
+                  </div>
+                  {/* ABILITIES  */}
+                  <div className="p-3">
+                    <p className="mb-1 fw-bold">ABILITIES</p>
+
+                    {item.abilities ? (
+                      item.abilities.map((ability, index) => {
+                        return (
+                          <div key={index}>
+                            <div className="d-flex">
+                              <p className="me-2 m-0 fw-bold">{ability.name}</p>
+                              <Badge
+                                pill
+                                className="bg-danger d-flex align-items-center p-1 m-0"
+                              >
+                                {ability.type}
+                              </Badge>
+                            </div>
+                            <p className="fw-light">{ability.text}</p>
+                          </div>
+                        )
+                      })
+                    ) : (
+                      <p>no abilities!</p>
+                    )}
+                  </div>
+                  {/* ATTACK  */}
+                  <div className="p-3">
+                    <p className="mb-1 fw-bold">ATTACKS</p>
+                    {stringToIcon(item.attacks[0].cost[0])}
                   </div>
                 </div>
               </div>
