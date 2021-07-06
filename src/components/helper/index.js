@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdStars } from 'react-icons/md'
 
 import { ReactComponent as Bug } from '../../images/Pokémon_Bug_Type_Icon.svg'
 import { ReactComponent as Dark } from '../../images/Pokémon_Dark_Type_Icon.svg'
@@ -12,7 +13,6 @@ import { ReactComponent as Ghost } from '../../images/Pokémon_Ghost_Type_Icon.s
 import { ReactComponent as Grass } from '../../images/Pokémon_Grass_Type_Icon.svg'
 import { ReactComponent as Ground } from '../../images/Pokémon_Ground_Type_Icon.svg'
 import { ReactComponent as Ice } from '../../images/Pokémon_Ice_Type_Icon.svg'
-import { ReactComponent as Normal } from '../../images/Pokémon_Normal_Type_Icon.svg'
 import { ReactComponent as Poison } from '../../images/Pokémon_Poison_Type_Icon.svg'
 import { ReactComponent as Psychic } from '../../images/Pokémon_Psychic_Type_Icon.svg'
 import { ReactComponent as Rock } from '../../images/Pokémon_Rock_Type_Icon.svg'
@@ -21,8 +21,6 @@ import { ReactComponent as Water } from '../../images/Pokémon_Water_Type_Icon.s
 
 const stringToIcon = (string) => {
   switch (string) {
-    case 'Colorless':
-      return <Normal style={{ width: '25px' }} />
     case 'Bug':
       return <Bug style={{ width: '25px' }} />
     case 'Darkness':
@@ -47,8 +45,6 @@ const stringToIcon = (string) => {
       return <Ground style={{ width: '25px' }} />
     case 'Ice':
       return <Ice style={{ width: '25px' }} />
-    case 'Normal':
-      return <Normal style={{ width: '25px' }} />
     case 'Poison':
       return <Poison style={{ width: '25px' }} />
     case 'Psychic':
@@ -59,6 +55,8 @@ const stringToIcon = (string) => {
       return <Steel style={{ width: '25px' }} />
     case 'Water':
       return <Water style={{ width: '25px' }} />
+    case 'Colorless':
+      return <MdStars size={27} color="#6c757d" />
     default:
       console.log('error dude!')
       break

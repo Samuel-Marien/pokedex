@@ -51,17 +51,12 @@ const Details = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
         return (
-          <div key={index} className="container mt-5 text-dark">
+          <div key={index} className="container mt-5">
             <div className="my-5">
               <div className="row gx-0">
                 {/* Left Side */}
                 <div className="container col-10 col-md-4  me-md-3 mb-4">
-                  <Image
-                    src={item.images.large}
-                    fluid
-                    alt="poke card"
-                    className="shadow"
-                  />
+                  <Image src={item.images.large} fluid alt="poke card" />
                 </div>
                 {/* Right Side */}
                 <div className="col">
@@ -202,7 +197,6 @@ const Details = () => {
                   {/* ABILITIES  */}
                   <div className="p-3">
                     <p className="mb-1 fw-bold">ABILITIES</p>
-
                     {item.abilities ? (
                       item.abilities.map((ability, index) => {
                         return (
@@ -221,20 +215,41 @@ const Details = () => {
                         )
                       })
                     ) : (
-                      <p>no abilities!</p>
+                      <p className="fw-light">no abilities!</p>
                     )}
                   </div>
                   {/* ATTACK  */}
-                  <div className="p-3">
+                  <div className="p-3 bg-light">
                     <p className="mb-1 fw-bold">ATTACKS</p>
-                    {stringToIcon(item.attacks[0].cost[0])}
+
+                    {item.attacks.map((item, index) => {
+                      return (
+                        <div key={index}>
+                          <div className="d-flex justify-content-between">
+                            <div className="d-flex">
+                              {item.cost.map((elem, index) => {
+                                return (
+                                  <div key={index}>{stringToIcon(elem)}</div>
+                                )
+                              })}
+
+                              <p className="ms-4">{item.name}</p>
+                            </div>
+
+                            <p className="fw-bold">{item.damage}</p>
+                          </div>
+
+                          <p className="fw-light">{item.text}</p>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               </div>
             </div>
 
             {/* examples pik */}
-            <div className="d-flex justify-content-between container">
+            {/* <div className="d-flex justify-content-between container">
               <div>
                 <p>id : {item.id}</p>
                 <p>National Pokedex Numbers : {item.nationalPokedexNumbers}</p>
@@ -266,8 +281,8 @@ const Details = () => {
                   {item.rules ? item.rules : 'no specific rule for this card'}
                 </p>
               </div>
-            </div>
-            <div className="bg-light container">
+            </div> */}
+            {/* <div className="bg-light container">
               <p>attacks:</p>
               {item.attacks.map((item, index) => {
                 return (
@@ -279,7 +294,7 @@ const Details = () => {
                   </div>
                 )
               })}
-            </div>
+            </div> */}
           </div>
         )
       })
