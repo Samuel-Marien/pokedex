@@ -218,9 +218,20 @@ const Details = () => {
                       <p className="fw-light">no abilities!</p>
                     )}
                   </div>
+                  {/* Rules  */}
+                  <div className="px-3 pb-3">
+                    <p className="mb-1 fw-bold">RULES</p>
+                    <p className="fw-light">
+                      {item.rules ? (
+                        item.rules[0]
+                      ) : (
+                        <p className="fw-light">no rules!</p>
+                      )}
+                    </p>
+                  </div>
                   {/* ATTACK  */}
                   <div className="p-3 bg-light">
-                    <p className="mb-1 fw-bold">ATTACKS</p>
+                    <p className="mb-2 fw-bold">ATTACKS</p>
 
                     {item.attacks.map((item, index) => {
                       return (
@@ -243,6 +254,52 @@ const Details = () => {
                         </div>
                       )
                     })}
+                  </div>
+                  <div className="p-3">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-4">
+                          <p>WEAKNESS</p>
+                          {item.weaknesses ? (
+                            <div>
+                              {stringToIcon(item.weaknesses[0].type)}
+                              {item.weaknesses[0].value}
+                            </div>
+                          ) : (
+                            <p>N/A</p>
+                          )}
+                          {/* {stringToIcon(item.weaknesses[0].type)} */}
+                          {/* {item.weaknesses[0].value} */}
+                        </div>
+                        <div className="col-4">
+                          <p>RESISTANCE</p>
+                          {item.resistances ? (
+                            <div>
+                              {stringToIcon(item.resistances[0].type)}{' '}
+                              {item.resistances[0].value}
+                            </div>
+                          ) : (
+                            <p>N/A</p>
+                          )}
+                          {/* {stringToIcon(item.resistances[0].type)} */}
+                          {/* {item.resistances[0].value} */}
+                        </div>
+                        <div className="col-4">
+                          <p>RETREAT COST</p>
+                          {item.retreatCost ? (
+                            <div className="d-flex">
+                              {item.retreatCost.map((elem, index) => {
+                                return (
+                                  <div key={index}>{stringToIcon(elem)}</div>
+                                )
+                              })}
+                            </div>
+                          ) : (
+                            <p>N/A</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
