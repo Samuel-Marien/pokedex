@@ -9,6 +9,7 @@ import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 
 import Image from 'react-bootstrap/Image'
+import Badge from 'react-bootstrap/Badge'
 
 import MyNavBar from '../components/navbar'
 import stringToIcon from '../components/helper'
@@ -43,7 +44,7 @@ const Details = () => {
   DataMarket.propTypes = {
     name: PropTypes.string,
     textColor: PropTypes.string,
-    target: PropTypes.object
+    target: PropTypes.number
   }
 
   const MyCard = () => {
@@ -54,7 +55,7 @@ const Details = () => {
             <div className="my-5">
               <div className="row gx-0">
                 {/* Left Side */}
-                <div className="col-12 col-md-3">
+                <div className="col-12 col-lg-3 d-flex justify-content-center me-2 mb-2">
                   <Image
                     src={item.images.small}
                     fluid
@@ -66,11 +67,11 @@ const Details = () => {
                 <div className="col">
                   {/* Header */}
                   <div className="row gx-0 px-3">
-                    <div className="col-5 col-md-10 d-flex flex-column flex-md-row align-items-baseline">
+                    <div className="col-5 col-lg-10 d-flex flex-column flex-lg-row align-items-baseline">
                       <h1 className="me-2">{item.name}</h1>
                       <p style={{ fontSize: '.8rem' }}>by {item.artist}</p>
                     </div>
-                    <div className="col d-flex justify-content-end align-items-center">
+                    <div className="col d-flex justify-content-end align-items-start pt-1">
                       <h4 className="me-1">HP </h4>
                       <h4 className="me-2">{item.hp}</h4>
                       {stringToIcon(item.types[0])}
@@ -89,7 +90,13 @@ const Details = () => {
                       />
                     </div>
                     <p>
-                      {item.supertype} - {item.subtypes}
+                      <Badge pill className="bg-warning me-2">
+                        {item.supertype}
+                      </Badge>
+                      <Badge pill className="bg-info">
+                        {item.subtypes}
+                      </Badge>
+
                       <span className="ms-3">rarity: {item.rarity}</span>
                     </p>
                   </div>

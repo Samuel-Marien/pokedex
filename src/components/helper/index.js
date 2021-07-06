@@ -22,43 +22,43 @@ import { ReactComponent as Water } from '../../images/Pokémon_Water_Type_Icon.s
 const stringToIcon = (string) => {
   switch (string) {
     case 'Colorless':
-      return <Normal className="col-3" />
+      return <Normal style={{ width: '25px' }} />
     case 'Bug':
-      return <Bug className="col-3" />
+      return <Bug style={{ width: '25px' }} />
     case 'Darkness':
-      return <Dark className="col-3" />
+      return <Dark style={{ width: '25px' }} />
     case 'Dragon':
-      return <Dragon className="col-3" />
+      return <Dragon style={{ width: '25px' }} />
     case 'Lightning':
-      return <Electric className="col-3" />
+      return <Electric style={{ width: '25px' }} />
     case 'Fairy':
-      return <Fairy className="col-3" />
+      return <Fairy style={{ width: '25px' }} />
     case 'Fighting':
-      return <Fighting className="col-3" />
+      return <Fighting style={{ width: '25px' }} />
     case 'Fire':
-      return <Fire className="col-3" />
+      return <Fire style={{ width: '25px' }} />
     case 'Flying':
-      return <Flying className="col-3" />
+      return <Flying style={{ width: '25px' }} />
     case 'Ghost':
-      return <Ghost className="col-3" />
+      return <Ghost style={{ width: '25px' }} />
     case 'Grass':
-      return <Grass className="col-3" />
+      return <Grass style={{ width: '25px' }} />
     case 'Ground':
-      return <Ground className="col-3" />
+      return <Ground style={{ width: '25px' }} />
     case 'Ice':
-      return <Ice className="col-3" />
+      return <Ice style={{ width: '25px' }} />
     case 'Normal':
-      return <Normal className="col-3" />
+      return <Normal style={{ width: '25px' }} />
     case 'Poison':
-      return <Poison className="col-3" />
+      return <Poison style={{ width: '25px' }} />
     case 'Psychic':
-      return <Psychic className="col-3" />
+      return <Psychic style={{ width: '25px' }} />
     case 'Rock':
-      return <Rock className="col-3" />
+      return <Rock style={{ width: '25px' }} />
     case 'Metal':
-      return <Steel className="col-3" />
+      return <Steel style={{ width: '25px' }} />
     case 'Water':
-      return <Water className="col-3" />
+      return <Water style={{ width: '25px' }} />
     default:
       console.log('error dude!')
       break
