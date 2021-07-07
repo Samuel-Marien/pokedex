@@ -11,6 +11,8 @@ pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 import Image from 'react-bootstrap/Image'
 import Badge from 'react-bootstrap/Badge'
 
+import { TiArrowMaximiseOutline, TiArrowMinimiseOutline } from 'react-icons/ti'
+
 import MyNavBar from '../components/navbar'
 import stringToIcon from '../components/helper'
 
@@ -47,6 +49,49 @@ const Details = () => {
     target: PropTypes.number
   }
 
+  const DoublePills = (props) => {
+    const { name, target } = props
+    return (
+      <div className="d-flex" style={{ fontSize: '.8rem' }}>
+        <span
+          className="bg-dark text-light px-1"
+          style={{
+            borderTopLeftRadius: '5px',
+            borderBottomLeftRadius: '5px'
+          }}
+        >
+          {name}
+        </span>
+        {target ? (
+          <span
+            className="bg-success text-light px-1"
+            style={{
+              borderTopRightRadius: '5px',
+              borderBottomRightRadius: '5px'
+            }}
+          >
+            Legal
+          </span>
+        ) : (
+          <span
+            className="border border-dark px-1"
+            style={{
+              borderTopRightRadius: '5px',
+              borderBottomRightRadius: '5px'
+            }}
+          >
+            Not Legal
+          </span>
+        )}
+      </div>
+    )
+  }
+
+  DoublePills.propTypes = {
+    name: PropTypes.string,
+    target: PropTypes.string
+  }
+
   const MyCard = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
@@ -78,182 +123,250 @@ const Details = () => {
                     style={{ fontSize: '.9rem' }}
                   >
                     <div className="d-flex">
-                      <p className="me-1">set: {item.set.name}</p>
+                      <p className="me-1 text-info" role="button">
+                        {item.set.name}
+                      </p>
                       <img
                         src={item.set.images.symbol}
                         style={{ width: '15', height: '15px' }}
                       />
+                      {item.evolvesFrom ? (
+                        <p
+                          style={{ fontSize: '.8rem' }}
+                          className="ms-5"
+                          role="button"
+                        >
+                          <TiArrowMinimiseOutline />
+                          {item.evolvesFrom}
+                        </p>
+                      ) : null}
+                      {item.evolvesTo ? (
+                        <p
+                          style={{ fontSize: '.8rem' }}
+                          className="ms-2"
+                          role="button"
+                        >
+                          <TiArrowMaximiseOutline />
+                          {item.evolvesTo}
+                        </p>
+                      ) : null}
                     </div>
-                    <p>
+                    <div className="mb-2 mb-md-0">
                       <Badge pill className="bg-warning me-2">
                         {item.supertype}
                       </Badge>
-                      <Badge pill className="bg-info">
+                      <Badge pill className="bg-info me-2">
                         {item.subtypes}
                       </Badge>
-
-                      <span className="ms-3">rarity: {item.rarity}</span>
-                    </p>
+                      <Badge pill className="bg-secondary">
+                        {item.rarity}
+                      </Badge>
+                    </div>
                   </div>
                   {/* Body  */}
-                  <div className="bg-light p-3">
-                    {/* Price header  */}
-                    <div className="pt-2">
-                      <div className="d-flex align-items-baseline">
-                        <h3 className="mb-1 me-2">Prices</h3>
-                        <a
-                          href={item.tcgplayer.url}
-                          className="text-info text-decoration-none"
-                          style={{ fontSize: '.8rem' }}
-                        >
-                          Buy Now From TCGplayer
-                        </a>
+                  {item.tcgplayer ? (
+                    <div className="bg-light p-3">
+                      {/* Price header  */}
+                      <div className="pt-2">
+                        <div className="d-flex align-items-baseline">
+                          <h3 className="mb-1 me-2">Prices</h3>
+                          <a
+                            href={item.tcgplayer.url}
+                            className="text-info text-decoration-none"
+                            style={{ fontSize: '.8rem' }}
+                          >
+                            Buy Now From TCGplayer
+                          </a>
+                        </div>
+                        <p style={{ fontSize: '.8rem' }}>
+                          Last Updated {item.tcgplayer.updatedAt}
+                        </p>
                       </div>
+                      {/* Price body  */}
+                      {/* NORMAL Market */}
+                      <div className="container">
+                        {item.tcgplayer.prices.normal ? (
+                          <div className="row gx-0">
+                            <DataMarket
+                              name=" NORMAL MARKET"
+                              textColor="text-success"
+                              target={item.tcgplayer.prices.normal.market}
+                            />
+                            <DataMarket
+                              name="NORMAL LOW"
+                              textColor="text-warning"
+                              target={item.tcgplayer.prices.normal.low}
+                            />
+                            <DataMarket
+                              name="NORMAL MID"
+                              textColor="text-info"
+                              target={item.tcgplayer.prices.normal.mid}
+                            />
+                            <DataMarket
+                              name="NORMAL HIGH"
+                              textColor="text-danger"
+                              target={item.tcgplayer.prices.normal.high}
+                            />
+                          </div>
+                        ) : null}
+                      </div>
+                      {/* HOLOFOIL Market */}
+                      <div className="container">
+                        {item.tcgplayer.prices.holofoil ? (
+                          <div className="row gx-0">
+                            <DataMarket
+                              name="HOLOFOIL MARKET"
+                              textColor="text-success"
+                              target={item.tcgplayer.prices.holofoil.market}
+                            />
+                            <DataMarket
+                              name="HOLOFOIL LOW"
+                              textColor="text-warning"
+                              target={item.tcgplayer.prices.holofoil.low}
+                            />
+                            <DataMarket
+                              name="HOLOFOIL MID"
+                              textColor="text-info"
+                              target={item.tcgplayer.prices.holofoil.mid}
+                            />
+                            <DataMarket
+                              name="HOLOFOIL HIGH"
+                              textColor="text-danger"
+                              target={item.tcgplayer.prices.holofoil.high}
+                            />
+                          </div>
+                        ) : null}
+                      </div>
+                      {/* Reverse holofoil market  */}
+                      {item.tcgplayer.prices.reverseHolofoil ? (
+                        <div className="row gx-0">
+                          <DataMarket
+                            name="REVERSE HOLOFOIL MARKET"
+                            textColor="text-success"
+                            target={
+                              item.tcgplayer.prices.reverseHolofoil.market
+                            }
+                          />
+                          <DataMarket
+                            name="REVERSE HOLOFOIL LOW"
+                            textColor="text-warning"
+                            target={item.tcgplayer.prices.reverseHolofoil.low}
+                          />
+                          <DataMarket
+                            name="REVERSE HOLOFOIL MID"
+                            textColor="text-info"
+                            target={item.tcgplayer.prices.reverseHolofoil.mid}
+                          />
+                          <DataMarket
+                            name="REVERSE HOLOFOIL HIGH"
+                            textColor="text-danger"
+                            target={item.tcgplayer.prices.reverseHolofoil.high}
+                          />
+                        </div>
+                      ) : null}
+                      {item.tcgplayer.prices['1stEditionHolofoil'] ? (
+                        <div className="row gx-0">
+                          <DataMarket
+                            name="1st Edit HOLOFOIL MARKET"
+                            textColor="text-success"
+                            target={
+                              item.tcgplayer.prices['1stEditionHolofoil'].market
+                            }
+                          />
+                          <DataMarket
+                            name="1st Edit HOLOFOIL LOW"
+                            textColor="text-warning"
+                            target={
+                              item.tcgplayer.prices['1stEditionHolofoil'].low
+                            }
+                          />
+                          <DataMarket
+                            name="1st Edit HOLOFOIL MID"
+                            textColor="text-info"
+                            target={
+                              item.tcgplayer.prices['1stEditionHolofoil'].mid
+                            }
+                          />
+                          <DataMarket
+                            name="1st Edit HOLOFOIL HIGH"
+                            textColor="text-danger"
+                            target={
+                              item.tcgplayer.prices['1stEditionHolofoil'].high
+                            }
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  {/* Flavour text */}
+                  {item.flavorText ? (
+                    <div className="p-3 px-5 w-75 mx-auto">
                       <p style={{ fontSize: '.8rem' }}>
-                        Last Updated {item.tcgplayer.updatedAt}
+                        <em>{item.flavorText}</em>
                       </p>
                     </div>
-                    {/* Price body  */}
-                    {/* NORMAL Market */}
-                    <div className="container">
-                      {item.tcgplayer.prices.normal ? (
-                        <div className="row gx-0">
-                          <DataMarket
-                            name=" NORMAL MARKET"
-                            textColor="text-success"
-                            target={item.tcgplayer.prices.normal.market}
-                          />
-                          <DataMarket
-                            name="NORMAL LOW"
-                            textColor="text-warning"
-                            target={item.tcgplayer.prices.normal.low}
-                          />
-                          <DataMarket
-                            name="NORMAL MID"
-                            textColor="text-info"
-                            target={item.tcgplayer.prices.normal.mid}
-                          />
-                          <DataMarket
-                            name="NORMAL HIGH"
-                            textColor="text-danger"
-                            target={item.tcgplayer.prices.normal.high}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    {/* HOLOFOIL Market */}
-                    <div className="container">
-                      {item.tcgplayer.prices.holofoil ? (
-                        <div className="row gx-0">
-                          <DataMarket
-                            name="HOLOFOIL MARKET"
-                            textColor="text-success"
-                            target={item.tcgplayer.prices.holofoil.market}
-                          />
-                          <DataMarket
-                            name="HOLOFOIL LOW"
-                            textColor="text-warning"
-                            target={item.tcgplayer.prices.holofoil.low}
-                          />
-                          <DataMarket
-                            name="HOLOFOIL MID"
-                            textColor="text-info"
-                            target={item.tcgplayer.prices.holofoil.mid}
-                          />
-                          <DataMarket
-                            name="HOLOFOIL HIGH"
-                            textColor="text-danger"
-                            target={item.tcgplayer.prices.holofoil.high}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    {/* Reverse holofoil market  */}
-                    {item.tcgplayer.prices.reverseHolofoil ? (
-                      <div className="row gx-0">
-                        <DataMarket
-                          name="REVERSE HOLOFOIL MARKET"
-                          textColor="text-success"
-                          target={item.tcgplayer.prices.reverseHolofoil.market}
-                        />
-                        <DataMarket
-                          name="REVERSE HOLOFOIL LOW"
-                          textColor="text-warning"
-                          target={item.tcgplayer.prices.reverseHolofoil.low}
-                        />
-                        <DataMarket
-                          name="REVERSE HOLOFOIL MID"
-                          textColor="text-info"
-                          target={item.tcgplayer.prices.reverseHolofoil.mid}
-                        />
-                        <DataMarket
-                          name="REVERSE HOLOFOIL HIGH"
-                          textColor="text-danger"
-                          target={item.tcgplayer.prices.reverseHolofoil.high}
-                        />
-                      </div>
-                    ) : null}
-                  </div>
+                  ) : null}
+
                   {/* ABILITIES  */}
-                  <div className="p-3">
-                    <p className="mb-1 fw-bold">ABILITIES</p>
-                    {item.abilities ? (
-                      item.abilities.map((ability, index) => {
+                  {item.abilities
+                    ? item.abilities.map((ability, index) => {
                         return (
                           <div key={index}>
-                            <div className="d-flex">
-                              <p className="me-2 m-0 fw-bold">{ability.name}</p>
-                              <Badge
-                                pill
-                                className="bg-danger d-flex align-items-center p-1 m-0"
-                              >
-                                {ability.type}
-                              </Badge>
+                            <div className="p-3">
+                              <p className="mb-1 fw-bold">ABILITIES</p>
+                              <div className="d-flex">
+                                <p className="me-2 m-0 fw-bold">
+                                  {ability.name}
+                                </p>
+                                <Badge
+                                  pill
+                                  className="bg-danger d-flex align-items-center p-1 m-0"
+                                >
+                                  {ability.type}
+                                </Badge>
+                              </div>
+                              <p className="fw-light">{ability.text}</p>
                             </div>
-                            <p className="fw-light">{ability.text}</p>
+                          </div>
+                        )
+                      })
+                    : null}
+
+                  {/* Rules  */}
+
+                  {item.rules ? (
+                    <div className="px-3 pb-3">
+                      <p className="mb-1 fw-bold">RULES</p>
+                      <p className="fw-light">{item.rules[0]}</p>
+                    </div>
+                  ) : null}
+
+                  {/* ATTACK  */}
+                  <div className="p-3 bg-light">
+                    <p className="mb-2 fw-bold">ATTACKS</p>
+                    {item.attacks ? (
+                      item.attacks.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <div className="d-flex justify-content-between">
+                              <div className="d-flex">
+                                {item.cost.map((elem, index) => {
+                                  return (
+                                    <div key={index}>{stringToIcon(elem)}</div>
+                                  )
+                                })}
+                                <p className="ms-4">{item.name}</p>
+                              </div>
+                              <p className="fw-bold">{item.damage}</p>
+                            </div>
+                            <p className="fw-light">{item.text}</p>
                           </div>
                         )
                       })
                     ) : (
-                      <p className="fw-light">no abilities!</p>
+                      <p>N/A</p>
                     )}
-                  </div>
-                  {/* Rules  */}
-                  <div className="px-3 pb-3">
-                    <p className="mb-1 fw-bold">RULES</p>
-                    <p className="fw-light">
-                      {item.rules ? (
-                        item.rules[0]
-                      ) : (
-                        <p className="fw-light">no rules!</p>
-                      )}
-                    </p>
-                  </div>
-                  {/* ATTACK  */}
-                  <div className="p-3 bg-light">
-                    <p className="mb-2 fw-bold">ATTACKS</p>
-
-                    {item.attacks.map((item, index) => {
-                      return (
-                        <div key={index}>
-                          <div className="d-flex justify-content-between">
-                            <div className="d-flex">
-                              {item.cost.map((elem, index) => {
-                                return (
-                                  <div key={index}>{stringToIcon(elem)}</div>
-                                )
-                              })}
-
-                              <p className="ms-4">{item.name}</p>
-                            </div>
-
-                            <p className="fw-bold">{item.damage}</p>
-                          </div>
-
-                          <p className="fw-light">{item.text}</p>
-                        </div>
-                      )
-                    })}
                   </div>
                   <div className="p-3">
                     <div className="container">
@@ -268,8 +381,6 @@ const Details = () => {
                           ) : (
                             <p>N/A</p>
                           )}
-                          {/* {stringToIcon(item.weaknesses[0].type)} */}
-                          {/* {item.weaknesses[0].value} */}
                         </div>
                         <div className="col-4">
                           <p>RESISTANCE</p>
@@ -281,8 +392,6 @@ const Details = () => {
                           ) : (
                             <p>N/A</p>
                           )}
-                          {/* {stringToIcon(item.resistances[0].type)} */}
-                          {/* {item.resistances[0].value} */}
                         </div>
                         <div className="col-4">
                           <p>RETREAT COST</p>
@@ -301,62 +410,62 @@ const Details = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="p-3 bg-light">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-4">
+                          <p className="mb-1">NUMBER</p>
+                          <p className="fw-light">
+                            {item.number} / {item.set.printedTotal}
+                          </p>
+                        </div>
+                        <div className="col-4">
+                          <p className="mb-1">NATIONAL POKEDEX</p>
+                          <p className="fw-light">
+                            {item.nationalPokedexNumbers}
+                          </p>
+                        </div>
+                        <div className="col-4">
+                          <p className="mb-1">ID</p>
+                          <p className="fw-light">{item.id}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <div className="d-flex">
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-4">
+                            <DoublePills
+                              name="Standard"
+                              target={item.legalities.standard}
+                            />
+                          </div>
+                          <div className="col-4">
+                            <DoublePills
+                              name="Expanded"
+                              target={item.legalities.expanded}
+                            />
+                          </div>
+                          <div className="col-4">
+                            <DoublePills
+                              name="Unlimited"
+                              target={item.legalities.unlimited}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* examples pik */}
-            {/* <div className="d-flex justify-content-between container">
-              <div>
-                <p>id : {item.id}</p>
-                <p>National Pokedex Numbers : {item.nationalPokedexNumbers}</p>
-                <p>number: {item.number}</p>
-
-                <p> retreat cost: {item.convertedRetreatCost}</p>
-                <p>retreat cost type: {item.retreatCost}</p>
-              </div>
-              <div>
-                <div>
-                  evolves to :{' '}
-                  <ul>
-                    {item.evolvesTo || item.evolvesTo === !undefined
-                      ? item.evolvesTo.map((item, index) => {
-                          return <li key={index}>{item}</li>
-                        })
-                      : 'no'}
-                  </ul>
-                </div>
-                <p>type: {item.types}</p>
-                <p>
-                  evolves from:{' '}
-                  {item.evolvesFrom || item.evolvesFrom === !undefined
-                    ? item.evolvesFrom
-                    : 'no'}
-                </p>
-                <p>
-                  rules :{' '}
-                  {item.rules ? item.rules : 'no specific rule for this card'}
-                </p>
-              </div>
-            </div> */}
-            {/* <div className="bg-light container">
-              <p>attacks:</p>
-              {item.attacks.map((item, index) => {
-                return (
-                  <div key={index} className="shadow p-2">
-                    <p>{item.name}</p>
-                    <p>damage: {item.damage}</p>
-                    <p>{item.text}</p>
-                    <p>{item.cost}</p>
-                  </div>
-                )
-              })}
-            </div> */}
           </div>
         )
       })
     ) : (
-      <p>plop</p>
+      <p>No data to display</p>
     )
   }
 

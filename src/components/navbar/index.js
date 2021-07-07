@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
-import { CgPokemon } from 'react-icons/cg'
 import { GiCardBurn } from 'react-icons/gi'
 import { GoMail } from 'react-icons/go'
 import { SiOpslevel } from 'react-icons/si'
@@ -34,7 +33,7 @@ const MyNavBar = () => {
       <div className="container">
         <Link to="/" className="text-decoration-none">
           <Navbar.Brand>
-            <CgPokemon size={50} className="m-0 p-0" color="#ffc107" /> TCG DB
+            <img src="/images/logo3.png" alt="logo" style={{ width: '50px' }} />
           </Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
