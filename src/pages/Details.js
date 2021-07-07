@@ -130,26 +130,6 @@ const Details = () => {
                         src={item.set.images.symbol}
                         style={{ width: '15', height: '15px' }}
                       />
-                      {item.evolvesFrom ? (
-                        <p
-                          style={{ fontSize: '.8rem' }}
-                          className="ms-5"
-                          role="button"
-                        >
-                          <TiArrowMinimiseOutline />
-                          {item.evolvesFrom}
-                        </p>
-                      ) : null}
-                      {item.evolvesTo ? (
-                        <p
-                          style={{ fontSize: '.8rem' }}
-                          className="ms-2"
-                          role="button"
-                        >
-                          <TiArrowMaximiseOutline />
-                          {item.evolvesTo}
-                        </p>
-                      ) : null}
                     </div>
                     <div className="mb-2 mb-md-0">
                       <Badge pill className="bg-warning me-2">
@@ -163,6 +143,27 @@ const Details = () => {
                       </Badge>
                     </div>
                   </div>
+                  <div className="px-3 d-flex">
+                    {item.evolvesFrom ? (
+                      <p role="button my-2">
+                        <TiArrowMinimiseOutline color={'#0dcaf0'} size={25} />
+                        {item.evolvesFrom}
+                      </p>
+                    ) : null}
+                    {item.evolvesTo ? (
+                      <p className="ms-2 my-2" role="button">
+                        <TiArrowMaximiseOutline color={'#0dcaf0'} size={25} />
+                        {item.evolvesTo.map((elem, index) => {
+                          return (
+                            <span key={index} className="me-1">
+                              {elem}
+                            </span>
+                          )
+                        })}
+                      </p>
+                    ) : null}
+                  </div>
+
                   {/* Body  */}
                   {item.tcgplayer ? (
                     <div className="bg-light p-3">
