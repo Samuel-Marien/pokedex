@@ -1,5 +1,8 @@
 /* eslint-disable space-before-function-paren */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+
+import Context from '../components/context'
 
 import Card from 'react-bootstrap/Card'
 
@@ -10,6 +13,7 @@ import MyNavBar from '../components/navbar'
 
 const Sets = () => {
   const [data, setData] = useState('')
+  const { setSetDetail } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +27,11 @@ const Sets = () => {
 
   console.log(data)
 
+  const handleClick = (e) => {
+    e.preventDefault()
+    setSetDetail(() => e.target.id)
+  }
+
   return (
     <div>
       <MyNavBar />
@@ -35,7 +44,8 @@ const Sets = () => {
                   key={index}
                   style={{ width: '18rem' }}
                   className=" shadow mt-3 text-center"
-                  role="button"
+                  onClick={handleClick}
+                  id={item.id}
                 >
                   <Card.Header className="p-2 d-flex justify-content-around">
                     <span style={{ fontSize: '.8rem' }}>
@@ -44,33 +54,36 @@ const Sets = () => {
                     <span style={{ fontSize: '.8rem' }}>
                       Printed total: {item.printedTotal}
                     </span>
+
                     <img src={item.images.symbol} className="col-1" />
                   </Card.Header>
-
-                  <div style={{ width: '14rem' }} className="mx-auto mt-4">
-                    <Card.Img
-                      variant="top"
-                      src={item.images.logo}
-                      style={{ width: '10rem' }}
-                    />
-                  </div>
+                  <Link to="/set_details">
+                    <div style={{ width: '14rem' }} className="mx-auto mt-4">
+                      <Card.Img
+                        variant="top"
+                        src={item.images.logo}
+                        id={item.id}
+                        style={{ width: '10rem' }}
+                      />
+                    </div>
+                  </Link>
 
                   <Card.Body className="d-flex flex-column justify-content-end pb-1">
                     <div className="d-flex justify-content-center">
                       <Card.Title>{item.name}</Card.Title>
                     </div>
-
                     <Card.Text className="text-secondary">
-                      <p className="p-0 m-0">
-                        {item.legalities.expanded
-                          ? `Expanded ${item.legalities.expanded}`
-                          : null}
-                      </p>
-                      <p className="p-0 m-0">
-                        {item.legalities.standard
-                          ? `Standard ${item.legalities.standard}`
-                          : null}
-                      </p>
+                      {item.legalities.expanded ? (
+                        <p className="p-0 m-0">
+                          Expanded {item.legalities.expanded}
+                        </p>
+                      ) : null}
+
+                      {item.legalities.standard ? (
+                        <p className="p-0 m-0">
+                          Standard {item.legalities.standard}
+                        </p>
+                      ) : null}
                     </Card.Text>
                     <footer
                       style={{ fontSize: '.8rem' }}
