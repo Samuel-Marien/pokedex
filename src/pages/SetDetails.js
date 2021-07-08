@@ -92,7 +92,7 @@ const SetDetails = () => {
         </Dropdown>
         {/* Second dropDown  */}
         <p className="ms-4 me-2">Sorted by</p>
-        <Dropdown as="ButtonGroup">
+        <Dropdown>
           <Dropdown.Toggle
             className="px-2"
             variant="outline-info"

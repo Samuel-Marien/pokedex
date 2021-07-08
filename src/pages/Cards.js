@@ -36,7 +36,6 @@ const Cards = () => {
   return (
     <div>
       <MyNavBar />
-      <p>your result for {userValue}</p>
       <div
         className="container d-flex flex-wrap justify-content-between"
         onClick={handleClick}

@@ -1,5 +1,6 @@
 /* eslint-disable space-before-function-paren */
 import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import Context from '../components/context/'
 
@@ -18,6 +19,7 @@ import stringToIcon from '../components/helper'
 
 const Details = () => {
   const { cardDetail } = useContext(Context)
+  const { setSetDetail } = useContext(Context)
   const [data, setData] = useState({ myData: [] })
 
   useEffect(() => {
@@ -92,6 +94,12 @@ const Details = () => {
     target: PropTypes.string
   }
 
+  const handleClick = (e) => {
+    e.preventDefault()
+    console.log(e.target.id)
+    setSetDetail(() => e.target.id)
+  }
+
   const MyCard = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
@@ -122,15 +130,23 @@ const Details = () => {
                     className="d-flex flex-column flex-md-row justify-content-between gx-0 border-bottom border-secondary px-3"
                     style={{ fontSize: '.9rem' }}
                   >
-                    <div className="d-flex">
-                      <p className="me-1 text-info" role="button">
-                        {item.set.name}
-                      </p>
-                      <img
-                        src={item.set.images.symbol}
-                        style={{ width: '15', height: '15px' }}
-                      />
+                    <div onClick={handleClick} id={item.set.id}>
+                      <Link
+                        to="/set_details"
+                        id={item.set.id}
+                        className="d-flex text-decoration-none"
+                      >
+                        <p className="me-1 text-info" id={item.set.id}>
+                          {item.set.name}
+                        </p>
+                        <img
+                          src={item.set.images.symbol}
+                          style={{ width: '15', height: '15px' }}
+                          id={item.set.id}
+                        />
+                      </Link>
                     </div>
+
                     <div className="mb-2 mb-md-0">
                       <Badge pill className="bg-warning me-2">
                         {item.supertype}
