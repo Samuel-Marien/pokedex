@@ -20,6 +20,7 @@ import stringToIcon from '../components/helper'
 const Details = () => {
   const { cardDetail } = useContext(Context)
   const { setSetDetail } = useContext(Context)
+  const { setUserValue } = useContext(Context)
   const [data, setData] = useState({ myData: [] })
 
   useEffect(() => {
@@ -100,6 +101,12 @@ const Details = () => {
     setSetDetail(() => e.target.id)
   }
 
+  const handleNewDetails = (e) => {
+    e.preventDefault()
+    console.log(e.target.id)
+    setUserValue(() => e.target.id)
+  }
+
   const MyCard = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
@@ -109,7 +116,12 @@ const Details = () => {
               <div className="row gx-0">
                 {/* Left Side */}
                 <div className="container col-10 col-md-4  me-md-3 mb-4">
-                  <Image src={item.images.large} fluid alt="poke card" />
+                  <Image
+                    src={item.images.large}
+                    fluid
+                    alt="poke card"
+                    className="my_radius shadow"
+                  />
                 </div>
                 {/* Right Side */}
                 <div className="col">
@@ -161,19 +173,44 @@ const Details = () => {
                   </div>
                   <div className="px-3 d-flex">
                     {item.evolvesFrom ? (
-                      <p role="button my-2">
-                        <TiArrowMinimiseOutline color={'#0dcaf0'} size={25} />
-                        {item.evolvesFrom}
+                      <p
+                        role="button my-2"
+                        onClick={handleNewDetails}
+                        id={item.evolvesFrom}
+                      >
+                        <TiArrowMinimiseOutline
+                          color={'#0dcaf0'}
+                          size={25}
+                          id={item.evolvesFrom}
+                        />
+                        <Link
+                          id={item.evolvesFrom}
+                          to="/cards"
+                          className="text-decoration-none text-dark"
+                        >
+                          {item.evolvesFrom}
+                        </Link>
                       </p>
                     ) : null}
+                    {/* Good evoleTo  */}
                     {item.evolvesTo ? (
-                      <p className="ms-2 my-2" role="button">
-                        <TiArrowMaximiseOutline color={'#0dcaf0'} size={25} />
+                      <p className="ms-2 my-2">
                         {item.evolvesTo.map((elem, index) => {
                           return (
-                            <span key={index} className="me-1">
-                              {elem}
-                            </span>
+                            <div key={index} onClick={handleNewDetails}>
+                              <TiArrowMaximiseOutline
+                                color={'#0dcaf0'}
+                                size={25}
+                              />
+                              <Link
+                                to="/cards"
+                                className="text-decoration-none text-dark"
+                              >
+                                <span className="me-1" id={elem}>
+                                  {elem}
+                                </span>
+                              </Link>
+                            </div>
                           )
                         })}
                       </p>

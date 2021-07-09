@@ -48,7 +48,7 @@ const Cards = () => {
                   <img
                     src={item.images.small}
                     role="button"
-                    className="mt-3"
+                    className="mt-3 my_radius shadow"
                     id={item.id}
                   />
                 </Link>
