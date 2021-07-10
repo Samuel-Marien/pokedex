@@ -1,3 +1,11 @@
 .my_radius {
   border-radius: 15px;
 }
+
+.card_effect:hover {
+  transform: scale(105%);
+  transition: 0.5s;
+}
+.card_effect {
+  transition: 0.3s;
+}

@@ -97,7 +97,7 @@ const Details = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    console.log(e.target.id)
+    // console.log(e.target.id)
     setSetDetail(() => e.target.id)
   }
 
@@ -115,14 +115,17 @@ const Details = () => {
             <div className="my-5">
               <div className="row gx-0">
                 {/* Left Side */}
-                <div className="container col-10 col-md-4  me-md-3 mb-4">
-                  <Image
-                    src={item.images.large}
-                    fluid
-                    alt="poke card"
-                    className="my_radius shadow"
-                  />
-                </div>
+                {item.images.large ? (
+                  <div className="container col-10 col-md-4  me-md-3 mb-4">
+                    <Image
+                      src={item.images.large}
+                      fluid
+                      alt="poke card"
+                      className="my_radius shadow"
+                    />
+                  </div>
+                ) : null}
+
                 {/* Right Side */}
                 <div className="col">
                   {/* Header */}
@@ -131,11 +134,13 @@ const Details = () => {
                       <h1 className="me-2">{item.name}</h1>
                       <p style={{ fontSize: '.8rem' }}>by {item.artist}</p>
                     </div>
-                    <div className="col d-flex justify-content-end align-items-start pt-1">
-                      <h4 className="me-1">HP </h4>
-                      <h4 className="me-2">{item.hp}</h4>
-                      {stringToIcon(item.types[0])}
-                    </div>
+                    {item.hp ? (
+                      <div className="col d-flex justify-content-end align-items-start pt-1">
+                        <h4 className="me-1">HP </h4>
+                        <h4 className="me-2">{item.hp}</h4>
+                        {stringToIcon(item.types[0])}
+                      </div>
+                    ) : null}
                   </div>
                   {/* Sub Header  */}
                   <div
@@ -159,21 +164,33 @@ const Details = () => {
                       </Link>
                     </div>
 
+                    {/* TYPE CARD  */}
                     <div className="mb-2 mb-md-0">
-                      <Badge pill className="bg-warning me-2">
-                        {item.supertype}
-                      </Badge>
-                      <Badge pill className="bg-info me-2">
-                        {item.subtypes}
-                      </Badge>
+                      {item.supertype ? (
+                        <Badge pill className="bg-warning me-2">
+                          {item.supertype}
+                        </Badge>
+                      ) : null}
+                      {item.subtypes
+                        ? item.subtypes.map((elem, index) => {
+                            return (
+                              <Badge key={index} pill className="bg-info me-2">
+                                {elem}
+                              </Badge>
+                            )
+                          })
+                        : null}
+
                       <Badge pill className="bg-secondary">
                         {item.rarity}
                       </Badge>
                     </div>
                   </div>
-                  <div className="px-3 d-flex">
+
+                  {/* Evolution section  */}
+                  <div className="px-3 d-flex align-items-baseline">
                     {item.evolvesFrom ? (
-                      <p
+                      <div
                         role="button my-2"
                         onClick={handleNewDetails}
                         id={item.evolvesFrom}
@@ -190,11 +207,10 @@ const Details = () => {
                         >
                           {item.evolvesFrom}
                         </Link>
-                      </p>
+                      </div>
                     ) : null}
-                    {/* Good evoleTo  */}
                     {item.evolvesTo ? (
-                      <p className="ms-2 my-2">
+                      <div className="ms-2 my-2">
                         {item.evolvesTo.map((elem, index) => {
                           return (
                             <div key={index} onClick={handleNewDetails}>
@@ -213,7 +229,7 @@ const Details = () => {
                             </div>
                           )
                         })}
-                      </p>
+                      </div>
                     ) : null}
                   </div>
 
@@ -318,6 +334,7 @@ const Details = () => {
                           />
                         </div>
                       ) : null}
+                      {/* 1st edition holofoil market  */}
                       {item.tcgplayer.prices['1stEditionHolofoil'] ? (
                         <div className="row gx-0">
                           <DataMarket
@@ -388,11 +405,19 @@ const Details = () => {
                     : null}
 
                   {/* Rules  */}
-
                   {item.rules ? (
                     <div className="px-3 pb-3">
-                      <p className="mb-1 fw-bold">RULES</p>
-                      <p className="fw-light">{item.rules[0]}</p>
+                      {item.rules.map((elem, index) => {
+                        if (index >= 1) {
+                          return (
+                            <p key={index} className="text-secondary">
+                              <em>{elem}</em>
+                            </p>
+                          )
+                        } else {
+                          return <p key={index}>{elem}</p>
+                        }
+                      })}
                     </div>
                   ) : null}
 
@@ -476,7 +501,9 @@ const Details = () => {
                         <div className="col-4">
                           <p className="mb-1">NATIONAL POKEDEX</p>
                           <p className="fw-light">
-                            {item.nationalPokedexNumbers}
+                            {item.nationalPokedexNumbers
+                              ? item.nationalPokedexNumbers
+                              : 'N/A'}
                           </p>
                         </div>
                         <div className="col-4">

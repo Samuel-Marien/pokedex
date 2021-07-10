@@ -30,6 +30,7 @@ const Cards = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
+    console.log(e.target.id)
     setCardDetail(() => e.target.id)
   }
 
@@ -48,7 +49,7 @@ const Cards = () => {
                   <img
                     src={item.images.small}
                     role="button"
-                    className="mt-3 my_radius shadow"
+                    className="mt-3 my_radius shadow card_effect"
                     id={item.id}
                   />
                 </Link>

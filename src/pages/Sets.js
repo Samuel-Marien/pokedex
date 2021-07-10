@@ -18,14 +18,14 @@ const Sets = () => {
   useEffect(() => {
     const fetchData = async () => {
       pokemon.set.find('').then((set) => {
-        console.log(set)
+        // console.log(set)
         setData(set)
       })
     }
     fetchData()
   }, [setData])
 
-  console.log(data)
+  // console.log(data)
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -43,7 +43,7 @@ const Sets = () => {
                 <Card
                   key={index}
                   style={{ width: '18rem' }}
-                  className=" shadow mt-3 text-center"
+                  className=" shadow mt-3 text-center card_effect"
                   onClick={handleClick}
                   id={item.id}
                 >

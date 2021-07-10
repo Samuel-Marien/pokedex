@@ -32,16 +32,16 @@ const SetDetails = () => {
   const { setCardDetail } = useContext(Context)
   const [data, setData] = useState('')
   const [title, setTitle] = useState('')
-  const [myDropViewTitle, setMyDropViewTitle] = useState('')
-  const [myDropTitle, setMyDropTitle] = useState('')
-  const [myDropOrderTitle, setMyDropOrderTitle] = useState('')
+  const [myDropViewTitle, setMyDropViewTitle] = useState('Images')
+  const [myDropTitle, setMyDropTitle] = useState('Set/number')
+  const [myDropOrderTitle, setMyDropOrderTitle] = useState('ASC')
 
-  console.log(setDetail)
+  // console.log(setDetail)
 
   useEffect(() => {
     const fetchData = async () => {
       pokemon.card.where({ q: `set.id:${setDetail}` }).then((result) => {
-        console.log(result.data[0].set.name)
+        // console.log(result.data[0].set.name)
         setTitle(result.data[0].set.name)
         setData(result.data)
       })
@@ -168,14 +168,13 @@ const SetDetails = () => {
         {data ? (
           data.map((item, index) => {
             return (
-              <div key={index} id={item.id}>
+              <div
+                key={index}
+                id={item.id}
+                className="mt-3 my_radius shadow card_effect"
+              >
                 <Link to="/details">
-                  <img
-                    src={item.images.small}
-                    role="button"
-                    className="mt-3 my_radius shadow"
-                    id={item.id}
-                  />
+                  <img src={item.images.small} role="button" id={item.id} />
                 </Link>
               </div>
             )
