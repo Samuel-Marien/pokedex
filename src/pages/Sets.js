@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import Context from '../components/context'
+import MySpinner from '../components/spinner'
 
 import Card from 'react-bootstrap/Card'
 
@@ -97,7 +98,7 @@ const Sets = () => {
             })
             .reverse()
         ) : (
-          <p>Ceci n&apos;est pas un spinner...</p>
+          <MySpinner />
         )}
       </div>
     </div>

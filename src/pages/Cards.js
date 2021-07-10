@@ -3,6 +3,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import Context from '../components/context'
+import MySpinner from '../components/spinner'
+import SuperSearchBar from '../components/super_search_bar'
 
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
@@ -37,27 +39,30 @@ const Cards = () => {
   return (
     <div>
       <MyNavBar />
+      <SuperSearchBar title={userValue} />
       <div
         className="container d-flex flex-wrap justify-content-between"
         onClick={handleClick}
       >
         {data ? (
-          data.map((item, index) => {
-            return (
-              <div key={index} id={item.id}>
-                <Link to="/details">
-                  <img
-                    src={item.images.small}
-                    role="button"
-                    className="mt-3 my_radius shadow card_effect"
-                    id={item.id}
-                  />
-                </Link>
-              </div>
-            )
-          })
+          data
+            .map((item, index) => {
+              return (
+                <div key={index} id={item.id}>
+                  <Link to="/details">
+                    <img
+                      src={item.images.small}
+                      role="button"
+                      className="mt-3 my_radius shadow card_effect"
+                      id={item.id}
+                    />
+                  </Link>
+                </div>
+              )
+            })
+            .reverse()
         ) : (
-          <p>Je ne suis pas un spinner...</p>
+          <MySpinner />
         )}
       </div>
     </div>
