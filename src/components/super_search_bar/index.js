@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+
+import Context from '../context'
 
 import Dropdown from 'react-bootstrap/Dropdown'
 
@@ -20,9 +22,11 @@ MyDropItem.propTypes = {
 
 const SuperSearchBar = (props) => {
   const { title, id } = props
-  const [myDropViewTitle, setMyDropViewTitle] = useState('Images')
+  // const [myDropViewTitle, setMyDropViewTitle] = useState('Images')
+  const { myDropViewTitle, setMyDropViewTitle } = useContext(Context)
   const [myDropTitle, setMyDropTitle] = useState('Set/number')
   const [myDropOrderTitle, setMyDropOrderTitle] = useState('ASC')
+  // const [displayCardOrList, setDisplayCardOrList] = useState(true)
 
   return (
     <div>
@@ -45,15 +49,16 @@ const SuperSearchBar = (props) => {
               <MyDropItem
                 func={() => {
                   setMyDropViewTitle('Images')
+                  console.log('plop')
                 }}
-                href="#/action-1"
+                // href="/"
                 name="Images"
               />
               <MyDropItem
                 func={() => {
                   setMyDropViewTitle('List')
                 }}
-                href="#/action-2"
+                // href="/"
                 name="List"
               />
             </Dropdown.Menu>
