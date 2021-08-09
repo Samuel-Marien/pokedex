@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Context from '../components/context'
 import MySpinner from '../components/spinner'
+import MyInput from '../components/myInput'
 
 import Card from 'react-bootstrap/Card'
 
@@ -35,7 +36,9 @@ const Sets = () => {
 
   return (
     <div>
-      <MyNavBar />
+      <MyNavBar>
+        <MyInput />
+      </MyNavBar>
       <div className="container d-flex flex-wrap justify-content-between">
         {data ? (
           data

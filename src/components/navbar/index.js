@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+// import MyInput from '../myInput'
 
 import { GiCardBurn } from 'react-icons/gi'
 import { GoMail } from 'react-icons/go'
@@ -27,7 +28,8 @@ MyLink.propTypes = {
   icon: PropTypes.node
 }
 
-const MyNavBar = () => {
+const MyNavBar = (props) => {
+  const { children } = props
   return (
     <Navbar bg="light" expand="lg" className="shadow">
       <div className="container">
@@ -49,6 +51,8 @@ const MyNavBar = () => {
               icon={<SiOpslevel className="me-1" />}
               title="Advanced"
             />
+            {children}
+            {/* <MyInput /> */}
           </Nav>
           <MyLink
             to={'/set'}
@@ -59,6 +63,10 @@ const MyNavBar = () => {
       </div>
     </Navbar>
   )
+}
+
+MyNavBar.propTypes = {
+  children: PropTypes.node
 }
 
 export default MyNavBar

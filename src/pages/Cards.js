@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom'
 import Context from '../components/context'
 import MySpinner from '../components/spinner'
 import SuperSearchBar from '../components/super_search_bar'
+import stringToIcon from '../components/helper'
+import MyNavBar from '../components/navbar'
+import MyInput from '../components/myInput'
 
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 
-import MyNavBar from '../components/navbar'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 
 const Cards = () => {
   const [data, setData] = useState('')
@@ -29,21 +32,24 @@ const Cards = () => {
         })
     }
     fetchData()
-  }, [setData])
+  }, [userValue])
 
   console.log(data)
 
   const handleClick = (e) => {
     e.preventDefault()
-    // console.log(e.target.id)
+    console.log(e.target.id)
     setCardDetail(() => e.target.id)
   }
 
+  const renderTooltip = (src, ...props) => <img {...props} src={src} />
+
   return (
     <div>
-      <MyNavBar />
+      <MyNavBar>
+        <MyInput />
+      </MyNavBar>
       <SuperSearchBar title={userValue} />
-
       {/* IMAGES DISPLAY  */}
       {myDropViewTitle === 'Images' ? (
         <div
@@ -73,16 +79,16 @@ const Cards = () => {
         </div>
       ) : (
         // LIST DISPLAY
-        <div className="container" onClick={handleClick}>
+        <div className="container">
           <div className="row border-bottom border-secondary pb-2 mb-2 px-4 fw-bold">
             <div className="col-3">Set</div>
-            <div className="col">No</div>
+            <div className="col-1">No</div>
             <div className="col">Name</div>
             <div className="col">Rarity</div>
-            <div className="col">Types</div>
+            <div className="col-1">Types</div>
             <div className="col">Supertype</div>
             <div className="col">Subtypes</div>
-            <div className="col">Price</div>
+            <div className="col-1">Price</div>
           </div>
           {data ? (
             data
@@ -92,45 +98,79 @@ const Cards = () => {
                     className="list-group list-group-flush"
                     key={index}
                     id={item.id}
+                    onClick={handleClick}
                   >
-                    <div className="list-group-item list-group-item-action px-0">
-                      <div className="row px-4">
-                        <div className="col-3">{item.set.name}</div>
-                        <div className="col">{item.number}</div>
-                        <div className="col">{item.name}</div>
-                        <div className="col">
-                          {item.rarity ? item.rarity : null}
+                    <OverlayTrigger
+                      placement="auto"
+                      overlay={renderTooltip(item.images.small)}
+                      transition={false}
+                    >
+                      <Link to="/details" className="text-decoration-none ">
+                        <div
+                          id={item.id}
+                          className="list-group-item list-group-item-action pt-3"
+                        >
+                          <div className="row px-4" id={item.id}>
+                            <div className="col-3" id={item.id}>
+                              {item.set.name}
+                            </div>
+                            <div className="col-1" id={item.id}>
+                              {item.number}
+                            </div>
+                            <div className="col" id={item.id}>
+                              {item.name}
+                            </div>
+                            <div className="col" id={item.id}>
+                              {item.rarity ? item.rarity : null}
+                            </div>
+                            <div className="col-1" id={item.id}>
+                              {item.types ? (
+                                <div>{stringToIcon(item.types[0])}</div>
+                              ) : (
+                                '_'
+                              )}
+                            </div>
+
+                            <div className="col" id={item.id}>
+                              {item.supertype ? item.supertype : null}
+                            </div>
+                            <div className="col" id={item.id}>
+                              {item.subtypes ? item.subtypes : null}
+                            </div>
+                            {/* PRICES SECTION  */}
+                            <div className="col-1" id={item.id}>
+                              {item.tcgplayer &&
+                              item.tcgplayer.prices.normal ? (
+                                <div className="text-primary" id={item.id}>
+                                  $ {item.tcgplayer.prices.normal.market}
+                                </div>
+                              ) : null}
+                              {item.tcgplayer &&
+                              item.tcgplayer.prices.holofoil ? (
+                                <div className="text-primary" id={item.id}>
+                                  $ {item.tcgplayer.prices.holofoil.market}
+                                </div>
+                              ) : null}
+                              {item.tcgplayer &&
+                              item.tcgplayer.prices['1stEditionHolofoil'] ? (
+                                <div className="text-primary" id={item.id}>
+                                  $
+                                  {
+                                    <p id={item.id}>
+                                      {
+                                        item.tcgplayer.prices[
+                                          '1stEditionHolofoil'
+                                        ].market
+                                      }
+                                    </p>
+                                  }
+                                </div>
+                              ) : null}
+                            </div>
+                          </div>
                         </div>
-                        <div className="col">
-                          {item.types ? item.types : null}
-                        </div>
-                        <div className="col">
-                          {item.supertype ? item.supertype : null}
-                        </div>
-                        <div className="col">
-                          {item.subtypes ? item.subtypes : null}
-                        </div>
-                        {/* PRICES SECTION  */}
-                        <div className="col">
-                          {item.tcgplayer && item.tcgplayer.prices.normal ? (
-                            <p>{item.tcgplayer.prices.normal.market}</p>
-                          ) : null}
-                          {/* {item.tcgplayer &&
-                          item.tcgplayer.prices.reverseHolofoil ? (
-                            <p>
-                              {item.tcgplayer.prices.reverseHolofoil.market}
-                            </p>
-                          ) : null} */}
-                          {item.tcgplayer && item.tcgplayer.prices.holofoil ? (
-                            <p>{item.tcgplayer.prices.holofoil.market}</p>
-                          ) : null}
-                          {item.tcgplayer &&
-                          item.tcgplayer.prices['1stEditionHolofoil']
-                            ? item.tcgplayer.prices['1stEditionHolofoil'].market
-                            : null}
-                        </div>
-                      </div>
-                    </div>
+                      </Link>
+                    </OverlayTrigger>
                   </div>
                 )
               })

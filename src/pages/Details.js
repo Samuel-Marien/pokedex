@@ -242,6 +242,8 @@ const Details = () => {
                           <h3 className="mb-1 me-2">Prices</h3>
                           <a
                             href={item.tcgplayer.url}
+                            target="_blank"
+                            rel="noreferrer"
                             className="text-info text-decoration-none"
                             style={{ fontSize: '.8rem' }}
                           >
@@ -415,7 +417,11 @@ const Details = () => {
                             </p>
                           )
                         } else {
-                          return <p key={index}>{elem}</p>
+                          return (
+                            <p key={index} className="mt-2 mb-0">
+                              <em>{elem}</em>
+                            </p>
+                          )
                         }
                       })}
                     </div>

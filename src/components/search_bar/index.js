@@ -23,7 +23,7 @@ const handleSubmit = (e) => {
   e.preventDefault()
 }
 
-const MyInput = (props) => {
+const MyLocalInput = (props) => {
   const { children } = props
   return (
     <Row className="col-8 mt-3">
@@ -32,7 +32,7 @@ const MyInput = (props) => {
           <FormControl
             aria-describedby="basic-addon1"
             onChange={handleChange}
-            placeholder="Search by name..."
+            placeholder="Search for a card..."
           />
           {children}
         </InputGroup>
@@ -41,7 +41,7 @@ const MyInput = (props) => {
   )
 }
 
-MyInput.propTypes = {
+MyLocalInput.propTypes = {
   children: PropTypes.node
 }
 
@@ -57,7 +57,7 @@ const SearchCard = () => {
       <div className="d-flex flex-column align-items-center">
         <h1>Pokemon TCG</h1>
         <h5>The Ultimate Pokémon Card Database</h5>
-        <MyInput>
+        <MyLocalInput>
           <Link to="/cards">
             <Button
               className="p-1"
@@ -68,7 +68,7 @@ const SearchCard = () => {
               <GiCardPick size={35} />
             </Button>
           </Link>
-        </MyInput>
+        </MyLocalInput>
       </div>
     </div>
   )
