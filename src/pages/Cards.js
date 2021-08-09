@@ -19,6 +19,7 @@ const Cards = () => {
   const { userValue } = useContext(Context)
   const { setCardDetail } = useContext(Context)
   const { myDropViewTitle } = useContext(Context)
+  const { myDropOrderTitle } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,23 +57,42 @@ const Cards = () => {
           className="container d-flex flex-wrap justify-content-between"
           onClick={handleClick}
         >
-          {data ? (
-            data
-              .map((item, index) => {
-                return (
-                  <div key={index} id={item.id}>
-                    <Link to="/details">
-                      <img
-                        src={item.images.small}
-                        role="button"
-                        className="mt-3 my_radius shadow card_effect"
-                        id={item.id}
-                      />
-                    </Link>
-                  </div>
-                )
-              })
-              .reverse()
+          {myDropOrderTitle === 'Asc' ? (
+            data ? (
+              data
+                .map((item, index) => {
+                  return (
+                    <div key={index} id={item.id}>
+                      <Link to="/details">
+                        <img
+                          src={item.images.small}
+                          role="button"
+                          className="mt-3 my_radius shadow card_effect"
+                          id={item.id}
+                        />
+                      </Link>
+                    </div>
+                  )
+                })
+                .reverse()
+            ) : (
+              <MySpinner />
+            )
+          ) : data ? (
+            data.map((item, index) => {
+              return (
+                <div key={index} id={item.id}>
+                  <Link to="/details">
+                    <img
+                      src={item.images.small}
+                      role="button"
+                      className="mt-3 my_radius shadow card_effect"
+                      id={item.id}
+                    />
+                  </Link>
+                </div>
+              )
+            })
           ) : (
             <MySpinner />
           )}
@@ -90,91 +110,177 @@ const Cards = () => {
             <div className="col">Subtypes</div>
             <div className="col-1">Price</div>
           </div>
-          {data ? (
-            data
-              .map((item, index) => {
-                return (
-                  <div
-                    className="list-group list-group-flush"
-                    key={index}
-                    id={item.id}
-                    onClick={handleClick}
-                  >
-                    <OverlayTrigger
-                      placement="auto"
-                      overlay={renderTooltip(item.images.small)}
-                      transition={false}
+          {myDropOrderTitle === 'Asc' ? (
+            data ? (
+              data
+                .map((item, index) => {
+                  return (
+                    <div
+                      className="list-group list-group-flush"
+                      key={index}
+                      id={item.id}
+                      onClick={handleClick}
                     >
-                      <Link to="/details" className="text-decoration-none ">
-                        <div
-                          id={item.id}
-                          className="list-group-item list-group-item-action pt-3"
-                        >
-                          <div className="row px-4" id={item.id}>
-                            <div className="col-3" id={item.id}>
-                              {item.set.name}
-                            </div>
-                            <div className="col-1" id={item.id}>
-                              {item.number}
-                            </div>
-                            <div className="col" id={item.id}>
-                              {item.name}
-                            </div>
-                            <div className="col" id={item.id}>
-                              {item.rarity ? item.rarity : null}
-                            </div>
-                            <div className="col-1" id={item.id}>
-                              {item.types ? (
-                                <div>{stringToIcon(item.types[0])}</div>
-                              ) : (
-                                '_'
-                              )}
-                            </div>
+                      <OverlayTrigger
+                        placement="auto"
+                        overlay={renderTooltip(item.images.small)}
+                        transition={false}
+                      >
+                        <Link to="/details" className="text-decoration-none ">
+                          <div
+                            id={item.id}
+                            className="list-group-item list-group-item-action pt-3"
+                          >
+                            <div className="row px-4" id={item.id}>
+                              <div className="col-3" id={item.id}>
+                                {item.set.name}
+                              </div>
+                              <div className="col-1" id={item.id}>
+                                {item.number}
+                              </div>
+                              <div className="col" id={item.id}>
+                                {item.name}
+                              </div>
+                              <div className="col" id={item.id}>
+                                {item.rarity ? item.rarity : null}
+                              </div>
+                              <div className="col-1" id={item.id}>
+                                {item.types ? (
+                                  <div>{stringToIcon(item.types[0])}</div>
+                                ) : (
+                                  '_'
+                                )}
+                              </div>
 
-                            <div className="col" id={item.id}>
-                              {item.supertype ? item.supertype : null}
-                            </div>
-                            <div className="col" id={item.id}>
-                              {item.subtypes ? item.subtypes : null}
-                            </div>
-                            {/* PRICES SECTION  */}
-                            <div className="col-1" id={item.id}>
-                              {item.tcgplayer &&
-                              item.tcgplayer.prices.normal ? (
-                                <div className="text-primary" id={item.id}>
-                                  $ {item.tcgplayer.prices.normal.market}
-                                </div>
-                              ) : null}
-                              {item.tcgplayer &&
-                              item.tcgplayer.prices.holofoil ? (
-                                <div className="text-primary" id={item.id}>
-                                  $ {item.tcgplayer.prices.holofoil.market}
-                                </div>
-                              ) : null}
-                              {item.tcgplayer &&
-                              item.tcgplayer.prices['1stEditionHolofoil'] ? (
-                                <div className="text-primary" id={item.id}>
-                                  $
-                                  {
-                                    <p id={item.id}>
-                                      {
-                                        item.tcgplayer.prices[
-                                          '1stEditionHolofoil'
-                                        ].market
-                                      }
-                                    </p>
-                                  }
-                                </div>
-                              ) : null}
+                              <div className="col" id={item.id}>
+                                {item.supertype ? item.supertype : null}
+                              </div>
+                              <div className="col" id={item.id}>
+                                {item.subtypes ? item.subtypes : null}
+                              </div>
+                              {/* PRICES SECTION  */}
+                              <div className="col-1" id={item.id}>
+                                {item.tcgplayer &&
+                                item.tcgplayer.prices.normal ? (
+                                  <div className="text-primary" id={item.id}>
+                                    $ {item.tcgplayer.prices.normal.market}
+                                  </div>
+                                ) : null}
+                                {item.tcgplayer &&
+                                item.tcgplayer.prices.holofoil ? (
+                                  <div className="text-primary" id={item.id}>
+                                    $ {item.tcgplayer.prices.holofoil.market}
+                                  </div>
+                                ) : null}
+                                {item.tcgplayer &&
+                                item.tcgplayer.prices['1stEditionHolofoil'] ? (
+                                  <div className="text-primary" id={item.id}>
+                                    $
+                                    {
+                                      <p id={item.id}>
+                                        {
+                                          item.tcgplayer.prices[
+                                            '1stEditionHolofoil'
+                                          ].market
+                                        }
+                                      </p>
+                                    }
+                                  </div>
+                                ) : null}
+                              </div>
                             </div>
                           </div>
+                        </Link>
+                      </OverlayTrigger>
+                    </div>
+                  )
+                })
+                .reverse()
+            ) : (
+              <MySpinner />
+            )
+          ) : data ? (
+            data.map((item, index) => {
+              return (
+                <div
+                  className="list-group list-group-flush"
+                  key={index}
+                  id={item.id}
+                  onClick={handleClick}
+                >
+                  <OverlayTrigger
+                    placement="auto"
+                    overlay={renderTooltip(item.images.small)}
+                    transition={false}
+                  >
+                    <Link to="/details" className="text-decoration-none ">
+                      <div
+                        id={item.id}
+                        className="list-group-item list-group-item-action pt-3"
+                      >
+                        <div className="row px-4" id={item.id}>
+                          <div className="col-3" id={item.id}>
+                            {item.set.name}
+                          </div>
+                          <div className="col-1" id={item.id}>
+                            {item.number}
+                          </div>
+                          <div className="col" id={item.id}>
+                            {item.name}
+                          </div>
+                          <div className="col" id={item.id}>
+                            {item.rarity ? item.rarity : null}
+                          </div>
+                          <div className="col-1" id={item.id}>
+                            {item.types ? (
+                              <div>{stringToIcon(item.types[0])}</div>
+                            ) : (
+                              '_'
+                            )}
+                          </div>
+
+                          <div className="col" id={item.id}>
+                            {item.supertype ? item.supertype : null}
+                          </div>
+                          <div className="col" id={item.id}>
+                            {item.subtypes ? item.subtypes : null}
+                          </div>
+                          {/* PRICES SECTION  */}
+                          <div className="col-1" id={item.id}>
+                            {item.tcgplayer && item.tcgplayer.prices.normal ? (
+                              <div className="text-primary" id={item.id}>
+                                $ {item.tcgplayer.prices.normal.market}
+                              </div>
+                            ) : null}
+                            {item.tcgplayer &&
+                            item.tcgplayer.prices.holofoil ? (
+                              <div className="text-primary" id={item.id}>
+                                $ {item.tcgplayer.prices.holofoil.market}
+                              </div>
+                            ) : null}
+                            {item.tcgplayer &&
+                            item.tcgplayer.prices['1stEditionHolofoil'] ? (
+                              <div className="text-primary" id={item.id}>
+                                $
+                                {
+                                  <p id={item.id}>
+                                    {
+                                      item.tcgplayer.prices[
+                                        '1stEditionHolofoil'
+                                      ].market
+                                    }
+                                  </p>
+                                }
+                              </div>
+                            ) : null}
+                          </div>
                         </div>
-                      </Link>
-                    </OverlayTrigger>
-                  </div>
-                )
-              })
-              .reverse()
+                      </div>
+                    </Link>
+                  </OverlayTrigger>
+                </div>
+              )
+            })
           ) : (
             <MySpinner />
           )}

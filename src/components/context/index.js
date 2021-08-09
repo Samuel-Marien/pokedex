@@ -6,6 +6,8 @@ export const Provider = (props) => {
   const [cardDetail, setCardDetail] = useState('')
   const [setDetail, setSetDetail] = useState('')
   const [myDropViewTitle, setMyDropViewTitle] = useState('Images')
+  const [myDropOrderTitle, setMyDropOrderTitle] = useState('Asc')
+
   return (
     <Context.Provider
       {...props}
@@ -17,7 +19,9 @@ export const Provider = (props) => {
         setDetail,
         setSetDetail,
         myDropViewTitle,
-        setMyDropViewTitle
+        setMyDropViewTitle,
+        myDropOrderTitle,
+        setMyDropOrderTitle
       }}
     />
   )

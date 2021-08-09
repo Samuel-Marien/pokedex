@@ -22,11 +22,9 @@ MyDropItem.propTypes = {
 
 const SuperSearchBar = (props) => {
   const { title, id } = props
-  // const [myDropViewTitle, setMyDropViewTitle] = useState('Images')
   const { myDropViewTitle, setMyDropViewTitle } = useContext(Context)
   const [myDropTitle, setMyDropTitle] = useState('Set/number')
-  const [myDropOrderTitle, setMyDropOrderTitle] = useState('ASC')
-  // const [displayCardOrList, setDisplayCardOrList] = useState(true)
+  const { myDropOrderTitle, setMyDropOrderTitle } = useContext(Context)
 
   return (
     <div>
