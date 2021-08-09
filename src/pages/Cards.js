@@ -35,11 +35,8 @@ const Cards = () => {
     fetchData()
   }, [userValue])
 
-  console.log(data)
-
   const handleClick = (e) => {
     e.preventDefault()
-    console.log(e.target.id)
     setCardDetail(() => e.target.id)
   }
 

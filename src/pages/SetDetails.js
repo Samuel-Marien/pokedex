@@ -25,7 +25,6 @@ const SetDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       pokemon.card.where({ q: `set.id:${setDetail}` }).then((result) => {
-        // console.log(result.data[0].set.name)
         setTitle(result.data[0].set.name)
         setData(result.data)
       })

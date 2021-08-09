@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// import MyInput from '../myInput'
 
 import { GiCardBurn } from 'react-icons/gi'
 import { GoMail } from 'react-icons/go'
@@ -52,7 +51,6 @@ const MyNavBar = (props) => {
               title="Advanced"
             />
             {children}
-            {/* <MyInput /> */}
           </Nav>
           <MyLink
             to={'/set'}

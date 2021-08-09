@@ -32,8 +32,6 @@ const Details = () => {
     fetchData()
   }, [setData])
 
-  console.log(data.myData)
-
   const DataMarket = (props) => {
     const { name, textColor, target } = props
     return (
@@ -97,13 +95,11 @@ const Details = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    // console.log(e.target.id)
     setSetDetail(() => e.target.id)
   }
 
   const handleNewDetails = (e) => {
     e.preventDefault()
-    console.log(e.target.id)
     setUserValue(() => e.target.id)
   }
 

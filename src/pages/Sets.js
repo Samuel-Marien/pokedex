@@ -20,14 +20,11 @@ const Sets = () => {
   useEffect(() => {
     const fetchData = async () => {
       pokemon.set.find('').then((set) => {
-        // console.log(set)
         setData(set)
       })
     }
     fetchData()
   }, [setData])
-
-  // console.log(data)
 
   const handleClick = (e) => {
     e.preventDefault()

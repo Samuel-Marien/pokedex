@@ -47,16 +47,13 @@ const SuperSearchBar = (props) => {
               <MyDropItem
                 func={() => {
                   setMyDropViewTitle('Images')
-                  console.log('plop')
                 }}
-                // href="/"
                 name="Images"
               />
               <MyDropItem
                 func={() => {
                   setMyDropViewTitle('List')
                 }}
-                // href="/"
                 name="List"
               />
             </Dropdown.Menu>
