@@ -234,7 +234,7 @@ const Details = () => {
 
                   {/* Body  */}
                   {item.tcgplayer ? (
-                    <div className="bg-light p-3">
+                    <div className="bg-light px-3 pt-1 rounded">
                       {/* Price header  */}
                       <div className="pt-2">
                         <div className="d-flex align-items-baseline">
@@ -370,6 +370,36 @@ const Details = () => {
                       ) : null}
                     </div>
                   ) : null}
+                  {/* Card Market  */}
+                  <div className="bg-light px-3 pt-1 border-top rounded">
+                    <h3 className="mb-1 me-2">Market trend</h3>
+                    <p style={{ fontSize: '.8rem' }}>
+                      Last Updated {item.tcgplayer.updatedAt}
+                    </p>
+
+                    <div className="row gx-0">
+                      <DataMarket
+                        name="TREND"
+                        textColor="text-success"
+                        target={item.cardmarket.prices.trendPrice}
+                      />
+                      <DataMarket
+                        name="1 DAY AVERAGE"
+                        textColor="text-warning"
+                        target={item.cardmarket.prices.avg1}
+                      />
+                      <DataMarket
+                        name="7 DAY AVERAGE"
+                        textColor="text-info"
+                        target={item.cardmarket.prices.avg7}
+                      />
+                      <DataMarket
+                        name="30 DAY AVERAGE"
+                        textColor="text-danger"
+                        target={item.cardmarket.prices.avg30}
+                      />
+                    </div>
+                  </div>
 
                   {/* Flavour text */}
                   {item.flavorText ? (
