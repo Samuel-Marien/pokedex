@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import Context from '../components/context/'
+import MyInput from '../components/myInput'
 
 import PropTypes from 'prop-types'
 
@@ -556,7 +557,9 @@ const Details = () => {
 
   return (
     <div>
-      <MyNavBar />
+      <MyNavBar>
+        <MyInput />
+      </MyNavBar>
       <MyCard />
     </div>
   )

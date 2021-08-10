@@ -31,16 +31,20 @@ const DisplayList = (props) => {
         overlay={renderTooltip(item.images.small)}
         transition={false}
       >
-        <Link to="/details" className="text-decoration-none ">
+        <Link to="/details" className="text-decoration-none">
           <div
             id={item.id}
-            className="list-group-item list-group-item-action pt-3"
+            className="list-group-item list-group-item-action p-1"
           >
-            <div className="row px-4" id={item.id}>
-              <div className="col-3 d-none d-lg-block" id={item.id}>
+            <div
+              className="row px-2"
+              id={item.id}
+              style={{ fontSize: '.9rem' }}
+            >
+              <div className="col d-none d-lg-block" id={item.id}>
                 {item.set.name}
               </div>
-              <div className="col-1 d-none d-lg-block" id={item.id}>
+              <div className="col d-none d-lg-block" id={item.id}>
                 {item.number}
               </div>
               <div className="col" id={item.id}>
@@ -49,7 +53,7 @@ const DisplayList = (props) => {
               <div className="col" id={item.id}>
                 {item.rarity ? item.rarity : null}
               </div>
-              <div className="col-1 d-none d-lg-block" id={item.id}>
+              <div className="col d-none d-lg-block" id={item.id}>
                 {item.types ? <div>{stringToIcon(item.types[0])}</div> : '_'}
               </div>
 
@@ -57,10 +61,15 @@ const DisplayList = (props) => {
                 {item.supertype ? item.supertype : null}
               </div>
               <div className="col" id={item.id}>
-                {item.subtypes ? item.subtypes : null}
+                {/* {item.subtypes ? item.subtypes : null} */}
+                {item.subtypes
+                  ? item.subtypes.map((elem, index) => {
+                      return <div key={index}>{elem}</div>
+                    })
+                  : null}
               </div>
               {/* PRICES SECTION  */}
-              <div className="col-1" id={item.id}>
+              <div className="col" id={item.id}>
                 {item.tcgplayer && item.tcgplayer.prices.normal ? (
                   <div className="text-primary" id={item.id}>
                     {item.tcgplayer.prices.normal.market}
@@ -92,7 +101,7 @@ const DisplayList = (props) => {
 
 DisplayList.propTypes = {
   index: PropTypes.number,
-  item: PropTypes.string
+  item: PropTypes.object
 }
 
 export default DisplayList

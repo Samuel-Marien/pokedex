@@ -45,7 +45,7 @@ const SetDetails = () => {
       {/* IMAGES DISPLAY  */}
       {myDropViewTitle === 'Images' ? (
         <div
-          className="container d-flex flex-wrap justify-content-between"
+          className="container d-flex flex-wrap justify-content-center justify-content-md-between"
           onClick={handleClick}
         >
           {myDropOrderTitle === 'Asc' ? (
