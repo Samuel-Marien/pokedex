@@ -26,7 +26,7 @@ const handleSubmit = (e) => {
 const MyLocalInput = (props) => {
   const { children } = props
   return (
-    <Row className="col-8 mt-3">
+    <Row className="col-12 col-md-8 mt-3">
       <Form onSubmit={handleSubmit}>
         <InputGroup>
           <FormControl
@@ -56,7 +56,7 @@ const SearchCard = () => {
     <div className="container mt-5">
       <div className="d-flex flex-column align-items-center">
         <h1>Pokemon TCG</h1>
-        <h5>The Ultimate Pokémon Card Database</h5>
+        <h5 className="text-center">The Ultimate Pokémon Card Database</h5>
         <MyLocalInput>
           <Link to="/cards">
             <Button

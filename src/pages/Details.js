@@ -32,6 +32,8 @@ const Details = () => {
     fetchData()
   }, [setData])
 
+  console.log(data)
+
   const DataMarket = (props) => {
     const { name, textColor, target } = props
     return (

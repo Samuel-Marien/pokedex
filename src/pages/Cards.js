@@ -51,7 +51,7 @@ const Cards = () => {
       {/* IMAGES DISPLAY  */}
       {myDropViewTitle === 'Images' ? (
         <div
-          className="container d-flex flex-wrap justify-content-between"
+          className="container d-flex flex-wrap justify-content-center justify-content-md-between"
           onClick={handleClick}
         >
           {myDropOrderTitle === 'Asc' ? (
@@ -98,12 +98,12 @@ const Cards = () => {
         // LIST DISPLAY
         <div className="container">
           <div className="row border-bottom border-secondary pb-2 mb-2 px-4 fw-bold">
-            <div className="col-3">Set</div>
-            <div className="col-1">No</div>
+            <div className="col-3 d-none d-lg-block">Set</div>
+            <div className="col-1 d-none d-lg-block">No</div>
             <div className="col">Name</div>
             <div className="col">Rarity</div>
-            <div className="col-1">Types</div>
-            <div className="col">Supertype</div>
+            <div className="col-1 d-none d-lg-block">Types</div>
+            <div className="col d-none d-lg-block">Supertype</div>
             <div className="col">Subtypes</div>
             <div className="col-1">Price</div>
           </div>
@@ -129,10 +129,16 @@ const Cards = () => {
                             className="list-group-item list-group-item-action pt-3"
                           >
                             <div className="row px-4" id={item.id}>
-                              <div className="col-3" id={item.id}>
+                              <div
+                                className="col-3 d-none d-lg-block"
+                                id={item.id}
+                              >
                                 {item.set.name}
                               </div>
-                              <div className="col-1" id={item.id}>
+                              <div
+                                className="col-1 d-none d-lg-block"
+                                id={item.id}
+                              >
                                 {item.number}
                               </div>
                               <div className="col" id={item.id}>
@@ -141,7 +147,10 @@ const Cards = () => {
                               <div className="col" id={item.id}>
                                 {item.rarity ? item.rarity : null}
                               </div>
-                              <div className="col-1" id={item.id}>
+                              <div
+                                className="col-1 d-none d-lg-block"
+                                id={item.id}
+                              >
                                 {item.types ? (
                                   <div>{stringToIcon(item.types[0])}</div>
                                 ) : (
@@ -149,7 +158,10 @@ const Cards = () => {
                                 )}
                               </div>
 
-                              <div className="col" id={item.id}>
+                              <div
+                                className="col d-none d-lg-block"
+                                id={item.id}
+                              >
                                 {item.supertype ? item.supertype : null}
                               </div>
                               <div className="col" id={item.id}>
@@ -160,19 +172,18 @@ const Cards = () => {
                                 {item.tcgplayer &&
                                 item.tcgplayer.prices.normal ? (
                                   <div className="text-primary" id={item.id}>
-                                    $ {item.tcgplayer.prices.normal.market}
+                                    {item.tcgplayer.prices.normal.market}
                                   </div>
                                 ) : null}
                                 {item.tcgplayer &&
                                 item.tcgplayer.prices.holofoil ? (
                                   <div className="text-primary" id={item.id}>
-                                    $ {item.tcgplayer.prices.holofoil.market}
+                                    {item.tcgplayer.prices.holofoil.market}
                                   </div>
                                 ) : null}
                                 {item.tcgplayer &&
                                 item.tcgplayer.prices['1stEditionHolofoil'] ? (
                                   <div className="text-primary" id={item.id}>
-                                    $
                                     {
                                       <p id={item.id}>
                                         {
@@ -216,10 +227,10 @@ const Cards = () => {
                         className="list-group-item list-group-item-action pt-3"
                       >
                         <div className="row px-4" id={item.id}>
-                          <div className="col-3" id={item.id}>
+                          <div className="col-3 d-none d-lg-block" id={item.id}>
                             {item.set.name}
                           </div>
-                          <div className="col-1" id={item.id}>
+                          <div className="col-1 d-none d-lg-block" id={item.id}>
                             {item.number}
                           </div>
                           <div className="col" id={item.id}>
@@ -228,7 +239,7 @@ const Cards = () => {
                           <div className="col" id={item.id}>
                             {item.rarity ? item.rarity : null}
                           </div>
-                          <div className="col-1" id={item.id}>
+                          <div className="col-1 d-none d-lg-block" id={item.id}>
                             {item.types ? (
                               <div>{stringToIcon(item.types[0])}</div>
                             ) : (
@@ -236,7 +247,7 @@ const Cards = () => {
                             )}
                           </div>
 
-                          <div className="col" id={item.id}>
+                          <div className="col d-none d-lg-block" id={item.id}>
                             {item.supertype ? item.supertype : null}
                           </div>
                           <div className="col" id={item.id}>
@@ -246,19 +257,18 @@ const Cards = () => {
                           <div className="col-1" id={item.id}>
                             {item.tcgplayer && item.tcgplayer.prices.normal ? (
                               <div className="text-primary" id={item.id}>
-                                $ {item.tcgplayer.prices.normal.market}
+                                {item.tcgplayer.prices.normal.market}
                               </div>
                             ) : null}
                             {item.tcgplayer &&
                             item.tcgplayer.prices.holofoil ? (
                               <div className="text-primary" id={item.id}>
-                                $ {item.tcgplayer.prices.holofoil.market}
+                                {item.tcgplayer.prices.holofoil.market}
                               </div>
                             ) : null}
                             {item.tcgplayer &&
                             item.tcgplayer.prices['1stEditionHolofoil'] ? (
                               <div className="text-primary" id={item.id}>
-                                $
                                 {
                                   <p id={item.id}>
                                     {

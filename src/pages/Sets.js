@@ -36,7 +36,7 @@ const Sets = () => {
       <MyNavBar>
         <MyInput />
       </MyNavBar>
-      <div className="container d-flex flex-wrap justify-content-between">
+      <div className="container d-flex flex-wrap justify-content-center justify-content-md-around">
         {data ? (
           data
             .map((item, index) => {
@@ -73,19 +73,19 @@ const Sets = () => {
                     <div className="d-flex justify-content-center">
                       <Card.Title>{item.name}</Card.Title>
                     </div>
-                    <Card.Text className="text-secondary">
+                    <div className="text-secondary">
                       {item.legalities.expanded ? (
-                        <p className="p-0 m-0">
+                        <div className="p-0 m-0">
                           Expanded {item.legalities.expanded}
-                        </p>
+                        </div>
                       ) : null}
 
                       {item.legalities.standard ? (
-                        <p className="p-0 m-0">
+                        <div className="p-0 m-0">
                           Standard {item.legalities.standard}
-                        </p>
+                        </div>
                       ) : null}
-                    </Card.Text>
+                    </div>
                     <footer
                       style={{ fontSize: '.8rem' }}
                       className="text-secondary"

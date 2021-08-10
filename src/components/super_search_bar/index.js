@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import Context from '../context'
@@ -23,7 +23,7 @@ MyDropItem.propTypes = {
 const SuperSearchBar = (props) => {
   const { title, id } = props
   const { myDropViewTitle, setMyDropViewTitle } = useContext(Context)
-  const [myDropTitle, setMyDropTitle] = useState('Set/number')
+  // const [myDropTitle, setMyDropTitle] = useState('Set/number')
   const { myDropOrderTitle, setMyDropOrderTitle } = useContext(Context)
 
   return (
@@ -60,7 +60,7 @@ const SuperSearchBar = (props) => {
           </Dropdown.Toggle>
         </Dropdown>
         {/* Second dropDown  */}
-        <p className="ms-4 me-2">Sorted by</p>
+        {/* <p className="ms-4 me-2">Sorted by</p>
         <Dropdown>
           <Dropdown.Toggle
             className="px-2"
@@ -100,7 +100,7 @@ const SuperSearchBar = (props) => {
               />
             </Dropdown.Menu>
           </Dropdown.Toggle>
-        </Dropdown>
+        </Dropdown> */}
         {/* Third dropDown  */}
         <p className="me-2 ms-4">Ordered by</p>
         <Dropdown>
