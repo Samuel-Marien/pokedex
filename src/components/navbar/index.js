@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import SwitchButton from '../themeSwitch'
+
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
@@ -29,6 +31,7 @@ MyLink.propTypes = {
 
 const MyNavBar = (props) => {
   const { children } = props
+
   return (
     <Navbar bg="light" expand="lg" className="shadow">
       <div className="container">
@@ -39,7 +42,7 @@ const MyNavBar = (props) => {
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav ">
-          <Nav className="col-11 mt-4 mt-md-0">
+          <Nav className="col-9 mt-4 mt-md-0">
             <MyLink
               to={'/set'}
               icon={<GiCardBurn className="me-1" />}
@@ -52,11 +55,14 @@ const MyNavBar = (props) => {
             />
             {children}
           </Nav>
-          <MyLink
-            to={'/set'}
-            icon={<GoMail className="me-1" />}
-            title="Contact"
-          />
+          <Nav className="col d-flex justify-content-end">
+            <SwitchButton />
+            <MyLink
+              to={'/set'}
+              icon={<GoMail className="me-1" />}
+              title="Contact"
+            />
+          </Nav>
         </Navbar.Collapse>
       </div>
     </Navbar>
