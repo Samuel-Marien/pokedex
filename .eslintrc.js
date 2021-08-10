@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
-
-module.exports = {
+export default {
   env: {
     browser: true,
     es2021: true
@@ -14,5 +12,5 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['react'],
-  rules: { 'space-before-function-paren': ['error', 'never'] }
+  rules: {}
 }

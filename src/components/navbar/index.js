@@ -39,7 +39,7 @@ const MyNavBar = (props) => {
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav ">
-          <Nav className="col-11">
+          <Nav className="col-11 mt-4 mt-md-0">
             <MyLink
               to={'/set'}
               icon={<GiCardBurn className="me-1" />}

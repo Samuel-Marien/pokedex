@@ -30,7 +30,7 @@ const MyInput = () => {
 
   return (
     <div>
-      <Row className="col-12">
+      <Row className="col-12 my-4 my-md-0">
         <Form onSubmit={handleSubmit}>
           <InputGroup>
             <FormControl

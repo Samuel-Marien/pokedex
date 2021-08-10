@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const displayCards = (props) => {
+const DisplayCards = (props) => {
   const { index, item } = props
   return (
     <div key={index} id={item.id}>
@@ -17,4 +18,9 @@ const displayCards = (props) => {
   )
 }
 
-export default displayCards
+DisplayCards.propTypes = {
+  index: PropTypes.number,
+  item: PropTypes.object
+}
+
+export default DisplayCards
