@@ -187,44 +187,48 @@ const Details = () => {
                   </div>
 
                   {/* Evolution section  */}
-                  <div className="px-3 d-flex align-items-baseline">
+                  <div className="ms-3 my-2">
                     {item.evolvesFrom ? (
-                      <div
-                        role="button my-2"
-                        onClick={handleNewDetails}
-                        id={item.evolvesFrom}
-                      >
+                      <div className="d-flex">
                         <TiArrowMinimiseOutline
-                          color={'#0dcaf0'}
-                          size={25}
+                          color={'#212529'}
+                          size={22}
                           id={item.evolvesFrom}
                         />
-                        <Link
+                        <p className="m-0 me-3">Evoles from : </p>
+                        <div
+                          role="button my-2"
+                          onClick={handleNewDetails}
                           id={item.evolvesFrom}
-                          to="/cards"
-                          className="text-decoration-none text-dark"
                         >
-                          {item.evolvesFrom}
-                        </Link>
+                          <Link
+                            id={item.evolvesFrom}
+                            to="/cards"
+                            className="text-decoration-none text-info"
+                          >
+                            {item.evolvesFrom}
+                          </Link>
+                        </div>
                       </div>
                     ) : null}
                     {item.evolvesTo ? (
-                      <div className="ms-2 my-2">
+                      <div className="d-flex flex-wrap">
+                        <TiArrowMaximiseOutline color={'#212529'} size={22} />
+                        <p className="m-0 me-3">Evoles to : </p>
                         {item.evolvesTo.map((elem, index) => {
                           return (
                             <div key={index} onClick={handleNewDetails}>
-                              <TiArrowMaximiseOutline
-                                color={'#0dcaf0'}
-                                size={25}
-                              />
-                              <Link
-                                to="/cards"
-                                className="text-decoration-none text-dark"
-                              >
-                                <span className="me-1" id={elem}>
-                                  {elem}
-                                </span>
-                              </Link>
+                              <div className="d-flex">
+                                <Link
+                                  to="/cards"
+                                  className="text-decoration-none text-dark"
+                                >
+                                  <span className="me-1 text-info" id={elem}>
+                                    {index === 0 ? null : '- '}
+                                    {elem}
+                                  </span>
+                                </Link>
+                              </div>
                             </div>
                           )
                         })}
@@ -370,13 +374,13 @@ const Details = () => {
                       ) : null}
                     </div>
                   ) : null}
+
                   {/* Card Market  */}
                   <div className="bg-light px-3 pt-1 border-top rounded">
                     <h3 className="mb-1 me-2">Market trend</h3>
                     <p style={{ fontSize: '.8rem' }}>
                       Last Updated {item.tcgplayer.updatedAt}
                     </p>
-
                     <div className="row gx-0">
                       <DataMarket
                         name="TREND"
