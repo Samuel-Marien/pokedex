@@ -11,6 +11,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 const DisplayList = (props) => {
   const { index, item } = props
   const { setCardDetail } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   const renderTooltip = (src, ...props) => <img {...props} src={src} />
 
@@ -34,7 +35,11 @@ const DisplayList = (props) => {
         <Link to="/details" className="text-decoration-none">
           <div
             id={item.id}
-            className="list-group-item list-group-item-action p-1"
+            className={
+              isDark
+                ? 'bg-light text-dark list-group-item list-group-item-action p-1'
+                : 'bg-dark text-light list-group-item list-group-item-action p-1'
+            }
           >
             <div
               className="row px-2"

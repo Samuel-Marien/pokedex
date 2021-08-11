@@ -13,7 +13,3 @@
 .darkEffect {
   transition: 1s;
 }
-
-.test:hover {
-  background-color: red;
-}

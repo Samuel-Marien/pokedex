@@ -23,14 +23,14 @@ const SwitchButton = () => {
     <Navbar.Text
       role="button"
       onClick={handleDark}
-      className="d-flex align-items-center"
+      className="d-flex align-items-center "
     >
       {isDark === true ? (
-        <div className="d-flex align-items-center">
+        <div className=" d-flex align-items-center">
           <GiMoon /> <span className="ms-1 text-secondary">Dark</span>
         </div>
       ) : (
-        <div className="d-flex align-items-center">
+        <div className=" d-flex align-items-center">
           <BsSun /> <span className="ms-1 text-light">Light</span>
         </div>
       )}

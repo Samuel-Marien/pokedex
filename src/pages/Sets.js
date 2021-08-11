@@ -16,6 +16,7 @@ import MyNavBar from '../components/navbar'
 const Sets = () => {
   const [data, setData] = useState('')
   const { setSetDetail } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +33,7 @@ const Sets = () => {
   }
 
   return (
-    <div>
+    <div className={isDark ? 'bg-light' : 'bg-dark'}>
       <MyNavBar>
         <MyInput />
       </MyNavBar>
@@ -44,7 +45,11 @@ const Sets = () => {
                 <Card
                   key={index}
                   style={{ width: '18rem' }}
-                  className=" shadow mt-3 text-center card_effect"
+                  className={
+                    isDark
+                      ? 'bg-light text-dark shadow mt-3 text-center card_effect'
+                      : 'bg-dark text-light shadow mt-3 text-center card_effect border border-light'
+                  }
                   onClick={handleClick}
                   id={item.id}
                 >
