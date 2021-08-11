@@ -9,3 +9,7 @@
 .card_effect {
   transition: 0.3s;
 }
+
+.darkEffect {
+  transition: 1s;
+}

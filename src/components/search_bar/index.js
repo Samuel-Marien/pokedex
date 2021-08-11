@@ -25,11 +25,14 @@ const handleSubmit = (e) => {
 
 const MyLocalInput = (props) => {
   const { children } = props
+  const { isDark } = useContext(Context)
+
   return (
-    <Row className="col-12 col-md-8 mt-3">
+    <Row className="col-12 col-md-6 mt-3">
       <Form onSubmit={handleSubmit}>
         <InputGroup>
           <FormControl
+            className={isDark ? 'text-dark bg-light' : 'text-light bg-dark'}
             aria-describedby="basic-addon1"
             onChange={handleChange}
             placeholder="Search for a card..."

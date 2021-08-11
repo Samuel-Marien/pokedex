@@ -12,6 +12,7 @@ const Home = () => {
 
   return (
     <div
+      className="darkEffect"
       style={{
         background: `url(${isDark ? urlLightImage : urlDarkImage}) center top`,
         height: '100vh'
