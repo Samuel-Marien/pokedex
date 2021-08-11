@@ -30,7 +30,7 @@ const SetDetails = () => {
       })
     }
     fetchData()
-  }, [setData])
+  }, [setDetail])
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -79,14 +79,18 @@ const SetDetails = () => {
                 })
                 .reverse()
             ) : (
-              <MySpinner />
+              <div className="container d-flex flex-wrap justify-content-center justify-content-md-between">
+                <MySpinner />
+              </div>
             )
           ) : data ? (
             data.map((item, index) => {
               return <DisplayList item={item} key={index} />
             })
           ) : (
-            <MySpinner />
+            <div className="container d-flex flex-wrap justify-content-center justify-content-md-between">
+              <MySpinner />
+            </div>
           )}
         </div>
       )}

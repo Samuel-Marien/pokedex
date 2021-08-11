@@ -17,6 +17,7 @@ import { TiArrowMaximiseOutline, TiArrowMinimiseOutline } from 'react-icons/ti'
 
 import MyNavBar from '../components/navbar'
 import stringToIcon from '../components/helper'
+import MySpinner from '../components/spinner'
 
 const Details = () => {
   const { cardDetail } = useContext(Context)
@@ -28,7 +29,12 @@ const Details = () => {
   useEffect(() => {
     const fetchData = async () => {
       pokemon.card.find(`${cardDetail}`).then((card) => {
-        setData({ myData: [card] })
+        console.log(card.length)
+        if (card.length !== 250) {
+          setData({ myData: [card] })
+        } else {
+          return setData({ myData: [] })
+        }
       })
     }
     fetchData()
@@ -108,7 +114,7 @@ const Details = () => {
   }
 
   const MyCard = () => {
-    return data.myData ? (
+    return data.myData.length === 1 ? (
       data.myData.map((item, index) => {
         return (
           <div
@@ -618,7 +624,11 @@ const Details = () => {
         )
       })
     ) : (
-      <p>No data to display</p>
+      <div style={{ height: '100vh' }}>
+        <div className="container d-flex flex-wrap justify-content-center justify-content-md-between">
+          <MySpinner />
+        </div>
+      </div>
     )
   }
 
