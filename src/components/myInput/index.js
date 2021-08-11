@@ -23,6 +23,7 @@ const handleSubmit = (e) => {
 
 const MyInput = () => {
   const { setUserValue } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   const handleClick = () => {
     setUserValue(userWord)
@@ -34,6 +35,7 @@ const MyInput = () => {
         <Form onSubmit={handleSubmit}>
           <InputGroup>
             <FormControl
+              className={isDark ? 'text-dark bg-light' : 'text-light bg-dark'}
               aria-describedby="basic-addon1"
               onChange={handleChange}
               placeholder="Search for a card..."

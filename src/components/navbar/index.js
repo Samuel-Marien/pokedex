@@ -41,9 +41,9 @@ const MyNavBar = (props) => {
 
   return (
     <Navbar
-      variant={isDark ? 'light' : 'dark'}
+      variant={isDark ? 'light ' : 'dark'}
       bg={isDark ? 'light' : 'dark'}
-      expand="lg"
+      expand="md"
       className="shadow"
     >
       <div className="container">
@@ -68,7 +68,9 @@ const MyNavBar = (props) => {
             {children}
           </Nav>
           <Nav className="col d-flex justify-content-end">
-            <SwitchButton />
+            <div className="mx-3">
+              <SwitchButton />
+            </div>
             <MyLink
               to={'/set'}
               icon={<GoMail className="me-1" />}

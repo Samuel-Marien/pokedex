@@ -23,6 +23,7 @@ const Details = () => {
   const { setSetDetail } = useContext(Context)
   const { setUserValue } = useContext(Context)
   const [data, setData] = useState({ myData: [] })
+  const { isDark } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,7 +111,12 @@ const Details = () => {
     return data.myData ? (
       data.myData.map((item, index) => {
         return (
-          <div key={index} className="container mt-5">
+          <div
+            key={index}
+            className={
+              isDark ? 'container mt-5 text-dark' : 'container mt-5 text-light'
+            }
+          >
             <div className="my-5">
               <div className="row gx-0">
                 {/* Left Side */}
@@ -191,7 +197,7 @@ const Details = () => {
                     {item.evolvesFrom ? (
                       <div className="d-flex">
                         <TiArrowMinimiseOutline
-                          color={'#212529'}
+                          className={isDark ? '#f8f9fa' : '#212529'}
                           size={22}
                           id={item.evolvesFrom}
                         />
@@ -213,7 +219,10 @@ const Details = () => {
                     ) : null}
                     {item.evolvesTo ? (
                       <div className="d-flex flex-wrap">
-                        <TiArrowMaximiseOutline color={'#212529'} size={22} />
+                        <TiArrowMaximiseOutline
+                          className={isDark ? '#f8f9fa' : '#212529'}
+                          size={22}
+                        />
                         <p className="m-0 me-3">Evoles to : </p>
                         {item.evolvesTo.map((elem, index) => {
                           return (
@@ -238,7 +247,13 @@ const Details = () => {
 
                   {/* Body  */}
                   {item.tcgplayer ? (
-                    <div className="bg-light px-3 pt-1 rounded">
+                    <div
+                      className={
+                        isDark
+                          ? 'bg-light px-3 pt-1 rounded'
+                          : 'bg-dark border-top border-secondary px-3 pt-1'
+                      }
+                    >
                       {/* Price header  */}
                       <div className="pt-2">
                         <div className="d-flex align-items-baseline">
@@ -376,7 +391,13 @@ const Details = () => {
                   ) : null}
 
                   {/* Card Market  */}
-                  <div className="bg-light px-3 pt-1 border-top rounded">
+                  <div
+                    className={
+                      isDark
+                        ? 'bg-light px-3 pt-1 border-top rounded'
+                        : 'bg-dark px-3 pt-1 border-top border-secondary'
+                    }
+                  >
                     <h3 className="mb-1 me-2">Market trend</h3>
                     <p style={{ fontSize: '.8rem' }}>
                       Last Updated {item.tcgplayer.updatedAt}
@@ -461,7 +482,13 @@ const Details = () => {
                   ) : null}
 
                   {/* ATTACK  */}
-                  <div className="p-3 bg-light">
+                  <div
+                    className={
+                      isDark
+                        ? 'p-3 bg-light'
+                        : 'p-3 bg-dark border-top border-light'
+                    }
+                  >
                     <p className="mb-2 fw-bold">ATTACKS</p>
                     {item.attacks ? (
                       item.attacks.map((item, index) => {
@@ -528,7 +555,13 @@ const Details = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="p-3 bg-light">
+                  <div
+                    className={
+                      isDark
+                        ? 'p-3 bg-light'
+                        : 'p-3 bg-dark border-top border-light'
+                    }
+                  >
                     <div className="container">
                       <div className="row">
                         <div className="col-4">
@@ -552,7 +585,7 @@ const Details = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="p-3">
+                  <div className="p-3 mb-5">
                     <div className="d-flex">
                       <div className="container">
                         <div className="row">
@@ -590,7 +623,7 @@ const Details = () => {
   }
 
   return (
-    <div>
+    <div className={isDark ? 'bg-light' : 'bg-dark'}>
       <MyNavBar>
         <MyInput />
       </MyNavBar>

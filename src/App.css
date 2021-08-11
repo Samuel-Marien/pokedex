@@ -13,3 +13,7 @@
 .darkEffect {
   transition: 1s;
 }
+
+html {
+  background-color: #212529;
+}

@@ -10,7 +10,7 @@ const MyDropItem = (props) => {
   const { isDark } = useContext(Context)
   return (
     <Dropdown.Item
-      className={isDark ? 'text-dark bg-light ' : 'text-light bg-dark '}
+      className={isDark ? 'text-dark bg-light ' : 'text-light bg-dark'}
       onClick={func}
       href={href}
     >
@@ -42,7 +42,11 @@ const SuperSearchBar = (props) => {
         >
           {title}
         </h2>
-        {id ? <p className="ms-2">({id})</p> : null}
+        {id ? (
+          <p className={isDark ? 'ms-2 text-dark' : 'ms-2 text-light'}>
+            ({id})
+          </p>
+        ) : null}
       </div>
       <div className="container d-flex align-items-baseline">
         {/* First dropDown  */}
@@ -55,7 +59,7 @@ const SuperSearchBar = (props) => {
             size="sm"
           >
             {myDropViewTitle}
-            <Dropdown.Menu>
+            <Dropdown.Menu className="m-0 p-0">
               <MyDropItem
                 func={() => {
                   setMyDropViewTitle('Images')
@@ -126,7 +130,7 @@ const SuperSearchBar = (props) => {
             size="sm"
           >
             {myDropOrderTitle}
-            <Dropdown.Menu>
+            <Dropdown.Menu className="m-0 p-0">
               <MyDropItem
                 func={() => {
                   setMyDropOrderTitle('Asc')

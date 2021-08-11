@@ -20,6 +20,7 @@ const SetDetails = () => {
   const [data, setData] = useState('')
   const [title, setTitle] = useState('')
   const { myDropOrderTitle } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +38,7 @@ const SetDetails = () => {
   }
 
   return (
-    <div>
+    <div className={isDark ? 'bg-light' : 'bg-dark'}>
       <MyNavBar>
         <MyInput />
       </MyNavBar>
