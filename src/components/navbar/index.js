@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import Context from '../context'
 import SwitchButton from '../themeSwitch'
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -13,9 +14,14 @@ import { SiOpslevel } from 'react-icons/si'
 
 const MyLink = (props) => {
   const { to, icon, title } = props
+  const { isDark } = useContext(Context)
   return (
     <Link
-      className="d-flex align-items-center mx-3 text-secondary text-decoration-none"
+      className={
+        isDark
+          ? 'text-secondary d-flex align-items-center mx-3 text-secondary text-decoration-none'
+          : 'text-light d-flex align-items-center mx-3 text-secondary text-decoration-none'
+      }
       to={to}
     >
       {icon}
@@ -31,9 +37,15 @@ MyLink.propTypes = {
 
 const MyNavBar = (props) => {
   const { children } = props
+  const { isDark } = useContext(Context)
 
   return (
-    <Navbar bg="light" expand="lg" className="shadow">
+    <Navbar
+      variant={isDark ? 'light' : 'dark'}
+      bg={isDark ? 'light' : 'dark'}
+      expand="lg"
+      className="shadow"
+    >
       <div className="container">
         <Link to="/" className="text-decoration-none">
           <Navbar.Brand>

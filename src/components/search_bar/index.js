@@ -47,6 +47,7 @@ MyLocalInput.propTypes = {
 
 const SearchCard = () => {
   const { setUserValue } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   const handleClick = () => {
     setUserValue(userWord)
@@ -55,8 +56,14 @@ const SearchCard = () => {
   return (
     <div className="container mt-5">
       <div className="d-flex flex-column align-items-center">
-        <h1>Pokemon TCG</h1>
-        <h5 className="text-center">The Ultimate Pokémon Card Database</h5>
+        <h1 className={isDark ? 'text-dark' : 'text-light'}>Pokemon TCG</h1>
+        <h5
+          className={
+            isDark ? 'text-center text-dark' : 'text-center text-light'
+          }
+        >
+          The Ultimate Pokémon Card Database
+        </h5>
         <MyLocalInput>
           <Link to="/cards">
             <Button
