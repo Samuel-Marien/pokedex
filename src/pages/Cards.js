@@ -19,6 +19,7 @@ const Cards = () => {
   const { setCardDetail } = useContext(Context)
   const { myDropViewTitle } = useContext(Context)
   const { myDropOrderTitle } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +41,7 @@ const Cards = () => {
   }
 
   return (
-    <div>
+    <div className={isDark ? 'bg-light' : 'bg-dark'}>
       <MyNavBar>
         <MyInput />
       </MyNavBar>

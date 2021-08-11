@@ -7,8 +7,13 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 const MyDropItem = (props) => {
   const { func, href, name } = props
+  const { isDark } = useContext(Context)
   return (
-    <Dropdown.Item onClick={func} href={href}>
+    <Dropdown.Item
+      className={isDark ? 'text-dark bg-light ' : 'text-light bg-dark '}
+      onClick={func}
+      href={href}
+    >
       {name}
     </Dropdown.Item>
   )
@@ -25,16 +30,23 @@ const SuperSearchBar = (props) => {
   const { myDropViewTitle, setMyDropViewTitle } = useContext(Context)
   // const [myDropTitle, setMyDropTitle] = useState('Set/number')
   const { myDropOrderTitle, setMyDropOrderTitle } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   return (
     <div>
       <div className="container mt-5 d-flex align-items-baseline">
-        <h2 className="text-capitalize">{title}</h2>
+        <h2
+          className={
+            isDark ? 'text-capitalize text-dark' : 'text-capitalize text-light'
+          }
+        >
+          {title}
+        </h2>
         {id ? <p className="ms-2">({id})</p> : null}
       </div>
       <div className="container d-flex align-items-baseline">
         {/* First dropDown  */}
-        <p className="me-2">View as</p>
+        <p className={isDark ? 'me-2 text-dark' : 'me-2 text-light'}>View as</p>
         <Dropdown>
           <Dropdown.Toggle
             className="px-2"
@@ -50,6 +62,7 @@ const SuperSearchBar = (props) => {
                 }}
                 name="Images"
               />
+              {isDark ? null : <Dropdown.Divider className="bg-info p-0 m-0" />}
               <MyDropItem
                 func={() => {
                   setMyDropViewTitle('List')
@@ -102,7 +115,9 @@ const SuperSearchBar = (props) => {
           </Dropdown.Toggle>
         </Dropdown> */}
         {/* Third dropDown  */}
-        <p className="me-2 ms-4">Ordered by</p>
+        <p className={isDark ? 'me-2 ms-4 text-dark' : 'me-2 ms-4 text-light'}>
+          Ordered by
+        </p>
         <Dropdown>
           <Dropdown.Toggle
             className="px-2"
@@ -119,6 +134,7 @@ const SuperSearchBar = (props) => {
                 href="#/action-1"
                 name="Asc"
               />
+              {isDark ? null : <Dropdown.Divider className="bg-info p-0 m-0" />}
               <MyDropItem
                 func={() => {
                   setMyDropOrderTitle('Desc')
