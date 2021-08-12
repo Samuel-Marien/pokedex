@@ -10,6 +10,8 @@ import ListTitles from '../components/listTitles'
 import DisplayCards from '../components/displayCards'
 import DisplayList from '../components/displayList'
 
+import Image from 'react-bootstrap/Image'
+
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 
@@ -19,6 +21,7 @@ const SetDetails = () => {
   const { myDropViewTitle } = useContext(Context)
   const [data, setData] = useState('')
   const [title, setTitle] = useState('')
+  // const {imageOfSet, setImageOfSet} = useContext(Context)
   const { myDropOrderTitle } = useContext(Context)
   const { isDark } = useContext(Context)
 
@@ -42,7 +45,16 @@ const SetDetails = () => {
       <MyNavBar>
         <MyInput />
       </MyNavBar>
-      <SuperSearchBar title={title} id={setDetail} />
+
+      <SuperSearchBar title={title} id={setDetail}>
+        <div className="mt-3 d-flex justify-content-center">
+          <Image
+            className="col-6 col-md-3"
+            src={`https://images.pokemontcg.io/${setDetail}/logo.png`}
+            fluid
+          />
+        </div>
+      </SuperSearchBar>
       {/* IMAGES DISPLAY  */}
       {myDropViewTitle === 'Images' ? (
         <div

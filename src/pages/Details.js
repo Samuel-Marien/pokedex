@@ -29,7 +29,6 @@ const Details = () => {
   useEffect(() => {
     const fetchData = async () => {
       pokemon.card.find(`${cardDetail}`).then((card) => {
-        console.log(card.length)
         if (card.length !== 250) {
           setData({ myData: [card] })
         } else {
@@ -39,8 +38,6 @@ const Details = () => {
     }
     fetchData()
   }, [setData])
-
-  console.log(data)
 
   const DataMarket = (props) => {
     const { name, textColor, target } = props
@@ -65,7 +62,11 @@ const Details = () => {
     return (
       <div className="d-flex" style={{ fontSize: '.8rem' }}>
         <span
-          className="bg-dark text-light px-1"
+          className={
+            isDark
+              ? 'bg-dark text-light px-1 '
+              : 'bg-dark text-light px-1 border border-light'
+          }
           style={{
             borderTopLeftRadius: '5px',
             borderBottomLeftRadius: '5px'
@@ -75,7 +76,11 @@ const Details = () => {
         </span>
         {target ? (
           <span
-            className="bg-success text-light px-1"
+            className={
+              isDark
+                ? 'bg-success text-light px-1'
+                : 'bg-success text-light px-1 border border-light'
+            }
             style={{
               borderTopRightRadius: '5px',
               borderBottomRightRadius: '5px'
@@ -85,7 +90,11 @@ const Details = () => {
           </span>
         ) : (
           <span
-            className="border border-dark px-1"
+            className={
+              isDark
+                ? 'bg-danger text-light px-1'
+                : 'bg-secondary text-light px-1 border border-light'
+            }
             style={{
               borderTopRightRadius: '5px',
               borderBottomRightRadius: '5px'
@@ -257,7 +266,7 @@ const Details = () => {
                       className={
                         isDark
                           ? 'bg-light px-3 pt-1 rounded'
-                          : 'bg-dark border-top border-secondary px-3 pt-1'
+                          : 'bg-dark border-top border-light px-3 pt-1'
                       }
                     >
                       {/* Price header  */}
@@ -434,7 +443,7 @@ const Details = () => {
 
                   {/* Flavour text */}
                   {item.flavorText ? (
-                    <div className="p-3 px-5 w-75 mx-auto">
+                    <div className="p-3 px-5 w-75 mx-auto ">
                       <p style={{ fontSize: '.8rem' }}>
                         <em>{item.flavorText}</em>
                       </p>
@@ -468,7 +477,7 @@ const Details = () => {
 
                   {/* Rules  */}
                   {item.rules ? (
-                    <div className="px-3 pb-3">
+                    <div className="px-4 py-2 border-top border-light">
                       {item.rules.map((elem, index) => {
                         if (index >= 1) {
                           return (

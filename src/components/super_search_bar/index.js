@@ -26,7 +26,7 @@ MyDropItem.propTypes = {
 }
 
 const SuperSearchBar = (props) => {
-  const { title, id } = props
+  const { title, children } = props
   const { myDropViewTitle, setMyDropViewTitle } = useContext(Context)
   // const [myDropTitle, setMyDropTitle] = useState('Set/number')
   const { myDropOrderTitle, setMyDropOrderTitle } = useContext(Context)
@@ -34,7 +34,8 @@ const SuperSearchBar = (props) => {
 
   return (
     <div>
-      <div className="container mt-5 d-flex align-items-baseline">
+      {children}
+      <div className="container mt-4 d-flex align-items-center ">
         <h2
           className={
             isDark ? 'text-capitalize text-dark' : 'text-capitalize text-light'
@@ -42,13 +43,8 @@ const SuperSearchBar = (props) => {
         >
           {title}
         </h2>
-        {id ? (
-          <p className={isDark ? 'ms-2 text-dark' : 'ms-2 text-light'}>
-            ({id})
-          </p>
-        ) : null}
       </div>
-      <div className="container d-flex align-items-baseline">
+      <div className="container mb-3 d-flex align-items-baseline">
         {/* First dropDown  */}
         <p className={isDark ? 'me-2 text-dark' : 'me-2 text-light'}>View as</p>
         <Dropdown>
@@ -156,7 +152,9 @@ const SuperSearchBar = (props) => {
 
 SuperSearchBar.propTypes = {
   title: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  src: PropTypes.string,
+  children: PropTypes.node
 }
 
 export default SuperSearchBar

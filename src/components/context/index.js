@@ -8,6 +8,7 @@ export const Provider = (props) => {
   const [myDropViewTitle, setMyDropViewTitle] = useState('Images')
   const [myDropOrderTitle, setMyDropOrderTitle] = useState('Asc')
   const [isDark, setIsDark] = useState(true)
+  const [imageOfSet, setImageOfSet] = useState('')
 
   return (
     <Context.Provider
@@ -24,7 +25,9 @@ export const Provider = (props) => {
         myDropOrderTitle,
         setMyDropOrderTitle,
         isDark,
-        setIsDark
+        setIsDark,
+        imageOfSet,
+        setImageOfSet
       }}
     />
   )
