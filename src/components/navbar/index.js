@@ -61,7 +61,7 @@ const MyNavBar = (props) => {
               title="Sets"
             />
             <MyLink
-              to={'/set'}
+              to={'/advanced'}
               icon={<SiOpslevel className="me-1" />}
               title="Advanced"
             />
