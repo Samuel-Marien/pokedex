@@ -34,26 +34,26 @@ export const subtypeArray = [
   'BREAK',
   'Baby',
   'Basic',
-  'Ex',
+  'EX',
   'GX',
-  'Goldenrod Game Corner',
+  'Goldenrod', //Goldenrod Game Corner
   'Item',
   'LEGEND',
   'Level-Up',
   'MEGA',
-  'Pokémon tool',
-  'Pokémon Tool F',
-  'Rapid Strike',
+  'Tool', // Pokémon Tool
+  'F', //Pokémon Tool F
+  'Rapid', //'Rapid Strike'
   'Restored',
-  "Rocket's Secret Machine",
-  'Single Strike',
+  'Rocket', //Rocket's Secret Machine
+  'Single', //single strike
   'Special',
   'Stadium',
-  'Stage 1',
-  'Stage 2',
+  'Stage', // probleme ici
+  'Stage 2', //probleme ici
   'Supporter',
-  'TAG TEAM',
-  'Technical Machine',
+  'TAG', //TAG TEAM
+  'Technical', //Technical Machine
   'V',
   'VMAX'
 ]
