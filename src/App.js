@@ -12,6 +12,7 @@ import Cards from './pages/Cards'
 import Details from './pages/Details'
 import SetDetails from './pages/SetDetails'
 import Advanced from './pages/Advanced'
+import AdvancedDetails from './pages/AdvancedDetails'
 
 function App() {
   return (
@@ -30,11 +31,14 @@ function App() {
           <Route path="/details" exact>
             <Details />
           </Route>
-          <Route path="/set_details" exact>
+          <Route path="/set-details" exact>
             <SetDetails />
           </Route>
           <Route path="/advanced" exact>
             <Advanced />
+          </Route>
+          <Route path="/advanced-details" exact>
+            <AdvancedDetails />
           </Route>
         </Switch>
       </Router>

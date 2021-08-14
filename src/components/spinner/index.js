@@ -16,7 +16,14 @@ const MySpinner = () => {
 
   return (
     <div className="mx-auto my-5" style={{ height: '100vh' }}>
-      {timer > 5 ? <p>plop</p> : <Spinner animation="grow" variant="warning" />}
+      {timer > 5 ? (
+        <p>
+          Bad Request. Your request is either malformed, or is missing one or
+          more required fields.
+        </p>
+      ) : (
+        <Spinner animation="grow" variant="warning" />
+      )}
     </div>
   )
 }

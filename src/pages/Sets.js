@@ -64,7 +64,7 @@ const Sets = () => {
 
                     <img src={item.images.symbol} className="col-1" />
                   </Card.Header>
-                  <Link to="/set_details">
+                  <Link to="/set-details">
                     <div style={{ width: '14rem' }} className="mx-auto mt-4">
                       <Card.Img
                         variant="top"

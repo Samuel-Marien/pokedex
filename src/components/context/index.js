@@ -1,5 +1,4 @@
-import React from 'react'
-import { createContext, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
 export const Provider = (props) => {
   const [userValue, setUserValue] = useState('')
@@ -9,6 +8,7 @@ export const Provider = (props) => {
   const [myDropOrderTitle, setMyDropOrderTitle] = useState('Asc')
   const [isDark, setIsDark] = useState(true)
   const [imageOfSet, setImageOfSet] = useState('')
+  const [advancedData, setAdvancedData] = useState([])
 
   return (
     <Context.Provider
@@ -27,7 +27,9 @@ export const Provider = (props) => {
         isDark,
         setIsDark,
         imageOfSet,
-        setImageOfSet
+        setImageOfSet,
+        advancedData,
+        setAdvancedData
       }}
     />
   )

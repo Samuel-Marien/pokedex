@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import MyNavBar from '../components/navbar'
 import MyInput from '../components/myInput'
 import { subtypeArray } from '../components/helper/index'
+import Context from '../components/context'
 
 import pokemon from 'pokemontcgsdk'
 pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
@@ -17,6 +19,7 @@ let array = []
 const Advanced = () => {
   const [supertype, setSupertype] = useState('')
   const [subtype, setSubtype] = useState([])
+  const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
     e.preventDefault()
@@ -28,33 +31,34 @@ const Advanced = () => {
     array.push(e.target.id)
     setSubtype([...array])
   }
-  console.log(subtype)
+
+  const handleReset = () => {
+    setSubtype(() => (array = []))
+    setSupertype(null)
+    setAdvancedData(() => [])
+  }
+
+  // clear data  on load
+  useEffect(() => {
+    handleReset()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('submit!')
 
     // Filter cards via query parameters
     pokemon.card
-      // .all({ q: 'set.name:generations subtypes:EX subtypes:mega' })
-      // .all({ q: 'supertype:Pokémon subtypes:EX subtypes:mega' })
-      // .all({ q: 'subtypes:V' })
-
       .all({
-        q: `${supertype ? `supertype:${supertype}` : ''} ${subtype
+        q: `${supertype ? `supertype:${supertype}` : ''} 
+        ${subtype
           .map((elem) => {
             return `subtypes:${elem}`
           })
           .join(' ')}`
       })
       .then((result) => {
-        console.log(result)
+        setAdvancedData(result)
       })
-  }
-
-  const handleReset = () => {
-    setSubtype(() => (array = []))
-    setSupertype(null)
   }
 
   const SubtypeButton = (props) => {
@@ -92,8 +96,15 @@ const Advanced = () => {
           >
             See your choices
           </Button>
-          <Button type="submit" onClick={handleSubmit} variant="outline-info">
-            Search
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            variant="outline-info"
+            className="m-0 p-0"
+          >
+            <Link to="advanced-details" className="p-3">
+              Search
+            </Link>
           </Button>
         </div>
 
@@ -182,12 +193,16 @@ const Advanced = () => {
                 >
                   Reset
                 </Button>
+
                 <Button
                   type="submit"
                   onClick={handleSubmit}
                   variant="outline-info"
+                  className="m-0 p-0"
                 >
-                  Search
+                  <Link to="advanced-details" className="p-3">
+                    Search
+                  </Link>
                 </Button>
               </div>
             </div>
