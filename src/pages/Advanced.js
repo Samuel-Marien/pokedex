@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import MyNavBar from '../components/navbar'
 import MyInput from '../components/myInput'
 import { subtypeArray } from '../components/helper/index'
+import { typesArray } from '../components/helper/index'
 import Context from '../components/context'
 
 import pokemon from 'pokemontcgsdk'
@@ -13,12 +14,14 @@ pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Button from 'react-bootstrap/Button'
 import Fade from 'react-bootstrap/Fade'
+import Form from 'react-bootstrap/Form'
 
 let array = []
 
 const Advanced = () => {
   const [supertype, setSupertype] = useState('')
   const [subtype, setSubtype] = useState([])
+  // const [type, setType] = useState('')
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -38,7 +41,7 @@ const Advanced = () => {
     setAdvancedData(() => [])
   }
 
-  // clear data  on load
+  // clear data on load
   useEffect(() => {
     handleReset()
   }, [])
@@ -55,6 +58,7 @@ const Advanced = () => {
             return `subtypes:${elem}`
           })
           .join(' ')}`
+        // `${type ? `type:${type}` : ''}
       })
       .then((result) => {
         setAdvancedData(result)
@@ -76,7 +80,6 @@ const Advanced = () => {
       </Button>
     )
   }
-
   SubtypeButton.propTypes = {
     name: PropTypes.string
   }
@@ -111,7 +114,6 @@ const Advanced = () => {
       </div>
     )
   }
-
   ChoicesBoard.propTypes = {
     children: PropTypes.node
   }
@@ -121,7 +123,7 @@ const Advanced = () => {
 
     return (
       <div className="mt-4 pt-4 d-flex flex-column flex-md-row justify-content-start border-top border-secondary">
-        <p className="me-5">{name}</p>
+        <p className="col-2">{name}</p>
         <div>
           {children}
           <p className="fw-light p-0 m-0 mt-3" style={{ fontSize: '.8rem' }}>
@@ -131,7 +133,6 @@ const Advanced = () => {
       </div>
     )
   }
-
   SearchBlock.propTypes = {
     name: PropTypes.string,
     text: PropTypes.string,
@@ -193,7 +194,24 @@ const Advanced = () => {
         <SearchBlock
           name="type"
           text="Selecting Fire and Water will filter on cards that are Fire OR Water."
-        ></SearchBlock>
+        >
+          <Form className="d-flex flex-wrap">
+            {typesArray.map((item, index) => {
+              return (
+                <div key={index} className="d-flex col-2 mt-2" id={item}>
+                  <Form.Check
+                    type="radio"
+                    // label={item}
+                    name="formHorizontalRadios"
+                    id={item}
+                    className=""
+                  />
+                  <img src={`/images/${item}.png`} style={{ width: '25px' }} />
+                </div>
+              )
+            })}
+          </Form>
+        </SearchBlock>
 
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
