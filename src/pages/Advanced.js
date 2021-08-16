@@ -81,7 +81,7 @@ const Advanced = () => {
     name: PropTypes.string
   }
 
-  function Example(props) {
+  function ChoicesBoard(props) {
     const { children } = props
     const [open, setOpen] = useState(true)
 
@@ -90,11 +90,11 @@ const Advanced = () => {
         <div className="d-flex justify-content-between">
           <Button
             onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
+            aria-controls="choices-collapse-text"
             aria-expanded={open}
             size="sm"
           >
-            See your choices
+            {open ? 'Hide your choices' : 'See your choices'}
           </Button>
           <Button
             type="submit"
@@ -107,13 +107,34 @@ const Advanced = () => {
             </Link>
           </Button>
         </div>
-
         <Fade in={open}>{children}</Fade>
       </div>
     )
   }
 
-  Example.propTypes = {
+  ChoicesBoard.propTypes = {
+    children: PropTypes.node
+  }
+
+  const SearchBlock = (props) => {
+    const { name, children, text } = props
+
+    return (
+      <div className="mt-4 pt-4 d-flex flex-column flex-md-row justify-content-start border-top border-secondary">
+        <p className="me-5">{name}</p>
+        <div>
+          {children}
+          <p className="fw-light p-0 m-0 mt-3" style={{ fontSize: '.8rem' }}>
+            {text}
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  SearchBlock.propTypes = {
+    name: PropTypes.string,
+    text: PropTypes.string,
     children: PropTypes.node
   }
 
@@ -130,47 +151,51 @@ const Advanced = () => {
         </div>
 
         {/* search by superType  */}
-        <div className="mt-4 pt-4 d-flex flex-column flex-md-row border-top border-secondary">
-          <p className="me-5">Supertype</p>
-          <div>
-            <ButtonToolbar aria-label="Toolbar with button groups">
-              <Button
-                onClick={handleSuperType}
-                className="me-3 me-md-5"
-                variant="outline-warning"
-                id="Energy"
-              >
-                Energy
-              </Button>
-              <Button
-                onClick={handleSuperType}
-                className="me-3 me-md-5"
-                variant="outline-info"
-                id="Pokémon"
-              >
-                Pokemon
-              </Button>
-              <Button
-                onClick={handleSuperType}
-                variant="outline-secondary"
-                id="Trainer"
-              >
-                Trainer
-              </Button>
-            </ButtonToolbar>
-          </div>
-        </div>
+        <SearchBlock name="Supertype" text="Click to select Supertype.">
+          <ButtonToolbar aria-label="Toolbar with button groups">
+            <Button
+              onClick={handleSuperType}
+              className="me-3 me-md-5"
+              variant="outline-warning"
+              id="Energy"
+            >
+              Energy
+            </Button>
+            <Button
+              onClick={handleSuperType}
+              className="me-3 me-md-5"
+              variant="outline-info"
+              id="Pokémon"
+            >
+              Pokemon
+            </Button>
+            <Button
+              onClick={handleSuperType}
+              variant="outline-secondary"
+              id="Trainer"
+            >
+              Trainer
+            </Button>
+          </ButtonToolbar>
+        </SearchBlock>
 
         {/* search by Subtypes  */}
-        <div className="mt-4 pt-4 d-flex flex-column flex-md-row  border-top border-secondary">
-          <p className="p-0 m-0 me-5">Subtypes</p>
-          <div className="d-flex flex-wrap justify-content-between align-items-center">
-            {subtypeArray.map((elem, index) => {
-              return <SubtypeButton key={index} name={elem} />
-            })}
-          </div>
-        </div>
-        <Example>
+        <SearchBlock
+          name="Subtypes"
+          text="Click to select multiple subtypes. Selecting Stage 1 and Stage 2 will filter on cards that are Stage 1 OR Stage 2."
+        >
+          {subtypeArray.map((elem, index) => {
+            return <SubtypeButton key={index} name={elem} />
+          })}
+        </SearchBlock>
+
+        {/* choice by type  */}
+        <SearchBlock
+          name="type"
+          text="Selecting Fire and Water will filter on cards that are Fire OR Water."
+        ></SearchBlock>
+
+        <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
             <div>
@@ -207,7 +232,7 @@ const Advanced = () => {
               </div>
             </div>
           </div>
-        </Example>
+        </ChoicesBoard>
       </div>
     </div>
   )
