@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Context from '../context'
 
-import stringToIcon from '../helper'
+import stringToIcon from '../../misc/stringToIcon'
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 

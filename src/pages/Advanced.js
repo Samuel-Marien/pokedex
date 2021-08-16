@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 
 import MyNavBar from '../components/navbar'
 import MyInput from '../components/myInput'
-import { subtypeArray } from '../components/helper/index'
-import { typesArray } from '../components/helper/index'
+import stringToIcon from '../misc/stringToIcon'
+import subtypeArray from '../misc/subtypeArray'
+import typesArray from '../misc/typeArray'
 import Context from '../components/context'
 
 import pokemon from 'pokemontcgsdk'
@@ -21,8 +22,9 @@ let array = []
 const Advanced = () => {
   const [supertype, setSupertype] = useState('')
   const [subtype, setSubtype] = useState([])
-  // const [type, setType] = useState('')
+  const [type, setType] = useState('')
   const { setAdvancedData } = useContext(Context)
+  // const [selected, setSelected] = useState(false)
 
   const handleSuperType = (e) => {
     e.preventDefault()
@@ -35,10 +37,15 @@ const Advanced = () => {
     setSubtype([...array])
   }
 
+  const handleType = (e) => {
+    setType(e.currentTarget.id)
+  }
+
   const handleReset = () => {
     setSubtype(() => (array = []))
     setSupertype(null)
     setAdvancedData(() => [])
+    setType(null)
   }
 
   // clear data on load
@@ -57,8 +64,7 @@ const Advanced = () => {
           .map((elem) => {
             return `subtypes:${elem}`
           })
-          .join(' ')}`
-        // `${type ? `type:${type}` : ''}
+          .join(' ')} ${type ? `types:${type}` : ''}`
       })
       .then((result) => {
         setAdvancedData(result)
@@ -66,7 +72,7 @@ const Advanced = () => {
   }
 
   const SubtypeButton = (props) => {
-    const { name } = props
+    const { name, id } = props
     return (
       <Button
         size="sm"
@@ -74,17 +80,19 @@ const Advanced = () => {
         className=" me-2 mt-2"
         variant="outline-secondary"
         onClick={handleSubType}
-        id={name}
+        id={id}
       >
         {name}
       </Button>
     )
   }
   SubtypeButton.propTypes = {
-    name: PropTypes.string
+    name: PropTypes.string,
+    id: PropTypes.string,
+    variant: PropTypes.string
   }
 
-  function ChoicesBoard(props) {
+  const ChoicesBoard = (props) => {
     const { children } = props
     const [open, setOpen] = useState(true)
 
@@ -140,7 +148,7 @@ const Advanced = () => {
   }
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <MyNavBar />
       <div className="container col-11 col-md-6">
         {/* search by name  */}
@@ -186,25 +194,21 @@ const Advanced = () => {
           text="Click to select multiple subtypes. Selecting Stage 1 and Stage 2 will filter on cards that are Stage 1 OR Stage 2."
         >
           {subtypeArray.map((elem, index) => {
-            return <SubtypeButton key={index} name={elem} />
+            return <SubtypeButton key={index} name={elem.name} id={elem.id} />
           })}
         </SearchBlock>
 
-        {/* choice by type  */}
-        <SearchBlock
-          name="type"
-          text="Selecting Fire and Water will filter on cards that are Fire OR Water."
-        >
+        {/* search by type  */}
+        <SearchBlock name="type" text="Selecting Type.">
           <Form className="d-flex flex-wrap">
             {typesArray.map((item, index) => {
               return (
                 <div key={index} className="d-flex col-2 mt-2" id={item}>
                   <Form.Check
-                    type="radio"
-                    // label={item}
-                    name="formHorizontalRadios"
+                    type="checkbox"
                     id={item}
-                    className=""
+                    name={item}
+                    onClick={handleType}
                   />
                   <img src={`/images/${item}.png`} style={{ width: '25px' }} />
                 </div>
@@ -228,6 +232,7 @@ const Advanced = () => {
                   )
                 })}
               </p>
+              {type ? <p>type: {stringToIcon(type)}</p> : ''}
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"

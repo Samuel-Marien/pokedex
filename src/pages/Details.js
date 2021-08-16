@@ -16,7 +16,7 @@ import Badge from 'react-bootstrap/Badge'
 import { TiArrowMaximiseOutline, TiArrowMinimiseOutline } from 'react-icons/ti'
 
 import MyNavBar from '../components/navbar'
-import stringToIcon from '../components/helper'
+import stringToIcon from '../misc/stringToIcon'
 import MySpinner from '../components/spinner'
 
 const Details = () => {
@@ -285,7 +285,11 @@ const Details = () => {
                           </a>
                         </div>
                         <p style={{ fontSize: '.8rem' }}>
-                          Last Updated {item.tcgplayer.updatedAt}
+                          Last Updated{' '}
+                          {item.tcgplayer.updatedAt ? (
+                            <>{item.tcgplayer.updatedAt}</>
+                          ) : null}
+                          {/* Last Updated {item.tcgplayer.updatedAt} */}
                         </p>
                       </div>
                       {/* Price body  */}
@@ -416,7 +420,11 @@ const Details = () => {
                   >
                     <h3 className="mb-1 me-2">Market trend</h3>
                     <p style={{ fontSize: '.8rem' }}>
-                      Last Updated {item.tcgplayer.updatedAt}
+                      {' '}
+                      Last Updated{' '}
+                      {item.cardmarket.updatedAt ? (
+                        <>{item.cardmarket.updatedAt}</>
+                      ) : null}
                     </p>
                     <div className="row gx-0">
                       <DataMarket

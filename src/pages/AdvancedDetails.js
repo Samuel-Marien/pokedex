@@ -22,7 +22,10 @@ const AdvancedDetails = () => {
   }
 
   return (
-    <div className={isDark ? 'bg-light' : 'bg-dark'}>
+    <div
+      className={isDark ? 'bg-light' : 'bg-dark'}
+      style={{ height: '100vh' }}
+    >
       <MyNavBar>
         <MyInput />
       </MyNavBar>
