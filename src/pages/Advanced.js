@@ -15,7 +15,6 @@ pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Button from 'react-bootstrap/Button'
 import Fade from 'react-bootstrap/Fade'
-import Form from 'react-bootstrap/Form'
 
 let array = []
 
@@ -23,8 +22,8 @@ const Advanced = () => {
   const [supertype, setSupertype] = useState('')
   const [subtype, setSubtype] = useState([])
   const [type, setType] = useState('')
+  const [weaknesses, setWeaknesses] = useState('')
   const { setAdvancedData } = useContext(Context)
-  // const [selected, setSelected] = useState(false)
 
   const handleSuperType = (e) => {
     e.preventDefault()
@@ -37,15 +36,17 @@ const Advanced = () => {
     setSubtype([...array])
   }
 
-  const handleType = (e) => {
-    setType(e.currentTarget.id)
+  const handleWeaknesses = (e) => {
+    setWeaknesses(e.currentTarget.id)
   }
+  console.log(weaknesses)
 
   const handleReset = () => {
     setSubtype(() => (array = []))
     setSupertype(null)
     setAdvancedData(() => [])
     setType(null)
+    setWeaknesses(null)
   }
 
   // clear data on load
@@ -64,7 +65,9 @@ const Advanced = () => {
           .map((elem) => {
             return `subtypes:${elem}`
           })
-          .join(' ')} ${type ? `types:${type}` : ''}`
+          .join(' ')} 
+          ${type ? `types:${type}` : ''} 
+          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''}`
       })
       .then((result) => {
         setAdvancedData(result)
@@ -107,6 +110,9 @@ const Advanced = () => {
           >
             {open ? 'Hide your choices' : 'See your choices'}
           </Button>
+          <Button type="submit" onClick={handleReset} variant="outline-danger">
+            Reset
+          </Button>
           <Button
             type="submit"
             onClick={handleSubmit}
@@ -131,7 +137,7 @@ const Advanced = () => {
 
     return (
       <div className="mt-4 pt-4 d-flex flex-column flex-md-row justify-content-start border-top border-secondary">
-        <p className="col-2">{name}</p>
+        <p className="col-3">{name}</p>
         <div>
           {children}
           <p className="fw-light p-0 m-0 mt-3" style={{ fontSize: '.8rem' }}>
@@ -165,7 +171,7 @@ const Advanced = () => {
             <Button
               onClick={handleSuperType}
               className="me-3 me-md-5"
-              variant="outline-warning"
+              variant="outline-secondary"
               id="Energy"
             >
               Energy
@@ -173,7 +179,7 @@ const Advanced = () => {
             <Button
               onClick={handleSuperType}
               className="me-3 me-md-5"
-              variant="outline-info"
+              variant="outline-secondary"
               id="Pokémon"
             >
               Pokemon
@@ -199,24 +205,42 @@ const Advanced = () => {
         </SearchBlock>
 
         {/* search by type  */}
-        <SearchBlock name="type" text="Selecting Type.">
-          <Form className="d-flex flex-wrap">
+        <SearchBlock name="Type" text="Click to select Type.">
+          <div className="d-flex flex-wrap">
             {typesArray.map((item, index) => {
               return (
-                <div key={index} className="d-flex col-2 mt-2" id={item}>
-                  <Form.Check
-                    type="checkbox"
+                <div key={index} className="d-flex me-3 mt-2" id={item}>
+                  <img
+                    src={`/images/${item}.png`}
+                    style={{ width: '25px' }}
+                    onClick={(e) => setType(e.currentTarget.id)}
+                    role="button"
                     id={item}
-                    name={item}
-                    onClick={handleType}
                   />
-                  <img src={`/images/${item}.png`} style={{ width: '25px' }} />
                 </div>
               )
             })}
-          </Form>
+          </div>
         </SearchBlock>
 
+        {/* search by Weaknesses  */}
+        <SearchBlock name="Weaknesses" text="Click to select Weaknesses.">
+          <div className="d-flex flex-wrap">
+            {typesArray.map((item, index) => {
+              return (
+                <div key={index} className="d-flex me-3 mt-2" id={item}>
+                  <img
+                    src={`/images/${item}.png`}
+                    style={{ width: '25px' }}
+                    onClick={handleWeaknesses}
+                    role="button"
+                    id={item}
+                  />
+                </div>
+              )
+            })}
+          </div>
+        </SearchBlock>
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
@@ -233,6 +257,7 @@ const Advanced = () => {
                 })}
               </p>
               {type ? <p>type: {stringToIcon(type)}</p> : ''}
+              {weaknesses ? <p>weaknesses: {stringToIcon(weaknesses)}</p> : ''}
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"

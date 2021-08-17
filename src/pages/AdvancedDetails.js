@@ -16,6 +16,8 @@ const AdvancedDetails = () => {
   const { myDropOrderTitle } = useContext(Context)
   const { setCardDetail } = useContext(Context)
 
+  console.log(advancedData)
+
   const handleClick = (e) => {
     e.preventDefault()
     setCardDetail(() => e.target.id)
