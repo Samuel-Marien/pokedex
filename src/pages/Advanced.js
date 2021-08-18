@@ -15,14 +15,21 @@ pokemon.configure({ apiKey: '1bc96399-f62e-4230-98e4-f7ad9d51212b' })
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Button from 'react-bootstrap/Button'
 import Fade from 'react-bootstrap/Fade'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 let array = []
+const lowHpArray = [30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180]
+const highHpArray = [100, 120, 140, 160, 180, 200, 220, 240, 280, 320, 350, 400]
 
 const Advanced = () => {
   const [supertype, setSupertype] = useState('')
   const [subtype, setSubtype] = useState([])
   const [type, setType] = useState('')
   const [weaknesses, setWeaknesses] = useState('')
+  const [resistances, setResistances] = useState('')
+  const [lowHp, setLowHp] = useState(0)
+  const [highHp, setHighHp] = useState(0)
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -39,7 +46,20 @@ const Advanced = () => {
   const handleWeaknesses = (e) => {
     setWeaknesses(e.currentTarget.id)
   }
-  console.log(weaknesses)
+
+  const handleResistances = (e) => {
+    setResistances(e.currentTarget.id)
+  }
+
+  const handleLowHp = (e) => {
+    setLowHp(e.currentTarget.id)
+  }
+  console.log(lowHp)
+
+  const handleHighHp = (e) => {
+    setHighHp(e.currentTarget.id)
+  }
+  console.log(highHp)
 
   const handleReset = () => {
     setSubtype(() => (array = []))
@@ -47,6 +67,9 @@ const Advanced = () => {
     setAdvancedData(() => [])
     setType(null)
     setWeaknesses(null)
+    setResistances(null)
+    setLowHp(0)
+    setHighHp(0)
   }
 
   // clear data on load
@@ -56,7 +79,6 @@ const Advanced = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     // Filter cards via query parameters
     pokemon.card
       .all({
@@ -67,7 +89,10 @@ const Advanced = () => {
           })
           .join(' ')} 
           ${type ? `types:${type}` : ''} 
-          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''}`
+          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''}
+          ${resistances ? ` resistances.type:${resistances}` : ''}
+          ${lowHp || highHp ? `hp:[${lowHp} TO ${highHp}]` : ''}
+          `
       })
       .then((result) => {
         setAdvancedData(result)
@@ -151,6 +176,19 @@ const Advanced = () => {
     name: PropTypes.string,
     text: PropTypes.string,
     children: PropTypes.node
+  }
+
+  const MyDropItem = (props) => {
+    const { id, func } = props
+    return (
+      <Dropdown.Item onClick={func} id={id}>
+        {id}
+      </Dropdown.Item>
+    )
+  }
+  MyDropItem.propTypes = {
+    id: PropTypes.number,
+    func: PropTypes.func
   }
 
   return (
@@ -241,6 +279,67 @@ const Advanced = () => {
             })}
           </div>
         </SearchBlock>
+
+        {/* search by Resistances  */}
+        <SearchBlock name="Resistances" text="Click to select Resistances.">
+          <div className="d-flex flex-wrap">
+            {typesArray.map((item, index) => {
+              return (
+                <div key={index} className="d-flex me-3 mt-2" id={item}>
+                  <img
+                    src={`/images/${item}.png`}
+                    style={{ width: '25px' }}
+                    onClick={handleResistances}
+                    role="button"
+                    id={item}
+                  />
+                </div>
+              )
+            })}
+          </div>
+        </SearchBlock>
+
+        {/* search by hp range  */}
+        <SearchBlock
+          name="HP"
+          text="Enter a range. Leave the input blank to treat it as a wildcard. For example, setting the low end to 200 would mean anything greater than or equal to 200."
+        >
+          <InputGroup>
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="outline-secondary px-5"
+                id="dropdown-basic"
+              >
+                Low end
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {lowHpArray.map((item, index) => {
+                  return <MyDropItem key={index} id={item} func={handleLowHp} />
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+            <InputGroup.Text>TO</InputGroup.Text>
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="outline-secondary px-5"
+                id="dropdown-basic"
+              >
+                High end
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {highHpArray.map((item, index) => {
+                  return (
+                    <MyDropItem key={index} id={item} func={handleHighHp} />
+                  )
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </InputGroup>
+        </SearchBlock>
+
+        {/* search resume  */}
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
@@ -258,6 +357,11 @@ const Advanced = () => {
               </p>
               {type ? <p>type: {stringToIcon(type)}</p> : ''}
               {weaknesses ? <p>weaknesses: {stringToIcon(weaknesses)}</p> : ''}
+              {resistances ? (
+                <p>resistances: {stringToIcon(resistances)}</p>
+              ) : (
+                ''
+              )}
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"
