@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+// import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -21,6 +22,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 let array = []
 const lowHpArray = [30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180]
 const highHpArray = [100, 120, 140, 160, 180, 200, 220, 240, 280, 320, 350, 400]
+const retreatArray = [1, 2, 3, 4, 5, 6]
 
 const Advanced = () => {
   const [supertype, setSupertype] = useState('')
@@ -28,8 +30,10 @@ const Advanced = () => {
   const [type, setType] = useState('')
   const [weaknesses, setWeaknesses] = useState('')
   const [resistances, setResistances] = useState('')
-  const [lowHp, setLowHp] = useState(0)
-  const [highHp, setHighHp] = useState(0)
+  const [lowHp, setLowHp] = useState('*')
+  const [highHp, setHighHp] = useState('*')
+  const [lowRetreat, setLowRetreat] = useState(0)
+  const [highRetreat, setHighRetreat] = useState(6)
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -54,12 +58,20 @@ const Advanced = () => {
   const handleLowHp = (e) => {
     setLowHp(e.currentTarget.id)
   }
-  console.log(lowHp)
 
   const handleHighHp = (e) => {
     setHighHp(e.currentTarget.id)
   }
-  console.log(highHp)
+
+  const handleLowRetreat = (e) => {
+    setLowRetreat(e.currentTarget.id)
+  }
+  console.log(lowRetreat)
+
+  const handleHighRetreat = (e) => {
+    setHighRetreat(e.currentTarget.id)
+  }
+  console.log(highRetreat)
 
   const handleReset = () => {
     setSubtype(() => (array = []))
@@ -68,8 +80,10 @@ const Advanced = () => {
     setType(null)
     setWeaknesses(null)
     setResistances(null)
-    setLowHp(0)
-    setHighHp(0)
+    setLowHp('*')
+    setHighHp('*')
+    setLowRetreat(0)
+    setHighRetreat(6)
   }
 
   // clear data on load
@@ -98,6 +112,7 @@ const Advanced = () => {
         setAdvancedData(result)
       })
   }
+  // ${lowRetreat || highRetreat? `convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]` ''}
 
   const SubtypeButton = (props) => {
     const { name, id } = props
@@ -339,22 +354,77 @@ const Advanced = () => {
           </InputGroup>
         </SearchBlock>
 
+        {/* search by retreat cost range  */}
+        <SearchBlock
+          name="Converted Retreat Cost"
+          text="Enter a range. Leave the input blank to treat it as a wildcard. For example, a high end of 3 would mean a maximum of 3."
+        >
+          <InputGroup>
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="outline-secondary px-5"
+                id="dropdown-basic"
+              >
+                Low end
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {retreatArray.map((item, index) => {
+                  return (
+                    <MyDropItem key={index} id={item} func={handleLowRetreat} />
+                  )
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+            <InputGroup.Text>TO</InputGroup.Text>
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="outline-secondary px-5"
+                id="dropdown-basic"
+              >
+                High end
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {retreatArray.map((item, index) => {
+                  return (
+                    <MyDropItem
+                      key={index}
+                      id={item}
+                      func={handleHighRetreat}
+                    />
+                  )
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </InputGroup>
+        </SearchBlock>
+
         {/* search resume  */}
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
             <div>
-              <p className="m-0 p-0">supertype : {supertype}</p>
-              <p className="m-0 p-0">
-                subtype :{' '}
-                {subtype.map((elem, index) => {
-                  return (
-                    <span key={index} className="me-2">
-                      {elem}
-                    </span>
-                  )
-                })}
-              </p>
+              {supertype ? (
+                <p className="m-0 p-0">supertype : {supertype}</p>
+              ) : (
+                ''
+              )}
+              {subtype.length > 0 ? (
+                <p className="m-0 p-0">
+                  subtype :{' '}
+                  {subtype.map((elem, index) => {
+                    return (
+                      <span key={index} className="me-2">
+                        {elem}
+                      </span>
+                    )
+                  })}
+                </p>
+              ) : (
+                ''
+              )}
+
               {type ? <p>type: {stringToIcon(type)}</p> : ''}
               {weaknesses ? <p>weaknesses: {stringToIcon(weaknesses)}</p> : ''}
               {resistances ? (
@@ -362,6 +432,19 @@ const Advanced = () => {
               ) : (
                 ''
               )}
+              <p>
+                {(lowHp || highHp) && (lowHp !== '*' || highHp !== '*')
+                  ? `HP range : ${lowHp} TO ${highHp}`
+                  : ''}
+              </p>
+              <p>
+                {(lowRetreat || highRetreat) &&
+                (lowRetreat !== 0 || highRetreat !== 6)
+                  ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
+                  : ''}
+              </p>
+
+              {/* buttons section  */}
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"
@@ -370,7 +453,6 @@ const Advanced = () => {
                 >
                   Reset
                 </Button>
-
                 <Button
                   type="submit"
                   onClick={handleSubmit}
