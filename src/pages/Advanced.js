@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react'
-// import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -30,8 +29,8 @@ const Advanced = () => {
   const [type, setType] = useState('')
   const [weaknesses, setWeaknesses] = useState('')
   const [resistances, setResistances] = useState('')
-  const [lowHp, setLowHp] = useState('*')
-  const [highHp, setHighHp] = useState('*')
+  const [lowHp, setLowHp] = useState(0)
+  const [highHp, setHighHp] = useState(0)
   const [lowRetreat, setLowRetreat] = useState(0)
   const [highRetreat, setHighRetreat] = useState(6)
   const { setAdvancedData } = useContext(Context)
@@ -58,10 +57,12 @@ const Advanced = () => {
   const handleLowHp = (e) => {
     setLowHp(e.currentTarget.id)
   }
+  console.log(lowHp)
 
   const handleHighHp = (e) => {
     setHighHp(e.currentTarget.id)
   }
+  console.log(highHp)
 
   const handleLowRetreat = (e) => {
     setLowRetreat(e.currentTarget.id)
@@ -80,10 +81,8 @@ const Advanced = () => {
     setType(null)
     setWeaknesses(null)
     setResistances(null)
-    setLowHp('*')
-    setHighHp('*')
-    setLowRetreat(0)
-    setHighRetreat(6)
+    setLowHp(0)
+    setHighHp(0)
   }
 
   // clear data on load
@@ -105,14 +104,17 @@ const Advanced = () => {
           ${type ? `types:${type}` : ''} 
           ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''}
           ${resistances ? ` resistances.type:${resistances}` : ''}
-          ${lowHp || highHp ? `hp:[${lowHp} TO ${highHp}]` : ''}
+          ${lowHp || highHp ? `hp:[${lowHp} TO ${highHp}]` : ''}${
+          lowRetreat || highRetreat
+            ? `convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
+            : ''
+        }
           `
       })
       .then((result) => {
         setAdvancedData(result)
       })
   }
-  // ${lowRetreat || highRetreat? `convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]` ''}
 
   const SubtypeButton = (props) => {
     const { name, id } = props
@@ -354,7 +356,7 @@ const Advanced = () => {
           </InputGroup>
         </SearchBlock>
 
-        {/* search by retreat cost range  */}
+        {/* search by retreay cost range  */}
         <SearchBlock
           name="Converted Retreat Cost"
           text="Enter a range. Leave the input blank to treat it as a wildcard. For example, a high end of 3 would mean a maximum of 3."
@@ -405,26 +407,17 @@ const Advanced = () => {
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
             <div>
-              {supertype ? (
-                <p className="m-0 p-0">supertype : {supertype}</p>
-              ) : (
-                ''
-              )}
-              {subtype.length > 0 ? (
-                <p className="m-0 p-0">
-                  subtype :{' '}
-                  {subtype.map((elem, index) => {
-                    return (
-                      <span key={index} className="me-2">
-                        {elem}
-                      </span>
-                    )
-                  })}
-                </p>
-              ) : (
-                ''
-              )}
-
+              <p className="m-0 p-0">supertype : {supertype}</p>
+              <p className="m-0 p-0">
+                subtype :{' '}
+                {subtype.map((elem, index) => {
+                  return (
+                    <span key={index} className="me-2">
+                      {elem}
+                    </span>
+                  )
+                })}
+              </p>
               {type ? <p>type: {stringToIcon(type)}</p> : ''}
               {weaknesses ? <p>weaknesses: {stringToIcon(weaknesses)}</p> : ''}
               {resistances ? (
@@ -432,19 +425,6 @@ const Advanced = () => {
               ) : (
                 ''
               )}
-              <p>
-                {(lowHp || highHp) && (lowHp !== '*' || highHp !== '*')
-                  ? `HP range : ${lowHp} TO ${highHp}`
-                  : ''}
-              </p>
-              <p>
-                {(lowRetreat || highRetreat) &&
-                (lowRetreat !== 0 || highRetreat !== 6)
-                  ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
-                  : ''}
-              </p>
-
-              {/* buttons section  */}
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"
@@ -453,6 +433,7 @@ const Advanced = () => {
                 >
                   Reset
                 </Button>
+
                 <Button
                   type="submit"
                   onClick={handleSubmit}
