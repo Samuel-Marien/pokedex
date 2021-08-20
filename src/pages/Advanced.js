@@ -7,6 +7,8 @@ import MyInput from '../components/myInput'
 import stringToIcon from '../misc/stringToIcon'
 import subtypeArray from '../misc/subtypeArray'
 import typesArray from '../misc/typeArray'
+import setsArray from '../misc/setArray'
+
 import Context from '../components/context'
 
 import pokemon from 'pokemontcgsdk'
@@ -17,8 +19,11 @@ import Button from 'react-bootstrap/Button'
 import Fade from 'react-bootstrap/Fade'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Dropdown from 'react-bootstrap/Dropdown'
+// import Form from 'react-bootstrap/Form'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 let array = []
+let tempSetArray = []
 const lowHpArray = [30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180]
 const highHpArray = [100, 120, 140, 160, 180, 200, 220, 240, 280, 320, 350, 400]
 const retreatArray = [1, 2, 3, 4, 5, 6]
@@ -33,6 +38,7 @@ const Advanced = () => {
   const [highHp, setHighHp] = useState('*')
   const [lowRetreat, setLowRetreat] = useState(0)
   const [highRetreat, setHighRetreat] = useState(6)
+  const [collection, setCollection] = useState([])
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -57,22 +63,25 @@ const Advanced = () => {
   const handleLowHp = (e) => {
     setLowHp(e.currentTarget.id)
   }
-  console.log(lowHp)
 
   const handleHighHp = (e) => {
     setHighHp(e.currentTarget.id)
   }
-  console.log(highHp)
 
   const handleLowRetreat = (e) => {
     setLowRetreat(e.currentTarget.id)
   }
-  console.log(lowRetreat)
 
   const handleHighRetreat = (e) => {
     setHighRetreat(e.currentTarget.id)
   }
-  console.log(highRetreat)
+
+  const handleSets = (e) => {
+    e.preventDefault()
+    tempSetArray.push(e.target.id)
+    setCollection([...tempSetArray])
+  }
+  console.log(collection)
 
   const handleReset = () => {
     setSubtype(() => (array = []))
@@ -85,6 +94,7 @@ const Advanced = () => {
     setHighHp('*')
     setLowRetreat(0)
     setHighRetreat(6)
+    setCollection(() => (tempSetArray = []))
   }
 
   // clear data on load
@@ -207,6 +217,19 @@ const Advanced = () => {
   }
   MyDropItem.propTypes = {
     id: PropTypes.number,
+    func: PropTypes.func
+  }
+
+  const MyListItem = (props) => {
+    const { title, func } = props
+    return (
+      <ListGroup.Item action onClick={func} id={title}>
+        {title}
+      </ListGroup.Item>
+    )
+  }
+  MyListItem.propTypes = {
+    title: PropTypes.string,
     func: PropTypes.func
   }
 
@@ -404,22 +427,47 @@ const Advanced = () => {
           </InputGroup>
         </SearchBlock>
 
+        {/* search by set  */}
+        <SearchBlock
+          name="Set"
+          text="Selecting set(s).Selecting Base and Jungle will filter on cards that are part of Base OR Jungle."
+        >
+          <ListGroup
+            defaultActiveKey="#link1"
+            style={{ height: '250px', overflow: 'auto' }}
+          >
+            {setsArray.map((setName, index) => {
+              return (
+                <MyListItem title={setName} key={index} func={handleSets} />
+              )
+            })}
+          </ListGroup>
+        </SearchBlock>
+
         {/* search resume  */}
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
             <div>
-              <p className="m-0 p-0">supertype : {supertype}</p>
-              <p className="m-0 p-0">
-                subtype :{' '}
-                {subtype.map((elem, index) => {
-                  return (
-                    <span key={index} className="me-2">
-                      {elem}
-                    </span>
-                  )
-                })}
-              </p>
+              {supertype ? (
+                <p className="m-0 p-0">supertype : {supertype}</p>
+              ) : (
+                ''
+              )}
+              {subtype.length > 0 ? (
+                <p className="m-0 p-0">
+                  subtype :
+                  {subtype.map((elem, index) => {
+                    return (
+                      <span key={index} className="me-2">
+                        {elem}
+                      </span>
+                    )
+                  })}
+                </p>
+              ) : (
+                ''
+              )}
               {type ? <p>type: {stringToIcon(type)}</p> : ''}
               {weaknesses ? <p>weaknesses: {stringToIcon(weaknesses)}</p> : ''}
               {resistances ? (
@@ -438,6 +486,8 @@ const Advanced = () => {
                   ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
                   : ''}
               </p>
+              {collection.length > 0 ? <p>Set(s): {collection}</p> : ''}
+
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"
