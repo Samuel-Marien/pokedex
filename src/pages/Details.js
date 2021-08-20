@@ -170,7 +170,7 @@ const Details = () => {
                   >
                     <div onClick={handleClick} id={item.set.id}>
                       <Link
-                        to="/set_details"
+                        to="/set-details"
                         id={item.set.id}
                         className="d-flex text-decoration-none"
                       >

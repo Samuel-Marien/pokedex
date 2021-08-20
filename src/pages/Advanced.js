@@ -29,8 +29,8 @@ const Advanced = () => {
   const [type, setType] = useState('')
   const [weaknesses, setWeaknesses] = useState('')
   const [resistances, setResistances] = useState('')
-  const [lowHp, setLowHp] = useState(0)
-  const [highHp, setHighHp] = useState(0)
+  const [lowHp, setLowHp] = useState('*')
+  const [highHp, setHighHp] = useState('*')
   const [lowRetreat, setLowRetreat] = useState(0)
   const [highRetreat, setHighRetreat] = useState(6)
   const { setAdvancedData } = useContext(Context)
@@ -81,8 +81,10 @@ const Advanced = () => {
     setType(null)
     setWeaknesses(null)
     setResistances(null)
-    setLowHp(0)
-    setHighHp(0)
+    setLowHp('*')
+    setHighHp('*')
+    setLowRetreat(0)
+    setHighRetreat(6)
   }
 
   // clear data on load
@@ -104,9 +106,9 @@ const Advanced = () => {
           ${type ? `types:${type}` : ''} 
           ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''}
           ${resistances ? ` resistances.type:${resistances}` : ''}
-          ${lowHp || highHp ? `hp:[${lowHp} TO ${highHp}]` : ''}${
+          ${lowHp || highHp ? ` hp:[${lowHp} TO ${highHp}]` : ''}${
           lowRetreat || highRetreat
-            ? `convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
+            ? ` convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
             : ''
         }
           `

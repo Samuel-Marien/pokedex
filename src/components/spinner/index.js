@@ -9,14 +9,14 @@ const MySpinner = () => {
     const interval = setInterval(() => {
       setTimer((count) => count + 1)
     }, 1000)
-    if (timer > 6) {
+    if (timer > 20) {
       return () => clearInterval(interval)
     }
   }, [setTimer])
 
   return (
     <div className="mx-auto my-5" style={{ height: '100vh' }}>
-      {timer > 5 ? (
+      {timer > 19 ? (
         <p>
           Bad Request. Your request is either malformed, or is missing one or
           more required fields.
