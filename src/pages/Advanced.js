@@ -427,6 +427,17 @@ const Advanced = () => {
               ) : (
                 ''
               )}
+              <p>
+                {(lowHp || highHp) && (lowHp !== '*' || highHp !== '*')
+                  ? `HP range : ${lowHp} TO ${highHp}`
+                  : ''}
+              </p>
+              <p>
+                {(lowRetreat || highRetreat) &&
+                (lowRetreat !== 0 || highRetreat !== 6)
+                  ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
+                  : ''}
+              </p>
               <div className="mt-4 d-flex justify-content-between">
                 <Button
                   type="submit"
