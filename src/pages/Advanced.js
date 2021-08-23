@@ -19,11 +19,9 @@ import Button from 'react-bootstrap/Button'
 import Fade from 'react-bootstrap/Fade'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Dropdown from 'react-bootstrap/Dropdown'
-// import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 let array = []
-let tempSetArray = []
 const lowHpArray = [30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180]
 const highHpArray = [100, 120, 140, 160, 180, 200, 220, 240, 280, 320, 350, 400]
 const retreatArray = [1, 2, 3, 4, 5, 6]
@@ -34,11 +32,11 @@ const Advanced = () => {
   const [type, setType] = useState('')
   const [weaknesses, setWeaknesses] = useState('')
   const [resistances, setResistances] = useState('')
-  const [lowHp, setLowHp] = useState('*')
-  const [highHp, setHighHp] = useState('*')
+  const [lowHp, setLowHp] = useState(10)
+  const [highHp, setHighHp] = useState(500)
   const [lowRetreat, setLowRetreat] = useState(0)
   const [highRetreat, setHighRetreat] = useState(6)
-  const [collection, setCollection] = useState([])
+  const [collection, setCollection] = useState('')
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -78,10 +76,8 @@ const Advanced = () => {
 
   const handleSets = (e) => {
     e.preventDefault()
-    tempSetArray.push(e.target.id)
-    setCollection([...tempSetArray])
+    setCollection(e.target.id)
   }
-  console.log(collection)
 
   const handleReset = () => {
     setSubtype(() => (array = []))
@@ -90,11 +86,11 @@ const Advanced = () => {
     setType(null)
     setWeaknesses(null)
     setResistances(null)
-    setLowHp('*')
-    setHighHp('*')
+    setLowHp(10)
+    setHighHp(500)
     setLowRetreat(0)
     setHighRetreat(6)
-    setCollection(() => (tempSetArray = []))
+    setCollection(null)
   }
 
   // clear data on load
@@ -104,6 +100,7 @@ const Advanced = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     // Filter cards via query parameters
     pokemon.card
       .all({
@@ -120,7 +117,8 @@ const Advanced = () => {
           lowRetreat || highRetreat
             ? ` convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
             : ''
-        }
+        } 
+          ${collection ? ` !set.name:${collection}` : ''}
           `
       })
       .then((result) => {
@@ -428,10 +426,7 @@ const Advanced = () => {
         </SearchBlock>
 
         {/* search by set  */}
-        <SearchBlock
-          name="Set"
-          text="Selecting set(s).Selecting Base and Jungle will filter on cards that are part of Base OR Jungle."
-        >
+        <SearchBlock name="Set" text="Click to select Set.">
           <ListGroup
             defaultActiveKey="#link1"
             style={{ height: '250px', overflow: 'auto' }}
@@ -486,7 +481,8 @@ const Advanced = () => {
                   ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
                   : ''}
               </p>
-              {collection.length > 0 ? <p>Set(s): {collection}</p> : ''}
+              {/* {collection.length > 0 ? <p>Set(s): {collection}</p> : ''} */}
+              {collection ? <p>Set(s): {collection}</p> : ''}
 
               <div className="mt-4 d-flex justify-content-between">
                 <Button
