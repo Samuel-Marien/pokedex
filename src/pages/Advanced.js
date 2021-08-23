@@ -8,6 +8,7 @@ import stringToIcon from '../misc/stringToIcon'
 import subtypeArray from '../misc/subtypeArray'
 import typesArray from '../misc/typeArray'
 import setsArray from '../misc/setArray'
+import seriesArray from '../misc/seriesArray'
 
 import Context from '../components/context'
 
@@ -37,6 +38,7 @@ const Advanced = () => {
   const [lowRetreat, setLowRetreat] = useState(0)
   const [highRetreat, setHighRetreat] = useState(6)
   const [collection, setCollection] = useState('')
+  const [serie, setSerie] = useState('')
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -79,6 +81,12 @@ const Advanced = () => {
     setCollection(e.target.id)
   }
 
+  const handleSerie = (e) => {
+    e.preventDefault()
+    setSerie(e.target.id)
+  }
+  console.log(serie)
+
   const handleReset = () => {
     setSubtype(() => (array = []))
     setSupertype(null)
@@ -91,6 +99,7 @@ const Advanced = () => {
     setLowRetreat(0)
     setHighRetreat(6)
     setCollection(null)
+    setSerie(null)
   }
 
   // clear data on load
@@ -119,6 +128,7 @@ const Advanced = () => {
             : ''
         } 
           ${collection ? ` !set.name:${collection}` : ''}
+          ${serie ? ` !set.series:${serie}` : ''}
           `
       })
       .then((result) => {
@@ -426,7 +436,7 @@ const Advanced = () => {
         </SearchBlock>
 
         {/* search by set  */}
-        <SearchBlock name="Set" text="Click to select Set.">
+        <SearchBlock name="Sets" text="Click to select Set.">
           <ListGroup
             defaultActiveKey="#link1"
             style={{ height: '250px', overflow: 'auto' }}
@@ -434,6 +444,20 @@ const Advanced = () => {
             {setsArray.map((setName, index) => {
               return (
                 <MyListItem title={setName} key={index} func={handleSets} />
+              )
+            })}
+          </ListGroup>
+        </SearchBlock>
+
+        {/* search by serie  */}
+        <SearchBlock name="Series" text="Click to select Serie.">
+          <ListGroup
+            defaultActiveKey="#link2"
+            style={{ height: '250px', overflow: 'auto' }}
+          >
+            {seriesArray.map((setName, index) => {
+              return (
+                <MyListItem title={setName} key={index} func={handleSerie} />
               )
             })}
           </ListGroup>
@@ -471,7 +495,7 @@ const Advanced = () => {
                 ''
               )}
               <p>
-                {(lowHp || highHp) && (lowHp !== '*' || highHp !== '*')
+                {(lowHp || highHp) && (lowHp !== 10 || highHp !== 500)
                   ? `HP range : ${lowHp} TO ${highHp}`
                   : ''}
               </p>
@@ -481,8 +505,8 @@ const Advanced = () => {
                   ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
                   : ''}
               </p>
-              {/* {collection.length > 0 ? <p>Set(s): {collection}</p> : ''} */}
-              {collection ? <p>Set(s): {collection}</p> : ''}
+              {collection ? <p>Set: {collection}</p> : ''}
+              {serie ? <p>Serie: {serie}</p> : ''}
 
               <div className="mt-4 d-flex justify-content-between">
                 <Button
