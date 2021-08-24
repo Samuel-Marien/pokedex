@@ -85,7 +85,6 @@ const Advanced = () => {
     e.preventDefault()
     setSerie(e.target.id)
   }
-  console.log(serie)
 
   const handleReset = () => {
     setSubtype(() => (array = []))
@@ -110,6 +109,24 @@ const Advanced = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    console.log(`${supertype ? `supertype:${supertype}` : ''} 
+        ${subtype
+          .map((elem) => {
+            return `subtypes:${elem}`
+          })
+          .join(' ')} 
+          ${type ? `types:${type}` : ''} 
+          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''} 
+          ${resistances ? ` resistances.type:${resistances}` : ''} 
+          ${lowHp || highHp ? ` hp:[${lowHp} TO ${highHp}]` : ''}${
+      lowRetreat || highRetreat
+        ? ` convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
+        : ''
+    } 
+          ${collection ? ` !set.name:${collection}` : ''} 
+          ${serie ? ` !set.series:${serie}` : ''}
+          `)
+
     // Filter cards via query parameters
     pokemon.card
       .all({
@@ -120,15 +137,15 @@ const Advanced = () => {
           })
           .join(' ')} 
           ${type ? `types:${type}` : ''} 
-          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''}
-          ${resistances ? ` resistances.type:${resistances}` : ''}
+          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''} 
+          ${resistances ? ` resistances.type:${resistances}` : ''} 
           ${lowHp || highHp ? ` hp:[${lowHp} TO ${highHp}]` : ''}${
           lowRetreat || highRetreat
             ? ` convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
             : ''
         } 
-          ${collection ? ` !set.name:${collection}` : ''}
-          ${serie ? ` !set.series:${serie}` : ''}
+          ${collection ? ` !set.name:${collection}` : ''} 
+          ${serie ? ` set.series:${serie}` : ''}
           `
       })
       .then((result) => {
@@ -229,16 +246,45 @@ const Advanced = () => {
   }
 
   const MyListItem = (props) => {
-    const { title, func } = props
+    const { title, id, func } = props
     return (
-      <ListGroup.Item action onClick={func} id={title}>
+      <ListGroup.Item action onClick={func} id={id}>
         {title}
       </ListGroup.Item>
     )
   }
   MyListItem.propTypes = {
     title: PropTypes.string,
+    id: PropTypes.string,
     func: PropTypes.func
+  }
+
+  const LegalityDropDown = (props) => {
+    const { name, funcLegal, funcBanned } = props
+    return (
+      <Dropdown>
+        <Dropdown.Toggle
+          variant="outline-secondary"
+          id="myDropdown"
+          className="col-12 mt-2"
+        >
+          {name}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={funcLegal} id="legal">
+            Legal
+          </Dropdown.Item>
+          <Dropdown.Item onClick={funcBanned} id="banned">
+            Banned
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    )
+  }
+  LegalityDropDown.propTypes = {
+    name: PropTypes.string,
+    funcLegal: PropTypes.func,
+    funcBanned: PropTypes.func
   }
 
   return (
@@ -455,9 +501,14 @@ const Advanced = () => {
             defaultActiveKey="#link2"
             style={{ height: '250px', overflow: 'auto' }}
           >
-            {seriesArray.map((setName, index) => {
+            {seriesArray.map((item, index) => {
               return (
-                <MyListItem title={setName} key={index} func={handleSerie} />
+                <MyListItem
+                  title={item.name}
+                  key={index}
+                  func={handleSerie}
+                  id={item.id}
+                />
               )
             })}
           </ListGroup>

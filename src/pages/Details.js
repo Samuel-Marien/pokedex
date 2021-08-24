@@ -75,7 +75,7 @@ const Details = () => {
         >
           {name}
         </span>
-        {target ? (
+        {target === 'Legal' && target && target !== 'Banned' ? (
           <span
             className={
               isDark
