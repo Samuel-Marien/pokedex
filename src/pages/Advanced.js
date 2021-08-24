@@ -9,6 +9,7 @@ import subtypeArray from '../misc/subtypeArray'
 import typesArray from '../misc/typeArray'
 import setsArray from '../misc/setArray'
 import seriesArray from '../misc/seriesArray'
+import rarityArray from '../misc/rarityArray'
 
 import Context from '../components/context'
 
@@ -39,6 +40,7 @@ const Advanced = () => {
   const [highRetreat, setHighRetreat] = useState(6)
   const [collection, setCollection] = useState('')
   const [serie, setSerie] = useState('')
+  const [rarity, setRarity] = useState('')
   const { setAdvancedData } = useContext(Context)
 
   const handleSuperType = (e) => {
@@ -86,6 +88,12 @@ const Advanced = () => {
     setSerie(e.target.id)
   }
 
+  const handleRarity = (e) => {
+    e.preventDefault()
+    setRarity(e.target.id)
+  }
+  console.log(rarity)
+
   const handleReset = () => {
     setSubtype(() => (array = []))
     setSupertype(null)
@@ -99,6 +107,7 @@ const Advanced = () => {
     setHighRetreat(6)
     setCollection(null)
     setSerie(null)
+    setRarity(null)
   }
 
   // clear data on load
@@ -128,6 +137,7 @@ const Advanced = () => {
         } 
           ${collection ? ` !set.id:${collection}` : ''} 
           ${serie ? ` set.series:${serie}` : ''}
+          ${rarity ? `rarity:${rarity}` : ''}
           `
       })
       .then((result) => {
@@ -501,6 +511,25 @@ const Advanced = () => {
           </ListGroup>
         </SearchBlock>
 
+        {/* search by rarity  */}
+        <SearchBlock name="Rarity" text="Click to select Rarity.">
+          <ListGroup
+            defaultActiveKey="#link3"
+            style={{ height: '250px', overflow: 'auto' }}
+          >
+            {rarityArray.map((item, index) => {
+              return (
+                <MyListItem
+                  title={item.name}
+                  key={index}
+                  func={handleRarity}
+                  id={item.id}
+                />
+              )
+            })}
+          </ListGroup>
+        </SearchBlock>
+
         {/* search(s) resume  */}
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
@@ -543,8 +572,42 @@ const Advanced = () => {
                   ? `Retreat range : ${lowRetreat} TO ${highRetreat}`
                   : ''}
               </p>
-              {collection ? <p>Set: {collection}</p> : ''}
-              {serie ? <p>Serie: {serie}</p> : ''}
+              {collection ? (
+                <p>
+                  Set:{' '}
+                  {setsArray.map((item) => {
+                    if (collection === item.id) {
+                      return item.name
+                    }
+                  })}
+                </p>
+              ) : (
+                ''
+              )}
+              {serie ? (
+                <p>
+                  serie:{' '}
+                  {seriesArray.map((item) => {
+                    if (serie === item.id) {
+                      return item.name
+                    }
+                  })}
+                </p>
+              ) : (
+                ''
+              )}
+              {rarity ? (
+                <p>
+                  rarity:{' '}
+                  {rarityArray.map((item) => {
+                    if (rarity === item.id) {
+                      return item.name
+                    }
+                  })}
+                </p>
+              ) : (
+                ''
+              )}
 
               <div className="mt-4 d-flex justify-content-between">
                 <Button
