@@ -76,12 +76,8 @@ const rarityArray = [
     id: 'Shining'
   },
   {
-    name: 'Rare Shiny',
+    name: 'Rare Shiny & GX',
     id: 'Shiny'
-  },
-  {
-    name: 'Rare Shiny GX',
-    id: 'Shiny.GX' // need to be tested
   },
   {
     name: 'Rare Ultra',

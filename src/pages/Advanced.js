@@ -42,6 +42,7 @@ const Advanced = () => {
   const [serie, setSerie] = useState('')
   const [rarity, setRarity] = useState('')
   const { setAdvancedData } = useContext(Context)
+  const { isDark } = useContext(Context)
 
   const handleSuperType = (e) => {
     e.preventDefault()
@@ -152,7 +153,7 @@ const Advanced = () => {
         size="sm"
         type="button"
         className=" me-2 mt-2"
-        variant="outline-secondary"
+        variant={isDark ? 'outline-secondary' : 'outline-light'}
         onClick={handleSubType}
         id={id}
       >
@@ -208,10 +209,23 @@ const Advanced = () => {
 
     return (
       <div className="mt-4 pt-4 d-flex flex-column flex-md-row justify-content-start border-top border-secondary">
-        <p className="col-3">{name}</p>
+        <p
+          className={
+            isDark ? 'col-8 col-md-3 text-dark' : 'col-8 col-md-3 text-light'
+          }
+        >
+          {name}
+        </p>
         <div>
           {children}
-          <p className="fw-light p-0 m-0 mt-3" style={{ fontSize: '.8rem' }}>
+          <p
+            className={
+              isDark
+                ? 'fw-light p-0 m-0 mt-3 text-dark'
+                : 'fw-light p-0 m-0 mt-3 text-light'
+            }
+            style={{ fontSize: '.8rem' }}
+          >
             {text}
           </p>
         </div>
@@ -240,7 +254,16 @@ const Advanced = () => {
   const MyListItem = (props) => {
     const { title, id, func } = props
     return (
-      <ListGroup.Item action onClick={func} id={id}>
+      <ListGroup.Item
+        action
+        onClick={func}
+        id={id}
+        className={
+          isDark
+            ? 'bg-light text-dark'
+            : 'bg-dark text-light border border-secondary'
+        }
+      >
         {title}
       </ListGroup.Item>
     )
@@ -280,7 +303,7 @@ const Advanced = () => {
   }
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: '100%' }} className={isDark ? 'bg-light' : 'bg-dark'}>
       <MyNavBar />
       <div className="container col-11 col-md-6">
         {/* search by name  */}
@@ -297,7 +320,7 @@ const Advanced = () => {
             <Button
               onClick={handleSuperType}
               className="me-3 me-md-5"
-              variant="outline-secondary"
+              variant={isDark ? 'outline-secondary' : 'outline-light'}
               id="Energy"
             >
               Energy
@@ -305,14 +328,14 @@ const Advanced = () => {
             <Button
               onClick={handleSuperType}
               className="me-3 me-md-5"
-              variant="outline-secondary"
+              variant={isDark ? 'outline-secondary' : 'outline-light'}
               id="Pokémon"
             >
               Pokemon
             </Button>
             <Button
               onClick={handleSuperType}
-              variant="outline-secondary"
+              variant={isDark ? 'outline-secondary' : 'outline-light'}
               id="Trainer"
             >
               Trainer
@@ -393,7 +416,7 @@ const Advanced = () => {
           text="Enter a range. Leave the input blank to treat it as a wildcard. For example, setting the low end to 200 would mean anything greater than or equal to 200."
         >
           <InputGroup>
-            <Dropdown>
+            <Dropdown className="">
               <Dropdown.Toggle
                 variant="outline-secondary px-5"
                 id="dropdown-basic"
@@ -407,8 +430,8 @@ const Advanced = () => {
                 })}
               </Dropdown.Menu>
             </Dropdown>
-            <InputGroup.Text>TO</InputGroup.Text>
-            <Dropdown>
+            <InputGroup.Text className="d-none d-md-block">TO</InputGroup.Text>
+            <Dropdown className="mt-2 mt-md-0">
               <Dropdown.Toggle
                 variant="outline-secondary px-5"
                 id="dropdown-basic"
@@ -429,7 +452,7 @@ const Advanced = () => {
 
         {/* search by retreat cost range  */}
         <SearchBlock
-          name="Converted Retreat Cost"
+          name="Retreat Cost"
           text="Enter a range. Leave the input blank to treat it as a wildcard. For example, a high end of 3 would mean a maximum of 3."
         >
           <InputGroup>
@@ -449,8 +472,8 @@ const Advanced = () => {
                 })}
               </Dropdown.Menu>
             </Dropdown>
-            <InputGroup.Text>TO</InputGroup.Text>
-            <Dropdown>
+            <InputGroup.Text className="d-none d-md-block">TO</InputGroup.Text>
+            <Dropdown className="mt-2 mt-md-0">
               <Dropdown.Toggle
                 variant="outline-secondary px-5"
                 id="dropdown-basic"
