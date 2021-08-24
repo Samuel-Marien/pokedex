@@ -17,7 +17,6 @@ const Sets = () => {
   const [data, setData] = useState('')
   const { setSetDetail } = useContext(Context)
   const { isDark } = useContext(Context)
-  // const { setImageOfSet } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {

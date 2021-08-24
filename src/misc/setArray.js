@@ -1,126 +1,496 @@
 const setsArray = [
-  'Base',
-  'Jungle',
-  'Wizards Black Star Promos',
-  'Fossil',
-  'Base Set 2',
-  'Team Rocket',
-  'Gym Heroes',
-  'Gym Challenge',
-  'Neo Genesis',
-  'Neo Discovery',
-  'Southern Islands',
-  'Neo Revelation',
-  'Neo Destiny',
-  'Legendary Collection',
-  'Expedition Base Set',
-  'Aquapolis',
-  'Skyridge',
-  'Ruby & Sapphire',
-  'Sandstorm',
-  'Dragon',
-  'Nintendo Black Star Promos',
-  'Team Magma vs Team Aqua',
-  'Hidden Legends',
-  'FireRed & LeafGreen',
-  'POP Series 1',
-  'Team Rocket Returns',
-  'Deoxys',
-  'Emerald',
-  'Unseen Forces',
-  'POP Series 2',
-  'Delta Species',
-  'Legend Maker',
-  'POP Series 3',
-  'Holon Phantoms',
-  'Crystal Guardians',
-  'POP Series 4',
-  'Dragon Frontiers',
-  'POP Series 5',
-  'Power Keepers',
-  'Diamond & Pearl',
-  'DP Black Star Promos',
-  'Mysterious Treasures',
-  'POP Series 6',
-  'Secret Wonders',
-  'Great Encounters',
-  'POP Series 7',
-  'Majestic Dawn',
-  'Legends Awakened',
-  'POP Series 8',
-  'Stormfront',
-  'Platinum',
-  'POP Series 9',
-  'Rising Rivals',
-  'Supreme Victors',
-  'Arceus',
-  'Pokémon Rumble',
-  'HeartGold & SoulSilver',
-  'HGSS Black Star Promos',
-  'HS—Unleashed',
-  'HS—Undaunted',
-  'HS—Triumphant',
-  'Call of Legends',
-  'BW Black Star Promos',
-  'Black & White',
-  "McDonald's Collection 2011",
-  'Emerging Powers',
-  'Noble Victories',
-  'Next Destinies',
-  'Dark Explorers',
-  "McDonald's Collection 2012",
-  'Dragons Exalted',
-  'Dragon Vault',
-  'Boundaries Crossed',
-  'Plasma Storm',
-  'Plasma Freeze',
-  'Plasma Blast',
-  'XY Black Star Promos',
-  'Legendary Treasures',
-  'Kalos Starter Set',
-  'XY',
-  'Flashfire',
-  'Furious Fists',
-  'Phantom Forces',
-  'Primal Clash',
-  'Double Crisis',
-  'Roaring Skies',
-  'Ancient Origins',
-  'BREAKthrough',
-  'BREAKpoint',
-  'Generations',
-  'Fates Collide',
-  'Steam Siege',
-  "McDonald's Collection 2016",
-  'Evolutions',
-  'Sun & Moon',
-  'SM Black Star Promos',
-  'Guardians Rising',
-  'Burning Shadows',
-  'Shining Legends',
-  'Crimson Invasion',
-  'Ultra Prism',
-  'Forbidden Light',
-  'Celestial Storm',
-  'Dragon Majesty',
-  'Lost Thunder',
-  'Team Up',
-  'Detective Pikachu',
-  'Unbroken Bonds',
-  'Unified Minds',
-  'Hidden Fates',
-  'Shiny Vault',
-  "McDonald's Collection 2019",
-  'Cosmic Eclipse',
-  'SWSH Black Star Promos',
-  'Sword & Shield',
-  'Rebel Clash',
-  'Darkness Ablaze',
-  "Champion's Path",
-  'Vivid Voltage',
-  'Shining Fates',
-  'Shiny Vault',
-  'Battle Styles',
-  'Chilling Reign'
+  {
+    name: 'Base',
+    id: 'base1'
+  },
+  {
+    name: 'Jungle',
+    id: 'base2'
+  },
+  {
+    name: 'Wizards Black Star Promos',
+    id: 'basep'
+  },
+  {
+    name: 'Fossil',
+    id: 'base3'
+  },
+  {
+    name: 'Base Set 2',
+    id: 'base4'
+  },
+  {
+    name: 'Team Rocket',
+    id: 'base5'
+  },
+  {
+    name: 'Gym Heroes',
+    id: 'gym1'
+  },
+  {
+    name: 'Gym Challenge',
+    id: 'gym2'
+  },
+  {
+    name: 'Neo Genesis',
+    id: 'neo1'
+  },
+  {
+    name: 'Neo Discovery',
+    id: 'neo2'
+  },
+  {
+    name: 'Southern Islands',
+    id: 'si1'
+  },
+  {
+    name: 'Neo Revelation',
+    id: 'neo3'
+  },
+  {
+    name: 'Neo Destiny',
+    id: 'neo4'
+  },
+  {
+    name: 'Legendary Collection',
+    id: 'base6'
+  },
+  {
+    name: 'Expedition Base Set',
+    id: 'ecard1'
+  },
+  {
+    name: 'Aquapolis',
+    id: 'ecard2'
+  },
+  {
+    name: 'Skyridge',
+    id: 'ecard3'
+  },
+  {
+    name: 'Ruby & Sapphire',
+    id: 'ex1'
+  },
+  {
+    name: 'Sandstorm',
+    id: 'ex2'
+  },
+  {
+    name: 'Dragon',
+    id: 'ex3'
+  },
+  {
+    name: 'Nintendo Black Star Promos',
+    id: 'np'
+  },
+  {
+    name: 'Team Magma vs Team Aqua',
+    id: 'ex4'
+  },
+  {
+    name: 'Hidden Legends',
+    id: 'ex5'
+  },
+  {
+    name: 'FireRed & LeafGreen',
+    id: 'ex6'
+  },
+  {
+    name: 'POP Series 1',
+    id: 'pop1'
+  },
+  {
+    name: 'Team Rocket Returns',
+    id: 'ex7'
+  },
+  {
+    name: 'Deoxys',
+    id: 'ex8'
+  },
+  {
+    name: 'Emerald',
+    id: 'ex9'
+  },
+  {
+    name: 'Unseen Forces',
+    id: 'ex10'
+  },
+  {
+    name: 'POP Series 2',
+    id: 'pop2'
+  },
+  {
+    name: 'Delta Species',
+    id: 'ex11'
+  },
+  {
+    name: 'Legend Maker',
+    id: 'ex12'
+  },
+  {
+    name: 'POP Series 3',
+    id: 'pop3'
+  },
+  {
+    name: 'Holon Phantoms',
+    id: 'ex13'
+  },
+  {
+    name: 'Crystal Guardians',
+    id: 'ex14'
+  },
+  {
+    name: 'POP Series 4',
+    id: 'pop4'
+  },
+  {
+    name: 'Dragon Frontiers',
+    id: 'ex15'
+  },
+  {
+    name: 'POP Series 5',
+    id: 'pop5'
+  },
+  {
+    name: 'Power Keepers',
+    id: 'ex16'
+  },
+  {
+    name: 'Diamond & Pearl',
+    id: 'dp1'
+  },
+  {
+    name: 'DP Black Star Promos',
+    id: 'dpp'
+  },
+  {
+    name: 'Mysterious Treasures',
+    id: 'dp2'
+  },
+  {
+    name: 'POP Series 6',
+    id: 'pop6'
+  },
+  {
+    name: 'Secret Wonders',
+    id: 'dp3'
+  },
+  {
+    name: 'Great Encounters',
+    id: 'dp4'
+  },
+  {
+    name: 'POP Series 7',
+    id: 'pop7'
+  },
+  {
+    name: 'Majestic Dawn',
+    id: 'dp5'
+  },
+  {
+    name: 'Legends Awakened',
+    id: 'dp6'
+  },
+  {
+    name: 'POP Series 8',
+    id: 'pop8'
+  },
+  {
+    name: 'Stormfront',
+    id: 'dp7'
+  },
+  {
+    name: 'Platinum',
+    id: 'pl1'
+  },
+  {
+    name: 'POP Series 9',
+    id: 'pop9'
+  },
+  {
+    name: 'Rising Rivals',
+    id: 'pl2'
+  },
+  {
+    name: 'Supreme Victors',
+    id: 'pl3'
+  },
+  {
+    name: 'Arceus',
+    id: 'pl4'
+  },
+  {
+    name: 'Pokémon Rumble',
+    id: 'ru1'
+  },
+  {
+    name: 'HeartGold & SoulSilver',
+    id: 'hgss1'
+  },
+  {
+    name: 'HGSS Black Star Promos',
+    id: 'hsp'
+  },
+  {
+    name: 'HS—Unleashed',
+    id: 'hgss2'
+  },
+  {
+    name: 'HS—Undaunted',
+    id: 'hgss3'
+  },
+  {
+    name: 'HS—Triumphant',
+    id: 'hgss4'
+  },
+  {
+    name: 'Call of Legends',
+    id: 'col1'
+  },
+  {
+    name: 'BW Black Star Promos',
+    id: 'bwp'
+  },
+  {
+    name: 'Black & White',
+    id: 'bw1'
+  },
+  {
+    name: 'McDonalds Collection 2011',
+    id: 'mcd11'
+  },
+  {
+    name: 'Emerging Powers',
+    id: 'bw2'
+  },
+  {
+    name: 'Noble Victories',
+    id: 'bw3'
+  },
+  {
+    name: 'Next Destinies',
+    id: 'bw4'
+  },
+  {
+    name: 'Dark Explorers',
+    id: 'bw5'
+  },
+  {
+    name: 'McDonalds Collection 2012',
+    id: 'mcd12'
+  },
+  {
+    name: 'Dragons Exalted',
+    id: 'bw6'
+  },
+  {
+    name: 'Dragon Vault',
+    id: 'dv1'
+  },
+  {
+    name: 'Boundaries Crossed',
+    id: 'bw7'
+  },
+  {
+    name: 'Plasma Storm',
+    id: 'bw8'
+  },
+  {
+    name: 'Plasma Freeze',
+    id: 'bw9'
+  },
+  {
+    name: 'Plasma Blast',
+    id: 'bw10'
+  },
+  {
+    name: 'XY Black Star Promos',
+    id: 'xyp'
+  },
+  {
+    name: 'Legendary Treasures',
+    id: 'bw11'
+  },
+  {
+    name: 'Kalos Starter Set',
+    id: 'xy0'
+  },
+  {
+    name: 'XY',
+    id: 'xy1'
+  },
+  {
+    name: 'Flashfire',
+    id: 'xy2'
+  },
+  {
+    name: 'Furious Fists',
+    id: 'xy3'
+  },
+  {
+    name: 'Phantom Forces',
+    id: 'xy4'
+  },
+  {
+    name: 'Primal Clash',
+    id: 'xy5'
+  },
+  {
+    name: 'Double Crisis',
+    id: 'dc1'
+  },
+  {
+    name: 'Roaring Skies',
+    id: 'xy6'
+  },
+  {
+    name: 'Ancient Origins',
+    id: 'xy7'
+  },
+  {
+    name: 'BREAKthrough',
+    id: 'xy8'
+  },
+  {
+    name: 'BREAKpoint',
+    id: 'xy9'
+  },
+  {
+    name: 'Generations',
+    id: 'g1'
+  },
+  {
+    name: 'Fates Collide',
+    id: 'xy10'
+  },
+  {
+    name: 'Steam Siege',
+    id: 'xy11'
+  },
+  {
+    name: 'McDonalds Collection 2016',
+    id: 'mcd16'
+  },
+  {
+    name: 'Evolutions',
+    id: 'xy12'
+  },
+  {
+    name: 'Sun & Moon',
+    id: 'sm1'
+  },
+  {
+    name: 'SM Black Star Promos',
+    id: 'smp'
+  },
+  {
+    name: 'Guardians Rising',
+    id: 'sm2'
+  },
+  {
+    name: 'Burning Shadows',
+    id: 'sm3'
+  },
+  {
+    name: 'Shining Legends',
+    id: 'sm35'
+  },
+  {
+    name: 'Crimson Invasion',
+    id: 'sm4'
+  },
+  {
+    name: 'Ultra Prism',
+    id: 'sm5'
+  },
+  {
+    name: 'Forbidden Light',
+    id: 'sm6'
+  },
+  {
+    name: 'Celestial Storm',
+    id: 'sm7'
+  },
+  {
+    name: 'Dragon Majesty',
+    id: 'sm75'
+  },
+  {
+    name: 'Lost Thunder',
+    id: 'sm8'
+  },
+  {
+    name: 'Team Up',
+    id: 'sm9'
+  },
+  {
+    name: 'Detective Pikachu',
+    id: 'det1'
+  },
+  {
+    name: 'Unbroken Bonds',
+    id: 'sm10'
+  },
+  {
+    name: 'Unified Minds',
+    id: 'sm11'
+  },
+  {
+    name: 'Hidden Fates',
+    id: 'sm115'
+  },
+  {
+    name: 'Shiny Vault',
+    id: 'sma'
+  },
+  {
+    name: 'McDonalds Collection 2019',
+    id: 'mcd19'
+  },
+  {
+    name: 'Cosmic Eclipse',
+    id: 'sm12'
+  },
+  {
+    name: 'SWSH Black Star Promos',
+    id: 'swshp'
+  },
+  {
+    name: 'Sword & Shield',
+    id: 'swsh1'
+  },
+  {
+    name: 'Rebel Clash',
+    id: 'swsh2'
+  },
+  {
+    name: 'Darkness Ablaze',
+    id: 'swsh3'
+  },
+  {
+    name: 'Champions Path',
+    id: 'swsh35'
+  },
+  {
+    name: 'Vivid Voltage',
+    id: 'swsh4'
+  },
+  {
+    name: 'Shining Fates',
+    id: 'swsh45'
+  },
+  {
+    name: 'Shiny Vault',
+    id: 'swsh45sv'
+  },
+  {
+    name: 'Battle Styles',
+    id: 'swsh5'
+  },
+  {
+    name: 'Chilling Reign',
+    id: 'swsh6'
+  }
 ]
+
 export default setsArray

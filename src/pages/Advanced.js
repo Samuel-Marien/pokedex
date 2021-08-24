@@ -109,24 +109,6 @@ const Advanced = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log(`${supertype ? `supertype:${supertype}` : ''} 
-        ${subtype
-          .map((elem) => {
-            return `subtypes:${elem}`
-          })
-          .join(' ')} 
-          ${type ? `types:${type}` : ''} 
-          ${weaknesses ? ` weaknesses.type:${weaknesses}` : ''} 
-          ${resistances ? ` resistances.type:${resistances}` : ''} 
-          ${lowHp || highHp ? ` hp:[${lowHp} TO ${highHp}]` : ''}${
-      lowRetreat || highRetreat
-        ? ` convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
-        : ''
-    } 
-          ${collection ? ` !set.name:${collection}` : ''} 
-          ${serie ? ` !set.series:${serie}` : ''}
-          `)
-
     // Filter cards via query parameters
     pokemon.card
       .all({
@@ -144,7 +126,7 @@ const Advanced = () => {
             ? ` convertedRetreatCost:[${lowRetreat} TO ${highRetreat}]`
             : ''
         } 
-          ${collection ? ` !set.name:${collection}` : ''} 
+          ${collection ? ` !set.id:${collection}` : ''} 
           ${serie ? ` set.series:${serie}` : ''}
           `
       })
@@ -435,7 +417,7 @@ const Advanced = () => {
           </InputGroup>
         </SearchBlock>
 
-        {/* search by retreay cost range  */}
+        {/* search by retreat cost range  */}
         <SearchBlock
           name="Converted Retreat Cost"
           text="Enter a range. Leave the input blank to treat it as a wildcard. For example, a high end of 3 would mean a maximum of 3."
@@ -487,9 +469,14 @@ const Advanced = () => {
             defaultActiveKey="#link1"
             style={{ height: '250px', overflow: 'auto' }}
           >
-            {setsArray.map((setName, index) => {
+            {setsArray.map((item, index) => {
               return (
-                <MyListItem title={setName} key={index} func={handleSets} />
+                <MyListItem
+                  title={item.name}
+                  key={index}
+                  func={handleSets}
+                  id={item.id}
+                />
               )
             })}
           </ListGroup>
@@ -514,7 +501,7 @@ const Advanced = () => {
           </ListGroup>
         </SearchBlock>
 
-        {/* search resume  */}
+        {/* search(s) resume  */}
         <ChoicesBoard>
           <div className="bg-light mt-4 pt-3 border-top border-secondary">
             <p className="text-center m-0 p-0">Your choice(s) :</p>
